@@ -1,0 +1,27 @@
+{
+  "name": "auth0-vue",
+  "version": "0.0.1",
+  "description": "",
+  "main": "index.js",
+  "scripts": {
+    "start": "http-server"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/auth0/auth0-vue.git"
+  },
+  "author": "Auth0",
+  "license": "MIT",
+  "bugs": {
+    "url": "https://github.com/auth0/auth0-vue/issues"
+  },
+  "homepage": "https://github.com/auth0/auth0-vue#readme",
+  "dependencies": {
+    "vue": "^1.0.16",
+    "vue-resource": "^0.7.0",
+    "vue-router": "^0.7.10"
+  },
+  "devDependencies": {
+    "http-server": "^0.9.0"
+  }
+}
