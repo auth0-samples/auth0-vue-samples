@@ -5,7 +5,7 @@ Vue.http.interceptors.push({
   response: function (response) {
     if(response.status === 401) {
       this.logout();
-      this.authenticated = false;      
+      this.authenticated = false;
       router.go('/');
     }
     return response;
@@ -60,17 +60,17 @@ var App = Vue.extend({
     login() {
       var self = this;
       var lock = new Auth0Lock(AUTH0_CLIENT_ID, AUTH0_DOMAIN);
-      
+
       lock.show((err, profile, token) => {
-        if(err) {          
+        if(err) {
           // Handle the error
-          console.log(err)          
+          console.log(err)
         } else {
           // Set the token and user profile in local storage
           localStorage.setItem('profile', JSON.stringify(profile));
           localStorage.setItem('id_token', token);
           self.authenticated = true;
-        }        
+        }
       });
     },
     logout() {
@@ -79,7 +79,7 @@ var App = Vue.extend({
       // from local storage
       localStorage.removeItem('id_token');
       localStorage.removeItem('profile');
-      self.authenticated = false;      
+      self.authenticated = false;
     },
     // Make a secure call to the server by attaching
     // the user's JWT as an Authorization header
@@ -88,11 +88,11 @@ var App = Vue.extend({
       this.$http.get('http://localhost:3001/secured/ping', (data) => {
         console.log(data);
         this.secretThing = data.text;
-      }, { 
+      }, {
         headers: jwtHeader
       }).error((err) => console.log(err));
     }
-  }         
+  }
 });
 
 // Utility to check auth status
