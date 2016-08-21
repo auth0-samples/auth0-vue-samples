@@ -1,15 +1,13 @@
 // Intercept responses and check for anything
 // unauthorized. If there is an unauthorized response,
-// log the user out and redirect to the home route
-Vue.http.interceptors.push({
-  response: function (response) {
-    if(response.status === 401) {
-      this.logout();
-      this.authenticated = false;
-      router.go('/');
+// dispatch an event to let the app handle it
+Vue.http.interceptors.push(function(request, next) {
+  let self = this;
+  next((response) => {
+    if (response.status === 401) {
+      self.$dispatch('logout');
     }
-    return response;
-  }
+  });
 });
 
 // The public route can be viewed at any time
@@ -51,6 +49,11 @@ var App = Vue.extend({
       secretThing: ''
     }
   },
+  events: {
+    'logout': function() {
+      this.logout();
+    }
+  },
   // Check the user's auth status when the app
   // loads to account for page refreshing
   ready() {
@@ -80,6 +83,7 @@ var App = Vue.extend({
       localStorage.removeItem('id_token');
       localStorage.removeItem('profile');
       self.authenticated = false;
+      self.$route.router.go('/');
     },
     // Make a secure call to the server by attaching
     // the user's JWT as an Authorization header
