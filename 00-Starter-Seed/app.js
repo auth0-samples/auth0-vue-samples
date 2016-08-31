@@ -61,17 +61,25 @@ var App = Vue.extend({
       var self = this;
       var lock = new Auth0Lock(AUTH0_CLIENT_ID, AUTH0_DOMAIN);
 
-      lock.show((err, profile, token) => {
-        if(err) {
-          // Handle the error
-          console.log(err)
-        } else {
+      lock.on('authenticated', (authResult) => {
+        lock.getProfile(authResult.idToken, (error, profile) => {
+          if (error) {
+            // Handle error
+            return;
+          }
           // Set the token and user profile in local storage
           localStorage.setItem('profile', JSON.stringify(profile));
-          localStorage.setItem('id_token', token);
+          localStorage.setItem('id_token', authResult.idToken);
+
           self.authenticated = true;
-        }
+        });
       });
+
+      lock.on('authorizaton_error', (error) {
+        // handle error when authorizaton fails
+      });
+
+      lock.show();
     },
     logout() {
       var self = this;
