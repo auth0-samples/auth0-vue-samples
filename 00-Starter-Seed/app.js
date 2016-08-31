@@ -75,7 +75,7 @@ var App = Vue.extend({
         });
       });
 
-      lock.on('authorizaton_error', (error) {
+      lock.on('authorizaton_error', (error) => {
         // handle error when authorizaton fails
       });
 
