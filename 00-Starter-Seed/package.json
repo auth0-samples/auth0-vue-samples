@@ -17,9 +17,9 @@
   },
   "homepage": "https://github.com/auth0/auth0-vue#readme",
   "dependencies": {
-    "vue": "^1.0.16",
-    "vue-resource": "^0.7.0",
-    "vue-router": "^0.7.10"
+    "vue": "^1.0.24",
+    "vue-resource": "^0.9.3",
+    "vue-router": "^0.7.13"
   },
   "devDependencies": {
     "http-server": "^0.9.0"
