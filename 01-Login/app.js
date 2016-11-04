@@ -48,46 +48,42 @@ var App = Vue.extend({
   data() {
     return {
       authenticated: false,
-      secretThing: ''
+      secretThing: '',
+      lock: new Auth0Lock(AUTH0_CLIENT_ID, AUTH0_DOMAIN)
     }
   },
   // Check the user's auth status when the app
   // loads to account for page refreshing
   ready() {
     this.authenticated = checkAuth();
+    this.lock.on('authenticated', (authResult) => {
+      console.log('authenticated');
+      localStorage.setItem('id_token', authResult.idToken);
+      this.lock.getProfile(authResult.idToken, (error, profile) => {
+        if (error) {
+          // Handle error
+          return;
+        }
+        // Set the token and user profile in local storage
+        localStorage.setItem('profile', JSON.stringify(profile));
+
+        this.authenticated = true;
+      });
+    });
+    this.lock.on('authorizaton_error', (error) => {
+      // handle error when authorizaton fails
+    });
   },
   methods: {
     login() {
-      var self = this;
-      var lock = new Auth0Lock(AUTH0_CLIENT_ID, AUTH0_DOMAIN);
-
-      lock.on('authenticated', (authResult) => {
-        lock.getProfile(authResult.idToken, (error, profile) => {
-          if (error) {
-            // Handle error
-            return;
-          }
-          // Set the token and user profile in local storage
-          localStorage.setItem('profile', JSON.stringify(profile));
-          localStorage.setItem('id_token', authResult.idToken);
-
-          self.authenticated = true;
-        });
-      });
-
-      lock.on('authorizaton_error', (error) => {
-        // handle error when authorizaton fails
-      });
-
-      lock.show();
+      this.lock.show();
     },
     logout() {
-      var self = this;
       // To log out, we just need to remove the token and profile
       // from local storage
       localStorage.removeItem('id_token');
       localStorage.removeItem('profile');
-      self.authenticated = false;
+      this.authenticated = false;
     },
     // Make a secure call to the server by attaching
     // the user's JWT as an Authorization header
@@ -108,7 +104,9 @@ function checkAuth() {
   return !!localStorage.getItem('id_token');
 }
 
-var router = new VueRouter();
+var router = new VueRouter({
+  history: true
+});
 
 router.map({
   '/public': {
