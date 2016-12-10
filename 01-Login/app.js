@@ -70,7 +70,7 @@ var App = Vue.extend({
         this.authenticated = true;
       });
     });
-    this.lock.on('authorizaton_error', (error) => {
+    this.lock.on('authorization_error', (error) => {
       // handle error when authorizaton fails
     });
   },
