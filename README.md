@@ -1,4 +1,6 @@
-# Auth0 - Vue.js
+# Auth0 Vue.js Samples
+
+These samples demonstrate how to add authentication to a Vue.js application with Auth0.
 
 ## What is Auth0?
 
