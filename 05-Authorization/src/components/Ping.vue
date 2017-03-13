@@ -22,7 +22,7 @@
     <button 
       class="btn btn-primary"
       @click="adminPing()" 
-      v-if="authenticated && auth.isAdmin()">
+      v-if="authenticated && admin">
         Call Admin
     </button>
 
@@ -33,7 +33,7 @@
 <script>
   export default {
     name: 'Ping',
-    props: ['auth', 'authenticated'],
+    props: ['auth', 'authenticated', 'admin'],
     data () {
       const accessToken = localStorage.getItem('access_token') || null
       const headers = { Authorization: `Bearer ${accessToken}` }

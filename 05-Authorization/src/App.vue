@@ -49,7 +49,7 @@
       <router-view 
         :auth="auth" 
         :authenticated="authenticated" 
-        :isAdmin="admin">
+        :admin="admin">
       </router-view>
     </div>
   </div>

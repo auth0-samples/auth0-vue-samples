@@ -2,7 +2,7 @@
   <div>
     <h4 v-if="authenticated">
         You are logged in!
-        <span v-if="authenticated">
+        <span v-if="admin">
           You can now view your <router-link :to="'admin'">admin area</router-link>.
         </span>
     </h4>
@@ -15,7 +15,7 @@
 <script>
   export default {
     name: 'home',
-    props: ['auth', 'authenticated']
+    props: ['auth', 'authenticated', 'admin']
   }
 </script>
 
