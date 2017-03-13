@@ -22,7 +22,7 @@
     <button 
       class="btn btn-primary"
       @click="adminPing()" 
-      v-if="authenticated">
+      v-if="authenticated && auth.isAdmin()">
         Call Admin
     </button>
 

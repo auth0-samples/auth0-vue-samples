@@ -18,7 +18,7 @@
 
           <router-link :to="'admin'"
             class="btn btn-primary btn-margin"
-            v-if="authenticated">
+            v-if="authenticated && admin">
               Admin Area
           </router-link>
 
@@ -46,7 +46,11 @@
     </nav>
 
     <div class="container">
-      <router-view :auth="auth" :authenticated="authenticated"></router-view>
+      <router-view 
+        :auth="auth" 
+        :authenticated="authenticated" 
+        :isAdmin="admin">
+      </router-view>
     </div>
   </div>
 </template>
@@ -57,17 +61,19 @@ import AuthService from './auth/AuthService'
 
 const auth = new AuthService()
 
-const { login, logout, authenticated, authNotifier } = auth
+const { login, logout, authenticated, admin, authNotifier } = auth
 
 export default {
   name: 'app',
   data () {
     authNotifier.on('authChange', authState => {
-      this.authenticated = authState
+      this.authenticated = authState.authenticated
+      this.admin = authState.admin
     })
     return {
       auth,
-      authenticated
+      authenticated,
+      admin
     }
   },
   methods: {

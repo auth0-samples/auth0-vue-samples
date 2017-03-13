@@ -6,7 +6,8 @@ import Router from 'vue-router'
 
 export default class AuthService {
 
-  authenticated = this.isAuthenticated();
+  authenticated = this.isAuthenticated()
+  admin = this.isAdmin()
   authNotifier = new EventEmitter()
   userProfile;
   router = new Router()
@@ -22,6 +23,8 @@ export default class AuthService {
     this.getProfile = this.getProfile.bind(this)
     this.logout = this.logout.bind(this)
     this.isAuthenticated = this.isAuthenticated.bind(this)
+    this.getRole = this.getRole.bind(this)
+    this.isAdmin = this.isAdmin.bind(this)
   }
 
   lock = new Auth0Lock(AUTH_CONFIG.clientID, AUTH_CONFIG.domain, {
@@ -50,7 +53,7 @@ export default class AuthService {
       localStorage.setItem('access_token', authResult.accessToken)
       localStorage.setItem('id_token', authResult.idToken)
       localStorage.setItem('expires_at', expiresAt)
-      this.authNotifier.emit('authChange', true)
+      this.authNotifier.emit('authChange', { authenticated: true, admin: this.isAdmin() })
       // navigate to the home route
       this.router.push('')
     }
@@ -96,7 +99,9 @@ export default class AuthService {
   getRole () {
     const namespace = 'https://example.com'
     const idToken = localStorage.getItem('id_token')
-    return decode(idToken)[`${namespace}/role`] || null
+    if (idToken) {
+      return decode(idToken)[`${namespace}/role`] || null
+    }
   }
 
   isAdmin () {
