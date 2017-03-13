@@ -23,7 +23,7 @@ export default {
     if (this.auth.userProfile) {
       this.$nextTick(() => {
         this.profile = this.auth.userProfile
-      }, 2000)
+      })
     } else {
       this.auth.getProfile((err, profile) => {
         if (err) return console.log(err)
