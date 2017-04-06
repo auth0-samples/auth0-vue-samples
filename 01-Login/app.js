@@ -38,11 +38,6 @@ var App = {
     <router-link to="/public">Public Route</router-link>
     <router-link to="/private" v-show="authenticated">Private Route</router-link>
     <router-view></router-view>
-    <hr>
-    <div v-show="authenticated">
-      <button @click="getSecretThing()">Get Secret Thing</button>
-      <h3>{{secretThing}}</h3>
-    </div>
   </div>
   `,
   data() {
@@ -92,19 +87,6 @@ var App = {
       localStorage.removeItem('id_token');
       localStorage.removeItem('profile');
       this.authenticated = false;
-      self.$route.router.go('/');
-    },
-    // Make a secure call to the server by attaching
-    // the user's JWT as an Authorization header
-    getSecretThing() {
-      var jwtHeader = { 'Authorization': 'Bearer ' + localStorage.getItem('id_token') };
-      this.$http.get('http://localhost:3001/secured/ping',{
-        headers: jwtHeader
-      }).then((data) => {
-        console.log(data);
-        this.secretThing = data.text;
-      },
-      (err) => console.log(err));
     }
   }
 };
