@@ -5,9 +5,8 @@
   "author": "Auth0",
   "private": true,
   "scripts": {
-    "start": "npm-run-all --parallel dev server",
     "dev": "node build/dev-server.js",
-    "server": "node server.js",
+    "start": "node build/dev-server.js",
     "build": "node build/build.js",
     "unit": "cross-env BABEL_ENV=test karma start test/unit/karma.conf.js --single-run",
     "e2e": "node test/e2e/runner.js",
@@ -16,14 +15,8 @@
   },
   "dependencies": {
     "EventEmitter": "^1.0.0",
+    "auth0-js": "^8.7.0",
     "bootstrap": "^3.3.7",
-    "cors": "^2.8.1",
-    "dotenv": "^4.0.0",
-    "express-jwt": "^5.1.0",
-    "express-jwt-authz": "^1.0.0",
-    "jwks-rsa": "^1.1.1",
-    "jwt-decode": "^2.1.0",
-    "npm-run-all": "^4.0.2",
     "vue": "^2.2.1",
     "vue-resource": "^1.2.1",
     "vue-router": "^2.2.0"
