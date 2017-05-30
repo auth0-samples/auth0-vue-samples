@@ -19,8 +19,6 @@ If you download the sample from the quickstart page, it will come pre-populated 
 
 ## Run the Application
 
-The development server that comes with create-react-app can be used to serve the application.
-
 ```bash
 npm start
 ```
