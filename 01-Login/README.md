@@ -1,6 +1,6 @@
 # Auth0 Vue.js Login
 
-This sample demonstrates how to add authentication to a Vue.js application with Auth0. The sample makes use of Auth0's hosted login page which provides centralized authentication. The sample uses create-react-app.
+This sample demonstrates how to add authentication to a Vue.js application with Auth0. The sample makes use of Auth0's hosted login page which provides centralized authentication.
 
 ## Getting Started
 
