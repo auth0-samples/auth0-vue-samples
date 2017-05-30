@@ -1,6 +1,6 @@
 # Auth0 Vue.js Samples
 
-These samples demonstrate how to add authentication to a Vue.js application with Auth0.
+These samples demonstrate how to add authentication to a Vue.js application with Auth0. Each folder contains a distinct application so that various Auth0 features can be viewed in isolation.
 
 ## Embedded Integration Samples
 
