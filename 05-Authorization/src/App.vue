@@ -56,7 +56,6 @@
 </template>
 
 <script>
-
 import AuthService from './auth/AuthService'
 
 const auth = new AuthService()

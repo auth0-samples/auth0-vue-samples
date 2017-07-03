@@ -5,7 +5,6 @@ import decode from 'jwt-decode'
 import Router from 'vue-router'
 
 export default class AuthService {
-
   authenticated = this.isAuthenticated()
   admin = this.isAdmin()
   authNotifier = new EventEmitter()
@@ -27,7 +26,7 @@ export default class AuthService {
     this.isAdmin = this.isAdmin.bind(this)
   }
 
-  lock = new Auth0Lock(AUTH_CONFIG.clientID, AUTH_CONFIG.domain, {
+  lock = new Auth0Lock(AUTH_CONFIG.clientId, AUTH_CONFIG.domain, {
     oidcConformant: true,
     autoclose: true,
     auth: {

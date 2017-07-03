@@ -4,7 +4,6 @@ import EventEmitter from 'EventEmitter'
 import router from './../router'
 
 export default class AuthService {
-
   authenticated = this.isAuthenticated()
   authNotifier = new EventEmitter()
 
