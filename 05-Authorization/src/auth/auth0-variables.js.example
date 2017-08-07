@@ -1,5 +1,5 @@
 export const AUTH_CONFIG = {
-  clientID: '{CLIENT_ID}',
+  clientId: '{CLIENT_ID}',
   domain: '{DOMAIN}',
   callbackURL: 'http://localhost:8080',
   apiUrl: '{API_IDENTIFIER}'
