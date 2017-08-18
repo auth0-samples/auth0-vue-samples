@@ -1,6 +1,6 @@
 import Auth0Lock from 'auth0-lock'
 import { AUTH_CONFIG } from './auth0-variables'
-import EventEmitter from 'EventEmitter'
+import EventEmitter from 'eventemitter3'
 import decode from 'jwt-decode'
 import Router from 'vue-router'
 
