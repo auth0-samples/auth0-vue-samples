@@ -15,7 +15,7 @@
   },
   "dependencies": {
     "EventEmitter": "^1.0.0",
-    "auth0-js": "^8.8.0",
+    "auth0-js": "^8.10.1",
     "bootstrap": "^3.3.7",
     "eslint-plugin-import": "^2.6.1",
     "eslint-plugin-node": "^5.1.0",
