@@ -1,5 +1,11 @@
 # Auth0 - Vue.js
 
+These samples demonstrate how to embed Auth0's Lock widget in your application. It is recommended that you use Auth0's [hosted login page](https://auth0.com/docs/hosted-pages/login) instead as it offers the fastest, most secure, and most feature-rich way to add authentication to your app.
+
+For examples which demonstrate how to use Auth0's hosted login page, see the [master](https://github.com/auth0-samples/auth0-vue-samples) branch.
+
+These samples show how to integrate Auth0 using [Auth0Lock](https://github.com/auth0/lock) >= 10.22.0.
+
 ## What is Auth0?
 
 Auth0 helps you to:

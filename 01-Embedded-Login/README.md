@@ -13,17 +13,17 @@ Clone the repo, then install the dependencies:
 npm install
 ```
 
-## Use Your Auth0 Account
+## Set the Client ID and Domain 
 
-If you haven't yet, create a [free Auth0 account](https://auth0.com/signup).
+To configure the application for your Auth0 account settings, rename the `auth0-variables.js.example` file to `auth0-variables.js` and provide the **client ID** and **domain** there. 
 
-Enter your `AUTH0_CLIENT_ID` and `AUTH0_DOMAIN` when instantiating **Auth0Lock**.
+## Enable Cross Origin Authentication
 
-```js
-// app.js
+In order to be able to log-in with user and password you need to enable the [Cross Origin Authentication](https://auth0.com/docs/cross-origin-authentication). This is not required for Social or Enterprise connections.
 
-var lock = new Auth0Lock('AUTH0_CLIENT_ID', 'AUTH0_DOMAIN');
-```
+Make sure you edit the contents of the `callback-cross-auth.html` file to match your Client Id, Domain and Callback settings. This page will only be used when third-party cookies are disabled in the client browser, and *needs to be served over HTTPS*. Note that when third-party cookies are disabled, there are some browsers where the authentication flow will NOT work. 
+
+## Run the Application
 
 Serve the app:
 
