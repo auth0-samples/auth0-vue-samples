@@ -44,7 +44,14 @@ var App = {
     return {
       authenticated: false,
       secretThing: '',
-      lock: new Auth0Lock(AUTH0_CLIENT_ID, AUTH0_DOMAIN)
+      lock: new Auth0Lock(AUTH0_CLIENT_ID, AUTH0_DOMAIN,
+        {
+          autoclose: true,
+          auth: {
+            responseType: 'token id_token',
+            audience: `https://${AUTH0_DOMAIN}/userinfo`
+          }
+        })
     }
   },
   events: {
@@ -61,7 +68,7 @@ var App = {
       self.lock.on('authenticated', (authResult) => {
         console.log('authenticated');
         localStorage.setItem('id_token', authResult.idToken);
-        self.lock.getProfile(authResult.idToken, (error, profile) => {
+        self.lock.getUserInfo(authResult.accessToken, (error, profile) => {
           if (error) {
             // Handle error
             return;
