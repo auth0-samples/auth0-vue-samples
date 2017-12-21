@@ -49,10 +49,7 @@ var App = {
           autoclose: true,
           auth: {
             responseType: 'token id_token',
-            audience: `https://${AUTH0_DOMAIN}/userinfo`,
-            params: {
-              scope: 'openid'
-            }
+            audience: `https://${AUTH0_DOMAIN}/userinfo`
           }
         })
     }
