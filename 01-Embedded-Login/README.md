@@ -17,11 +17,11 @@ npm install
 
 To configure the application for your Auth0 account settings, rename the `auth0-variables.js.example` file to `auth0-variables.js` and provide the **client ID** and **domain** there. 
 
-## Enable Cross Origin Authentication
+## Using Cross Origin Authentication
 
-In order to be able to log-in with user and password you need to enable the [Cross Origin Authentication](https://auth0.com/docs/cross-origin-authentication). This is not required for Social or Enterprise connections.
+When the user and password are entered in an embedded login form, a cross-origin call is made. Please read the [Cross Origin Authentication documentation](https://auth0.com/docs/cross-origin-authentication) in order to better understand how to configure it and its limitations.
 
-Make sure you edit the contents of the `callback-cross-auth.html` file to match your Client Id, Domain and Callback settings. This page will only be used when third-party cookies are disabled in the client browser, and *needs to be served over HTTPS*. Note that when third-party cookies are disabled, there are some browsers where the authentication flow will NOT work. 
+Make sure you edit the contents of the `callback-cross-auth.html` file to match your Client Id, Domain and Callback settings. This page will only be used when third-party cookies are disabled in the client browser, and needs to be served over HTTPS. Note that when third-party cookies are disabled, there are some browsers where the authentication flow will NOT work unless you use [Custom Domains](https://auth0.com/docs/custom-domains).
 
 ## Run the Application
 
