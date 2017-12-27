@@ -23,7 +23,7 @@ If you download the sample from the quickstart page, it will come pre-populated 
 npm start
 ```
 
-The application will be served at `http://localhost:8080`.
+The application will be served at `http://localhost:3000`.
 
 ## What is Auth0?
 
@@ -47,7 +47,7 @@ If you have found a bug or if you have a feature request, please report them at 
 
 ## Author
 
-[Auth0](auth0.com)
+[Auth0](https://auth0.com)
 
 ## License
 

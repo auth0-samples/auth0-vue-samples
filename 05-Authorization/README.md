@@ -1,6 +1,6 @@
 # Auth0 Vue.js Authorization
 
-This sample demonstrates how to include user authentication, fetching a profile, and calling an API in a Vue.js application with Auth0. 
+This sample demonstrates how to include user authentication, fetching a profile, and calling an API in a Vue.js application with Auth0.
 
 ## Getting Started
 
@@ -33,7 +33,7 @@ This file has two values, `AUTH0_AUDIENCE` and `AUTH0_DOMAIN`. If you download t
 npm start
 ```
 
-The application will be served at `http://localhost:8080`.
+The application will be served at `http://localhost:3000`.
 
 ## What is Auth0?
 
