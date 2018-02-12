@@ -14,7 +14,7 @@
     "lint": "eslint --ext .js,.vue src test/unit/specs test/e2e/specs"
   },
   "dependencies": {
-    "auth0-js": "^8.8.0",
+    "auth0-js": "^9.2.2",
     "bootstrap": "^3.3.7",
     "eslint-plugin-import": "^2.6.1",
     "eslint-plugin-node": "^5.1.0",

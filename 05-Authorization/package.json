@@ -15,7 +15,7 @@
     "lint": "eslint --ext .js,.vue src test/unit/specs test/e2e/specs"
   },
   "dependencies": {
-    "auth0-lock": "^10.18.0",
+    "auth0-lock": "^11.2.2",
     "bootstrap": "^3.3.7",
     "cors": "^2.8.3",
     "dotenv": "^4.0.0",

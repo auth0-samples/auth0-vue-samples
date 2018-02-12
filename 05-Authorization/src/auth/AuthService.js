@@ -27,7 +27,6 @@ export default class AuthService {
   }
 
   lock = new Auth0Lock(AUTH_CONFIG.clientId, AUTH_CONFIG.domain, {
-    oidcConformant: true,
     autoclose: true,
     auth: {
       audience: AUTH_CONFIG.apiUrl,
