@@ -7,21 +7,30 @@
     </p>
 
     <button
-      class="btn btn-primary" 
+      class="btn btn-primary"
       @click="ping()">
         Call Public
     </button>
 
-    <button 
+    <button
       class="btn btn-primary"
-      @click="securedPing()" 
+      @click="securedPing()"
+      v-if="authenticated"
       >
         Call Private
     </button>
 
-    <button 
+    <button
       class="btn btn-primary"
-      @click="adminPing()" 
+      @click="securedScopedPing()"
+      v-if="authenticated"
+      >
+        Call Private Scoped
+    </button>
+
+    <button
+      class="btn btn-primary"
+      @click="adminPing()"
       v-if="authenticated && admin">
         Call Admin
     </button>
@@ -49,6 +58,14 @@
         },
         securedPing () {
           this.$http.get('http://localhost:3001/api/private', { headers })
+            .then(response => {
+              this.message = response.body.message
+            }, error => {
+              this.message = error.statusText
+            })
+        },
+        securedScopedPing () {
+          this.$http.get('http://localhost:3001/api/private-scoped', { headers })
             .then(response => {
               this.message = response.body.message
             }, error => {
