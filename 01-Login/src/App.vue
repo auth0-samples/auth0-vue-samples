@@ -11,6 +11,7 @@
           </router-link>
 
           <button
+            id="qsLoginBtn"
             class="btn btn-primary btn-margin"
             v-if="!authenticated"
             @click="login()">
@@ -18,6 +19,7 @@
           </button>
 
           <button
+            id="qsLogoutBtn"
             class="btn btn-primary btn-margin"
             v-if="authenticated"
             @click="logout()">
