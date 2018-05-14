@@ -2,12 +2,6 @@
 # AUTH0_TEST_CLIENT_ID = Client id to use in test
 # AUTH0_TEST_DOMAIN = Domain to use in test
 # AUTH0_TEST_API_IDENTIFIER = API Audience to use in test
-# export const AUTH_CONFIG = {
-#  clientId: '{CLIENT_ID}',
-#  domain: '{DOMAIN}',
-#  callbackUrl: 'http://localhost:3000/callback',
-#  apiUrl: '{API_IDENTIFIER}'
-#}
 
 # Common logic
 defaults: &defaults
@@ -17,11 +11,12 @@ defaults: &defaults
       - run:
           name: Replace Auth0 test credentials
           command: |
-            #echo "var AUTH0_CLIENT_ID='$AUTH0_TEST_CLIENT_ID';" >> $AUTH0_CFG
-            #echo "var AUTH0_DOMAIN='$AUTH0_TEST_DOMAIN';" >> $AUTH0_CFG
-            #echo "var AUTH0_AUDIENCE='$AUTH0_TEST_AUDIENCE';" >> $AUTH0_CFG
-            #echo "var AUTH0_CALLBACK_URL=location.href;" >> $AUTH0_CFG
-          
+            echo "export const AUTH_CONFIG = {" >> $AUTH0_CFG
+            echo "  clientId: '$AUTH0_TEST_CLIENT_ID'," >> $AUTH0_CFG
+            echo "  domain: '$AUTH0_TEST_DOMAIN'," >> $AUTH0_CFG
+            echo "  callbackUrl: 'http://localhost:3000/callback'," >> $AUTH0_CFG
+            echo "  apiUrl: '$AUTH0_TEST_AUDIENCE'" >> $AUTH0_CFG
+            echo "}" >> $AUTH0_CFG
       - run:
           name: Build pull request
           command: |
@@ -31,7 +26,7 @@ defaults: &defaults
           name: Wait for app to be available
           command: |
             sleep 10
-            docker run --network host --rm appropriate/curl --retry 8 --retry-connrefused -v localhost:3000
+            docker run --network host --rm appropriate/curl --retry 8 --retry-connrefused -v localhost:3000   
       - run: 
           name: Run tests
           command: |
@@ -57,22 +52,22 @@ jobs:
     machine: true
     steps:
       - checkout
-      - run: git clone https://github.com/auth0-samples/spa-quickstarts-tests scripts
+      - run: git clone https://github.com/rafanog/spa-script scripts
       - persist_to_workspace:
           root: ~/ 
           paths:
             - project
             - scripts
-  01-Login:
+  01-login:
     machine: true
     environment:
-      - AUTH0_CFG: 01-Login/auth0-variables.js
+      - AUTH0_CFG: 01-Login/src/auth/auth0-variables.js
       - SAMPLE_PATH: 01-Login
     <<: *defaults
   05-Authorization:
     machine: true
     environment:
-      - AUTH0_CFG: 05-Token-Renewal/auth0-variables.js
+      - AUTH0_CFG: 05-Token-Renewal/src/auth/auth0-variables.js
       - SAMPLE_PATH: 05-Token-Renewal
     <<: *defaults
 
@@ -86,19 +81,7 @@ workflows:
           context: Quickstart SPA Test
           requires:
             - checkout
-      - 02-user-profile:
-          context: Quickstart SPA Test
-          requires:
-            - checkout
-      - 03-calling-an-api:
-          context: Quickstart SPA Test
-          requires:
-            - checkout
-      - 04-authorization:
-          context: Quickstart SPA Test
-          requires:
-            - checkout
-      - 05-token-renewal:
-          context: Quickstart SPA Test
-          requires:
-            - checkout
+     # - 05-autorization:
+     #     context: Quickstart SPA Test
+     #     requires:
+     #       - checkout
