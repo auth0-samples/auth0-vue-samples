@@ -64,7 +64,7 @@ jobs:
       - AUTH0_CFG: 01-Login/src/auth/auth0-variables.js
       - SAMPLE_PATH: 01-Login
     <<: *defaults
-  05-Authorization:
+  05-authorization:
     machine: true
     environment:
       - AUTH0_CFG: 05-Token-Renewal/src/auth/auth0-variables.js
