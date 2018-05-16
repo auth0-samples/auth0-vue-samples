@@ -67,8 +67,8 @@ jobs:
   05-authorization:
     machine: true
     environment:
-      - AUTH0_CFG: 05-Token-Renewal/src/auth/auth0-variables.js
-      - SAMPLE_PATH: 05-Token-Renewal
+      - AUTH0_CFG: 05-Authorization/src/auth/auth0-variables.js
+      - SAMPLE_PATH: 05-Authorization
     <<: *defaults
 
 workflows:
