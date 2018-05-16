@@ -81,7 +81,7 @@ workflows:
           context: Quickstart SPA Test
           requires:
             - checkout
-      - 05-autorization:
+      - 05-authorization:
           context: Quickstart SPA Test
           requires:
             - checkout
