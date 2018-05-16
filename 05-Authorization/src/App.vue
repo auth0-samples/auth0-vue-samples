@@ -29,6 +29,7 @@
 
           <button
             class="btn btn-primary btn-margin"
+            id="qsLoginBtn"
             v-if="!authenticated"
             @click="login()">
               Log In
@@ -36,6 +37,7 @@
 
           <button
             class="btn btn-primary btn-margin"
+            id="qsLogoutBtn"
             v-if="authenticated"
             @click="logout()">
               Log Out
