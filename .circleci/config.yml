@@ -17,6 +17,8 @@ defaults: &defaults
             echo "  callbackUrl: 'http://localhost:3000/callback'," >> $AUTH0_CFG
             echo "  apiUrl: '$AUTH0_TEST_AUDIENCE'" >> $AUTH0_CFG
             echo "}" >> $AUTH0_CFG
+            echo "AUTH0_AUDIENCE=$AUTH0_TEST_AUDIENCE" >> .env
+            echo "AUTH0_DOMAIN=$AUTH0_TEST_DOMAIN" >> .env
       - run:
           name: Build pull request
           command: |
