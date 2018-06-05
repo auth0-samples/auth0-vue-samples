@@ -1,6 +1,8 @@
 # Auth0 - Vue.js
 
-This repo shows how to implement Auth0 in a single page Vue.js application. It relies on [Vue components](http://vuejs.org/guide/components.html) so that **vue-router** can be used. The [Auth0 NodeJS API seed](https://github.com/auth0/node-auth0/tree/master/examples/nodejs-api) is used as a simple backend.
+This repo shows how to implement embedded Login with Auth0 in a single page Vue.js application. It relies on [Vue components](http://vuejs.org/guide/components.html) so that **vue-router** can be used. The [Auth0 NodeJS API seed](https://github.com/auth0/node-auth0/tree/master/examples/nodejs-api) is used as a simple backend.
+
+Note that embedded login uses Cross Origin Authentication which [does not work well](https://auth0.com/docs/cross-origin-authentication#limitations-of-cross-origin-authentication) if you don't enable Custom Domains [Custom Domains](https://auth0.com/docs/custom-domains) which is a paid feature. 
 
 For an example of authentication in a modularized build system for Vue.js apps, which includes ES2015, Webpack, and vue-loader, see the [Vue JWT Authentication sample](https://github.com/auth0/vue-jwt-authentication).
 
