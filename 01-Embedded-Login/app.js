@@ -49,7 +49,6 @@ var App = {
           autoclose: true,
           auth: {
             responseType: 'token id_token',
-            audience: `https://${AUTH0_DOMAIN}/userinfo`
           }
         })
     }
