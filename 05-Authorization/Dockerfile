@@ -1,5 +1,7 @@
 FROM node:8.7-alpine
 
+RUN apk --no-cache add git
+
 WORKDIR /home/app
 
 RUN npm install -g create-react-app
