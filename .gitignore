@@ -8,4 +8,3 @@ test/e2e/reports
 selenium-debug.log
 auth0-variables.js
 .env
-01-Login/selenium-server.log
