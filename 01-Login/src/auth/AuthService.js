@@ -4,15 +4,11 @@ import EventEmitter from 'eventemitter3'
 import router from './../router'
 
 export default class AuthService {
+  accessToken
+  idToken
+  expiresAt
   authenticated = this.isAuthenticated()
   authNotifier = new EventEmitter()
-
-  constructor () {
-    this.login = this.login.bind(this)
-    this.setSession = this.setSession.bind(this)
-    this.logout = this.logout.bind(this)
-    this.isAuthenticated = this.isAuthenticated.bind(this)
-  }
 
   auth0 = new auth0.WebAuth({
     domain: AUTH_CONFIG.domain,
@@ -40,23 +36,38 @@ export default class AuthService {
   }
 
   setSession (authResult) {
-    // Set the time that the access token will expire at
-    let expiresAt = JSON.stringify(
-      authResult.expiresIn * 1000 + new Date().getTime()
-    )
-    localStorage.setItem('access_token', authResult.accessToken)
-    localStorage.setItem('id_token', authResult.idToken)
-    localStorage.setItem('expires_at', expiresAt)
+    this.accessToken = authResult.accessToken
+    this.idToken = authResult.idToken
+    this.expiresAt = authResult.expiresIn * 1000 + new Date().getTime()
+
     this.authNotifier.emit('authChange', { authenticated: true })
+
+    localStorage.setItem('loggedIn', true)
+  }
+
+  renewSession () {
+    this.auth0.checkSession({}, (err, authResult) => {
+      if (authResult && authResult.accessToken && authResult.idToken) {
+        this.setSession(authResult)
+      } else if (err) {
+        this.logout()
+        console.log(err)
+        alert(`Could not get a new token (${err.error}: ${err.error_description}).`)
+      }
+    })
   }
 
   logout () {
     // Clear access token and ID token from local storage
-    localStorage.removeItem('access_token')
-    localStorage.removeItem('id_token')
-    localStorage.removeItem('expires_at')
+    this.accessToken = null
+    this.idToken = null
+    this.expiresAt = null
+
     this.userProfile = null
     this.authNotifier.emit('authChange', false)
+
+    localStorage.removeItem('loggedIn')
+
     // navigate to the home route
     router.replace('home')
   }
@@ -64,7 +75,6 @@ export default class AuthService {
   isAuthenticated () {
     // Check whether the current time is past the
     // access token's expiry time
-    let expiresAt = JSON.parse(localStorage.getItem('expires_at'))
-    return new Date().getTime() < expiresAt
+    return new Date().getTime() < this.expiresAt && localStorage.getItem('loggedIn') === 'true'
   }
 }

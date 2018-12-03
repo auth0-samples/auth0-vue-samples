@@ -44,22 +44,28 @@ import AuthService from './auth/AuthService'
 
 const auth = new AuthService()
 
-const { login, logout, authenticated, authNotifier } = auth
-
 export default {
   name: 'app',
   data () {
-    authNotifier.on('authChange', authState => {
-      this.authenticated = authState.authenticated
-    })
     return {
       auth,
-      authenticated
+      authenticated: auth.authenticated
     }
   },
+  created () {
+    auth.authNotifier.on('authChange', authState => {
+      this.authenticated = authState.authenticated
+    })
+
+    auth.renewSession()
+  },
   methods: {
-    login,
-    logout
+    login () {
+      auth.login()
+    },
+    logout () {
+      auth.logout()
+    }
   }
 }
 </script>

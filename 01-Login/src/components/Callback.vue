@@ -8,9 +8,8 @@
   export default {
     name: 'callback',
     props: ['auth'],
-    data () {
+    created () {
       this.auth.handleAuthentication()
-      return {}
     }
   }
 </script>

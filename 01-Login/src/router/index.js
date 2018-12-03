@@ -9,7 +9,7 @@ const router = new Router({
   mode: 'history',
   routes: [
     {
-      path: '/home',
+      path: '/',
       name: 'Home',
       component: Home
     },
@@ -20,7 +20,7 @@ const router = new Router({
     },
     {
       path: '*',
-      redirect: '/home'
+      redirect: '/'
     }
   ]
 })
