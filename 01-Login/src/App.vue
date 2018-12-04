@@ -31,8 +31,8 @@
     </nav>
 
     <div class="container">
-      <router-view 
-        :auth="auth" 
+      <router-view
+        :auth="auth"
         :authenticated="authenticated">
       </router-view>
     </div>
