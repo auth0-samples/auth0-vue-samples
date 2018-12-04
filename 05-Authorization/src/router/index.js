@@ -5,12 +5,10 @@ import Home from '@/components/Home'
 import Profile from '@/components/Profile'
 import Admin from '@/components/Admin'
 import Ping from '@/components/Ping'
-import AuthService from './../auth/AuthService'
+import auth from './../auth/AuthService'
 
 Vue.use(Router)
 Vue.use(VueResource)
-
-const auth = new AuthService()
 
 export default new Router({
   routes: [

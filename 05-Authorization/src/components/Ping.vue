@@ -8,20 +8,20 @@
 
     <button
       class="btn btn-primary" 
-      @click="ping()">
+      @click="ping">
         Call Public
     </button>
 
     <button 
       class="btn btn-primary"
-      @click="securedPing()" 
+      @click="securedPing" 
       >
         Call Private
     </button>
 
     <button 
       class="btn btn-primary"
-      @click="adminPing()" 
+      @click="adminPing" 
       v-if="authenticated && admin">
         Call Admin
     </button>
@@ -35,35 +35,42 @@
     name: 'Ping',
     props: ['auth', 'authenticated', 'admin'],
     data () {
-      const accessToken = localStorage.getItem('access_token') || null
-      const headers = { Authorization: `Bearer ${accessToken}` }
       return {
-        message: '',
-        ping () {
-          this.$http.get('http://localhost:3001/api/public')
-            .then(response => {
-              this.message = response.body.message
-            }, error => {
-              this.message = error.statusText
-            })
-        },
-        securedPing () {
-          this.$http.get('http://localhost:3001/api/private', { headers })
-            .then(response => {
-              this.message = response.body.message
-            }, error => {
-              this.message = error.statusText
-            })
-        },
-        adminPing () {
-          this.$http.get('http://localhost:3001/api/private/admin', { headers })
-            .then(response => {
-              this.message = response.body.message
-            }, error => {
-              this.message = error.statusText
-            })
-        }
+        message: ''
+      }
+    },
+    computed: {
+      headers () {
+        const accessToken = this.auth.getAccessToken() || null
+        return { Authorization: `Bearer ${accessToken}` }
+      }
+    },
+    methods: {
+      ping () {
+        this.$http.get('http://localhost:3001/api/public')
+          .then(response => {
+            this.message = response.body.message
+          }, error => {
+            this.message = error.statusText
+          })
+      },
+      securedPing () {
+        this.$http.get('http://localhost:3001/api/private', { headers: this.headers })
+          .then(response => {
+            this.message = response.body.message
+          }, error => {
+            this.message = error.statusText
+          })
+      },
+      adminPing () {
+        this.$http.get('http://localhost:3001/api/private/admin', { headers: this.headers })
+          .then(response => {
+            this.message = response.body.message
+          }, error => {
+            this.message = error.statusText
+          })
       }
     }
+  
   }
 </script>

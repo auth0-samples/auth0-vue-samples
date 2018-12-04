@@ -20,18 +20,18 @@
 export default {
   props: ['auth'],
   data () {
+    return {
+      profile: {}
+    }
+  },
+  created () {
     if (this.auth.userProfile) {
-      this.$nextTick(() => {
-        this.profile = this.auth.userProfile
-      })
+      this.profile = this.auth.userProfile
     } else {
       this.auth.getProfile((err, profile) => {
         if (err) return console.log(err)
         this.profile = profile
       })
-    }
-    return {
-      profile: {}
     }
   }
 }

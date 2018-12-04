@@ -5,24 +5,24 @@
         <div class="navbar-header">
           <a class="navbar-brand" href="#">Auth0 - Vue</a>
 
-          <router-link :to="'/'"
+          <router-link to="/"
             class="btn btn-primary btn-margin">
               Home
           </router-link>
 
-          <router-link :to="'profile'"
+          <router-link to="/profile"
             class="btn btn-primary btn-margin"
             v-if="authenticated">
               Profile
           </router-link>
 
-          <router-link :to="'admin'"
+          <router-link to="admin"
             class="btn btn-primary btn-margin"
             v-if="authenticated && admin">
               Admin Area
           </router-link>
 
-          <router-link :to="'ping'"
+          <router-link to="ping"
             class="btn btn-primary btn-margin">
               Ping
           </router-link>
@@ -31,7 +31,7 @@
             class="btn btn-primary btn-margin"
             id="qsLoginBtn"
             v-if="!authenticated"
-            @click="login()">
+            @click="login">
               Log In
           </button>
 
@@ -39,7 +39,7 @@
             class="btn btn-primary btn-margin"
             id="qsLogoutBtn"
             v-if="authenticated"
-            @click="logout()">
+            @click="logout">
               Log Out
           </button>
 
@@ -58,28 +58,32 @@
 </template>
 
 <script>
-import AuthService from './auth/AuthService'
-
-const auth = new AuthService()
-
-const { login, logout, authenticated, admin, authNotifier } = auth
+import auth from './auth/AuthService'
 
 export default {
   name: 'app',
   data () {
-    authNotifier.on('authChange', authState => {
-      this.authenticated = authState.authenticated
-      this.admin = authState.admin
-    })
     return {
       auth,
-      authenticated,
-      admin
+      authenticated: auth.authenticated,
+      admin: auth.admin
     }
   },
   methods: {
-    login,
-    logout
+    login () {
+      auth.login()
+    },
+    logout () {
+      auth.logout()
+    }
+  },
+  created () {
+    auth.authNotifier.on('authChange', authState => {
+      this.authenticated = authState.authenticated
+      this.admin = authState.admin
+    })
+
+    auth.renewSession()
   }
 }
 </script>
