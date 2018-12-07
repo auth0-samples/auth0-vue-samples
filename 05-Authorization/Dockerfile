@@ -4,7 +4,6 @@ RUN apk --no-cache add git
 
 WORKDIR /home/app
 
-RUN npm install -g create-react-app
 ADD package.json /home/app
 RUN npm install
 ADD . /home/app

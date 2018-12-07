@@ -2,28 +2,23 @@ import Auth0Lock from 'auth0-lock'
 import { AUTH_CONFIG } from './auth0-variables'
 import EventEmitter from 'eventemitter3'
 import decode from 'jwt-decode'
-import Router from 'vue-router'
+import router from '../router'
 
-export default class AuthService {
+class AuthService {
+  idToken;
+  accessToken;
+  expiresAt;
+
   authenticated = this.isAuthenticated()
   admin = this.isAdmin()
   authNotifier = new EventEmitter()
   userProfile;
-  router = new Router()
 
   constructor () {
     // Add callback Lock's `authenticated` event
     this.lock.on('authenticated', this.setSession.bind(this))
     // Add callback for Lock's `authorization_error` event
     this.lock.on('authorization_error', error => console.log(error))
-    this.login = this.login.bind(this)
-    this.setSession = this.setSession.bind(this)
-    this.getAccessToken = this.getAccessToken.bind(this)
-    this.getProfile = this.getProfile.bind(this)
-    this.logout = this.logout.bind(this)
-    this.isAuthenticated = this.isAuthenticated.bind(this)
-    this.getRole = this.getRole.bind(this)
-    this.isAdmin = this.isAdmin.bind(this)
   }
 
   lock = new Auth0Lock(AUTH_CONFIG.clientId, AUTH_CONFIG.domain, {
@@ -45,58 +40,86 @@ export default class AuthService {
   setSession (authResult) {
     if (authResult && authResult.accessToken && authResult.idToken) {
       // Set the time that the access token will expire at
-      let expiresAt = JSON.stringify(
+      const expiresAt = JSON.stringify(
         authResult.expiresIn * 1000 + new Date().getTime()
       )
-      localStorage.setItem('access_token', authResult.accessToken)
-      localStorage.setItem('id_token', authResult.idToken)
-      localStorage.setItem('expires_at', expiresAt)
+
+      this.idToken = authResult.idToken
+      this.accessToken = authResult.accessToken
+      this.expiresAt = expiresAt
+
+      localStorage.setItem('loggedIn', true)
+
       this.authNotifier.emit('authChange', { authenticated: true, admin: this.isAdmin() })
+
       // navigate to the home route
-      this.router.push('')
+      router.push('/')
     }
   }
 
   getAccessToken () {
-    const accessToken = localStorage.getItem('access_token')
+    const accessToken = this.accessToken
+
     if (!accessToken) {
       throw new Error('No access token found')
     }
+
     return accessToken
   }
 
   getProfile (cb) {
-    let accessToken = this.getAccessToken()
-    let self = this
+    const accessToken = this.getAccessToken()
+
     this.lock.getUserInfo(accessToken, (err, profile) => {
       if (profile) {
-        self.userProfile = profile
+        this.userProfile = profile
       }
+
       cb(err, profile)
     })
   }
 
+  renewSession () {
+    if (localStorage.getItem('loggedIn') === 'true') {
+      this.lock.checkSession({}, (err, authResult) => {
+        if (authResult && authResult.accessToken && authResult.idToken) {
+          this.setSession(authResult)
+        } else if (err) {
+          this.logout()
+          console.log(err)
+          alert(`Could not get a new token (${err.error}: ${err.error_description}).`)
+        }
+      })
+    }
+  }
+
   logout () {
     // Clear access token and ID token from local storage
-    localStorage.removeItem('access_token')
-    localStorage.removeItem('id_token')
-    localStorage.removeItem('expires_at')
+    this.idToken = null
+    this.accessToken = null
+    this.expiresAt = null
     this.userProfile = null
+
     this.authNotifier.emit('authChange', false)
+
+    localStorage.removeItem('loggedIn')
+
     // navigate to the home route
-    this.router.replace('')
+    router.replace('/')
   }
 
   isAuthenticated () {
     // Check whether the current time is past the
     // access token's expiry time
-    let expiresAt = JSON.parse(localStorage.getItem('expires_at'))
-    return new Date().getTime() < expiresAt
+    const isLoggedIn = localStorage.getItem('loggedIn') === 'true'
+
+    return this.expiresAt && isLoggedIn && new Date().getTime() < this.expiresAt
   }
 
   getRole () {
     const namespace = 'https://example.com'
-    const idToken = localStorage.getItem('id_token')
+    const idToken = this.idToken
+
     if (idToken) {
       return decode(idToken)[`${namespace}/role`] || null
     }
@@ -106,3 +129,5 @@ export default class AuthService {
     return this.getRole() === 'admin'
   }
 }
+
+export default new AuthService()
