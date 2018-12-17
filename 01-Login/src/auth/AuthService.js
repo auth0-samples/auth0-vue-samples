@@ -1,40 +1,88 @@
-import auth0 from 'auth0-js'
-import { AUTH_CONFIG } from './auth0-variables'
-import EventEmitter from 'eventemitter3'
-import router from './../router'
+import auth0 from "auth0-js";
+import { EventEmitter } from "events";
+import { AUTH_CONFIG } from "./auth0-variables";
 
-export default class AuthService {
-  accessToken
-  idToken
-  expiresAt
-  authenticated = this.isAuthenticated()
-  authNotifier = new EventEmitter()
+const webAuth = new auth0.WebAuth({
+  domain: AUTH_CONFIG.domain,
+  redirectUri: "http://localhost:3000/callback",
+  clientID: AUTH_CONFIG.clientId,
+  responseType: "id_token",
+  scope: "openid profile email"
+});
 
-  auth0 = new auth0.WebAuth({
-    domain: AUTH_CONFIG.domain,
-    clientID: AUTH_CONFIG.clientId,
-    redirectUri: AUTH_CONFIG.callbackUrl,
-    responseType: 'token id_token',
-    scope: 'openid'
-  })
+const localStorageKey = "loggedIn";
+const loginEvent = "loginEvent";
 
-  login () {
-    this.auth0.authorize()
+/*
+ * Generates a secure string using the Cryptography API
+ */
+const generateSecureString = () => {
+  const validChars =
+    "ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789";
+
+  let array = new Uint8Array(40);
+
+  window.crypto.getRandomValues(array);
+  array = array.map(x => validChars.charCodeAt(x % validChars.length));
+
+  return String.fromCharCode.apply(null, array);
+};
+
+/*
+ * Encodes the specified custom state along with a secure string,
+ * then base64-encodes the result.
+ */
+const encodeState = customState => {
+  const state = {
+    secureString: generateSecureString(),
+    customState: customState || {}
+  };
+
+  return btoa(JSON.stringify(state));
+};
+
+/*
+ * Decodes the state variable from the authentication result, then
+ * returns the custom state within
+ */
+const decodeState = authResult => {
+  let parsedState = {};
+
+  try {
+    parsedState = JSON.parse(atob(authResult.state));
+  } catch (e) {
+    parsedState = {};
   }
 
-  handleAuthentication () {
-    this.auth0.parseHash((err, authResult) => {
-      if (authResult && authResult.accessToken && authResult.idToken) {
-        this.setSession(authResult)
-        router.replace('home')
-      } else if (err) {
-        router.replace('home')
-        console.log(err)
-        alert(`Error: ${err.error}. Check the console for further details.`)
-      }
-    })
+  return parsedState.customState;
+};
+
+class AuthService extends EventEmitter {
+  idToken = null;
+  profile = null;
+  tokenExpiry = null;
+
+  login(customState) {
+    webAuth.authorize({
+      state: encodeState(customState)
+    });
   }
 
+  logOut() {
+    localStorage.removeItem(localStorageKey);
+
+    this.idToken = null;
+    this.tokenExpiry = null;
+    this.profile = null;
+
+    webAuth.logout({
+      returnTo: process.env.VUE_APP_URI
+    });
+
+    this.emit(loginEvent, { loggedIn: false });
+  }
+
+<<<<<<< HEAD
   setSession (authResult) {
     this.accessToken = authResult.accessToken
     this.idToken = authResult.idToken
@@ -76,5 +124,73 @@ export default class AuthService {
     // Check whether the current time is past the
     // access token's expiry time
     return new Date().getTime() < this.expiresAt && localStorage.getItem('loggedIn') === 'true'
+=======
+  handleAuthentication() {
+    return new Promise((resolve, reject) => {
+      webAuth.parseHash((err, authResult) => {
+        if (err) {
+          reject(err);
+        } else {
+          this.localLogin(authResult);
+          resolve(authResult.idToken);
+        }
+      });
+    });
+  }
+
+  isAuthenticated() {
+    return localStorage.getItem(localStorageKey) === "true";
+  }
+
+  isIdTokenValid() {
+    return this.idToken && this.tokenExpiry && this.tokenExpiry > Date.now();
+  }
+
+  getIdToken() {
+    return new Promise((resolve, reject) => {
+      if (this.isIdTokenValid()) {
+        resolve(this.idToken);
+      } else if (this.isAuthenticated()) {
+        this.renewTokens().then(authResult => {
+          resolve(authResult.idToken);
+        }, reject);
+      } else {
+        resolve();
+      }
+    });
+  }
+
+  localLogin(authResult) {
+    this.idToken = authResult.idToken;
+    this.profile = authResult.idTokenPayload;
+    this.tokenExpiry = new Date(this.profile.exp * 1000);
+
+    localStorage.setItem(localStorageKey, "true");
+
+    this.emit(loginEvent, {
+      loggedIn: true,
+      profile: authResult.idTokenPayload,
+      state: authResult.state,
+      stateJson: decodeState(authResult) || {}
+    });
+  }
+
+  renewTokens() {
+    return new Promise((resolve, reject) => {
+      webAuth.checkSession({}, (err, authResult) => {
+        if (err) {
+          reject(err);
+        } else {
+          this.localLogin(authResult);
+          resolve(authResult);
+        }
+      });
+    });
+>>>>>>> Updated sample
   }
 }
+
+const service = new AuthService();
+service.setMaxListeners(5);
+
+export default service;

@@ -1,50 +1,73 @@
-# Auth0 Vue.js Login
+# Scenario #1 - Logging In and Gated Content
 
-This sample demonstrates how to add authentication to a Vue.js application with Auth0. The sample makes use of Auth0's hosted login page which provides centralized authentication.
+This sample demonstrates:
 
-## Getting Started
+- Logging in to Auth0 using Redirect Mode
+- Accessing profile information that has been provided in the ID token
+- Gated content. `/profile` is not accessible without having first logged in
 
-If you haven't already done so, [sign up](https://auth0.com) for your free Auth0 account and create a new client in the [dashboard](https://manage.auth0.com). Find the **domain** and **client ID** from the settings area and add the URL for your application to the **Allowed Callback URLs** box.
+## Configuration
 
-Clone the repo or download it from the Vue.js quickstart page in Auth0's documentation.
+The project needs to be configured with your Auth0 domain and client ID in order for the authentication flow to work.
 
-```bash
-cd 01-Login
+To do this, first copy `src/auth/auth0-variables.sample.js` into a new file in the same folder called `auth0-variables.js`, and replace the values within with your own Auth0 application credentials.
+
+```js
+// src/auth/auth0-variables.js
+
+export default {
+  domain: process.env.AUTH0_DOMAIN || "<YOUR AUTH0 DOMAIN>",
+  clientId: process.env.AUTH0_CLIENT_ID || "<YOUR AUTH0 CLIENTID>",
+  callbackUrl: "http://localhost:3000/callback"
+};
+```
+
+## Deployment
+
+To build the Docker image, run `exec.sh`
+
+## Project setup
+
+```
 npm install
 ```
 
-## Set the Client ID and Domain
+### Compiles and hot-reloads for development
 
-If you download the sample from the quickstart page, it will come pre-populated with the **client ID** and **domain** for your application. If you clone the repo directly from Github, rename the `auth0-variables.js.example` file to `auth0-variables.js` and provide the **client ID** and **domain** there. This file is located in `src/auth/`.
-
-## Run the Application
-
-```bash
-npm start
+```
+npm run serve
 ```
 
-The application will be served at `http://localhost:3000`.
+### Compiles and minifies for production
 
-## Run the Application With Docker
+```
+npm run build
+```
 
-In order to run the example with docker you need to have `docker` installed.
+### Run your tests
 
-You also need to set the environment variables as explained [previously](#set-the-client-id-and-domain).
+```
+npm run test
+```
 
-Execute in command line `sh exec.sh` to run the Docker in Linux, or `.\exec.ps1` to run the Docker in Windows.
+### Lints and fixes files
+
+```
+npm run lint
+```
 
 ## What is Auth0?
 
 Auth0 helps you to:
 
-* Add authentication with [multiple authentication sources](https://docs.auth0.com/identityproviders), either social like **Google, Facebook, Microsoft Account, LinkedIn, GitHub, Twitter, Box, Salesforce, among others**, or enterprise identity systems like **Windows Azure AD, Google Apps, Active Directory, ADFS or any SAML Identity Provider**.
-* Add authentication through more traditional **[username/password databases](https://docs.auth0.com/mysql-connection-tutorial)**.
-* Add support for **[linking different user accounts](https://docs.auth0.com/link-accounts)** with the same user.
-* Support for generating signed [Json Web Tokens](https://docs.auth0.com/jwt) to call your APIs and **flow the user identity** securely.
-* Analytics of how, when and where users are logging in.
-* Pull data from other sources and add it to the user profile, through [JavaScript rules](https://docs.auth0.com/rules).
+- Add authentication with [multiple authentication sources](https://docs.auth0.com/identityproviders), either social like **Google, Facebook, Microsoft Account, LinkedIn, GitHub, Twitter, Box, Salesforce, among others**, or enterprise identity systems like **Windows Azure AD, Google Apps, Active Directory, ADFS or any SAML Identity Provider**.
+- Add authentication through more traditional **[username/password databases](https://docs.auth0.com/mysql-connection-tutorial)**.
+- Add support for **[linking different user accounts](https://docs.auth0.com/link-accounts)** with the same user.
+- Support for generating signed [Json Web Tokens](https://docs.auth0.com/jwt) to call your APIs and **flow the user identity** securely.
+- Analytics of how, when and where users are logging in.
+- Pull data from other sources and add it to the user profile, through [JavaScript rules](https://docs.auth0.com/rules).
 
-## Create a free Auth0 account
+## Create a Free Auth0 Account
 
 1. Go to [Auth0](https://auth0.com/signup) and click Sign Up.
 2. Use Google, GitHub or Microsoft Account to login.
@@ -59,5 +82,4 @@ If you have found a bug or if you have a feature request, please report them at 
 
 ## License
 
-This project is licensed under the MIT license. See the [LICENSE](LICENSE.txt) file for more info.
-
+This project is licensed under the MIT license. See the [LICENSE](../LICENSE) file for more info.

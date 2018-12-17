@@ -1,27 +1,27 @@
 # Auth0 Vue.js Samples
 
-[![CircleCI](https://circleci.com/gh/auth0-samples/auth0-vue-samples.svg?style=svg)](https://circleci.com/gh/auth0-samples/auth0-vue-samples)
+[![CircleCI](https://circleci.com/gh/auth0-samples/auth0-vuejs-samples.svg?style=svg)](https://circleci.com/gh/auth0-samples/auth0-vuejs-samples)
 
-These samples demonstrate how to add authentication to a Vue.js application with Auth0. Each folder contains a distinct application so that various Auth0 features can be viewed in isolation. You can read about these examples in our [Vue Quickstart](https://auth0.com/docs/quickstart/spa/vuejs).
+This is the sample code for the [Auth0 Vue.js Quickstart](https://auth0.com/docs/quickstart/spa/vuejs).
 
-## Embedded Integration Samples
+There are three sample applications:
 
-These samples use Auth0's [hosted login page](https://auth0.com/docs/hosted-pages/login) which offers the fastest, most secure, and most feature-rich way to add authentication to your app.
-
-For samples which demonstrate how to embed the Lock widget or a custom login form directly into your application, see the [embedded-login](https://github.com/auth0-samples/auth0-vue-samples/tree/embedded-login) branch.
+* [01 - Login](./01-Login) — demonstrates logging in and viewing profile information
+* [02 - Calling the backend](./02-Calling-the-backend) — demonstrates how to call a backend API using ID tokens, with token validation
+* [03 - Calling an API](./03-Calling-an-API) — demonstrates how to call a third-party API using access tokens
 
 ## What is Auth0?
 
 Auth0 helps you to:
 
-* Add authentication with [multiple authentication sources](https://docs.auth0.com/identityproviders), either social like **Google, Facebook, Microsoft Account, LinkedIn, GitHub, Twitter, Box, Salesforce, among others**, or enterprise identity systems like **Windows Azure AD, Google Apps, Active Directory, ADFS or any SAML Identity Provider**.
-* Add authentication through more traditional **[username/password databases](https://docs.auth0.com/mysql-connection-tutorial)**.
-* Add support for **[linking different user accounts](https://docs.auth0.com/link-accounts)** with the same user.
-* Support for generating signed [Json Web Tokens](https://docs.auth0.com/jwt) to call your APIs and **flow the user identity** securely.
-* Analytics of how, when and where users are logging in.
-* Pull data from other sources and add it to the user profile, through [JavaScript rules](https://docs.auth0.com/rules).
+- Add authentication with [multiple authentication sources](https://docs.auth0.com/identityproviders), either social like **Google, Facebook, Microsoft Account, LinkedIn, GitHub, Twitter, Box, Salesforce, among others**, or enterprise identity systems like **Windows Azure AD, Google Apps, Active Directory, ADFS or any SAML Identity Provider**.
+- Add authentication through more traditional **[username/password databases](https://docs.auth0.com/mysql-connection-tutorial)**.
+- Add support for **[linking different user accounts](https://docs.auth0.com/link-accounts)** with the same user.
+- Support for generating signed [Json Web Tokens](https://docs.auth0.com/jwt) to call your APIs and **flow the user identity** securely.
+- Analytics of how, when and where users are logging in.
+- Pull data from other sources and add it to the user profile, through [JavaScript rules](https://docs.auth0.com/rules).
 
-## Create a free Auth0 account
+## Create a Free Auth0 Account
 
 1. Go to [Auth0](https://auth0.com/signup) and click Sign Up.
 2. Use Google, GitHub or Microsoft Account to login.
@@ -36,4 +36,4 @@ If you have found a bug or if you have a feature request, please report them at 
 
 ## License
 
-This project is licensed under the MIT license. See the [LICENSE](LICENSE) file for more info.
+This project is licensed under the MIT license. See the [LICENSE](./LICENSE) file for more info.

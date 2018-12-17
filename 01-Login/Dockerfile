@@ -1,11 +1,33 @@
-FROM node:8.7-alpine
+FROM node:10-alpine as build
 
-WORKDIR /home/app
+RUN mkdir /app
 
-ADD package.json /home/app
-RUN npm install
-ADD . /home/app
+WORKDIR /app
 
-CMD ["npm", "start"]
+COPY package.json .
+
+RUN npm install --silent
+
+COPY . .
+
+RUN npm run build
+
+# ---------------
+
+FROM node:10-alpine
+
+RUN mkdir -p /app/dist
+
+WORKDIR /app
+
+COPY --from=build /app/dist ./dist
+COPY --from=build /app/package.json .
+COPY --from=build /app/server.js .
+
+ENV NODE_ENV production
+
+RUN npm install --silent --production
 
 EXPOSE 3000
+
+CMD ["node", "server.js"]

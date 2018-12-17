@@ -1,79 +1,31 @@
 <template>
-  <div>
-    <nav class="navbar navbar-default">
-      <div class="container-fluid">
-        <div class="navbar-header">
-          <a class="navbar-brand" href="#">Auth0 - Vue</a>
-
-          <router-link :to="'/'"
-            class="btn btn-primary btn-margin">
-              Home
-          </router-link>
-
-          <button
-            id="qsLoginBtn"
-            class="btn btn-primary btn-margin"
-            v-if="!authenticated"
-            @click="login()">
-              Log In
-          </button>
-
-          <button
-            id="qsLogoutBtn"
-            class="btn btn-primary btn-margin"
-            v-if="authenticated"
-            @click="logout()">
-              Log Out
-          </button>
-
-        </div>
-      </div>
-    </nav>
-
-    <div class="container">
-      <router-view
-        :auth="auth"
-        :authenticated="authenticated">
-      </router-view>
+  <div id="app">
+    <nav-bar/>
+    <div class="container mt-5">
+      <router-view/>
     </div>
   </div>
 </template>
 
 <script>
-import AuthService from './auth/AuthService'
+import "jquery";
+import "bootstrap";
+import "bootstrap/scss/bootstrap.scss";
 
-const auth = new AuthService()
+import NavBar from "./components/NavBar";
 
 export default {
-  name: 'app',
-  data () {
-    return {
-      auth,
-      authenticated: auth.authenticated
-    }
+  components: {
+    NavBar
   },
-  created () {
-    auth.authNotifier.on('authChange', authState => {
-      this.authenticated = authState.authenticated
-    })
-
-    auth.renewSession()
-  },
-  methods: {
-    login () {
-      auth.login()
-    },
-    logout () {
-      auth.logout()
+  async created() {
+    try {
+      if (this.$auth.isAuthenticated()) {
+        await this.$auth.renewTokens();
+      }
+    } catch (e) {
+      console.log(e);
     }
   }
-}
+};
 </script>
-
-<style>
-@import '../node_modules/bootstrap/dist/css/bootstrap.css';
-
-.btn-margin {
-  margin-top: 7px
-}
-</style>

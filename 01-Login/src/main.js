@@ -1,14 +1,21 @@
-// The Vue build version to load with the `import` command
-// (runtime-only or standalone) has been set in webpack.base.conf with an alias.
-import Vue from 'vue'
-import App from './App'
-import router from './router'
+import Vue from "vue";
+import App from "./App.vue";
+import router from "./router";
+import AuthPlugin from "./plugins/auth";
 
-Vue.config.productionTip = false
+import { library } from "@fortawesome/fontawesome-svg-core";
+import { faUser } from "@fortawesome/free-solid-svg-icons";
+import { FontAwesomeIcon } from "@fortawesome/vue-fontawesome";
 
-/* eslint-disable no-new */
+Vue.use(AuthPlugin);
+
+Vue.config.productionTip = false;
+
+library.add(faUser);
+
+Vue.component("font-awesome-icon", FontAwesomeIcon);
+
 new Vue({
-  el: '#app',
   router,
   render: h => h(App)
-})
+}).$mount("#app");
