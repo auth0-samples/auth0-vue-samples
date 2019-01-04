@@ -57,7 +57,7 @@ export default {
       this.authenticated = authState.authenticated
     })
 
-    if (auth.isAuthenticated()) {
+    if (auth.getAuthenticatedFlag() === 'true') {
       auth.renewSession()
     }
   },

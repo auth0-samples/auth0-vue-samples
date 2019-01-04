@@ -70,7 +70,11 @@ export default class AuthService {
     router.replace('home')
   }
 
+  getAuthenticatedFlag () {
+    return localStorage.getItem('loggedIn')
+  }
+
   isAuthenticated () {
-    return localStorage.getItem('loggedIn') === 'true'
+    return new Date().getTime() < this.expiresAt && this.getAuthenticatedFlag() === 'true'
   }
 }
