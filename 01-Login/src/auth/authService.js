@@ -5,7 +5,7 @@ import state from "./state";
 
 const webAuth = new auth0.WebAuth({
   domain: AUTH_CONFIG.domain,
-  redirectUri: "http://localhost:3000/callback",
+  redirectUri: AUTH_CONFIG.callbackUrl,
   clientID: AUTH_CONFIG.clientId,
   responseType: "id_token",
   scope: "openid profile email"
@@ -33,7 +33,7 @@ class AuthService extends EventEmitter {
     this.profile = null;
 
     webAuth.logout({
-      returnTo: process.env.VUE_APP_URI
+      returnTo: `${window.location.origin}`
     });
 
     this.emit(loginEvent, { loggedIn: false });
@@ -53,7 +53,10 @@ class AuthService extends EventEmitter {
   }
 
   isAuthenticated() {
-    return localStorage.getItem(localStorageKey) === "true";
+    return (
+      new Date().getTime() < this.tokenExpiry &&
+      localStorage.getItem(localStorageKey) === "true"
+    );
   }
 
   isIdTokenValid() {
@@ -91,14 +94,18 @@ class AuthService extends EventEmitter {
 
   renewTokens() {
     return new Promise((resolve, reject) => {
-      webAuth.checkSession({}, (err, authResult) => {
-        if (err) {
-          reject(err);
-        } else {
-          this.localLogin(authResult);
-          resolve(authResult);
-        }
-      });
+      if (localStorage.getItem(localStorageKey) === "true") {
+        webAuth.checkSession({}, (err, authResult) => {
+          if (err) {
+            reject(err);
+          } else {
+            this.localLogin(authResult);
+            resolve(authResult);
+          }
+        });
+      } else {
+        reject("Not logged in");
+      }
     });
   }
 }

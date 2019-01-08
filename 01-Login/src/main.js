@@ -2,16 +2,18 @@ import Vue from "vue";
 import App from "./App.vue";
 import router from "./router";
 import AuthPlugin from "./plugins/auth";
+import HighlightJs from "./directives/highlight";
 
 import { library } from "@fortawesome/fontawesome-svg-core";
-import { faUser } from "@fortawesome/free-solid-svg-icons";
+import { faLink } from "@fortawesome/free-solid-svg-icons";
 import { FontAwesomeIcon } from "@fortawesome/vue-fontawesome";
 
 Vue.use(AuthPlugin);
+Vue.directive("highlightjs", HighlightJs);
 
 Vue.config.productionTip = false;
 
-library.add(faUser);
+library.add(faLink);
 
 Vue.component("font-awesome-icon", FontAwesomeIcon);
 

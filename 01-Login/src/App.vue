@@ -4,13 +4,20 @@
     <div class="container mt-5">
       <router-view/>
     </div>
+    <footer>
+      <div class="logo"></div>
+      <p>
+        Sample project provided by
+        <a href="https://auth0.com">Auth0</a>
+      </p>
+    </footer>
   </div>
 </template>
 
 <script>
 import "jquery";
-import "bootstrap";
-import "bootstrap/scss/bootstrap.scss";
+import "samples-bootstrap-theme";
+import "samples-bootstrap-theme/dist/css/auth0-theme.css";
 
 import NavBar from "./components/NavBar";
 
@@ -20,9 +27,7 @@ export default {
   },
   async created() {
     try {
-      if (this.$auth.isAuthenticated()) {
-        await this.$auth.renewTokens();
-      }
+      await this.$auth.renewTokens();
     } catch (e) {
       console.log(e);
     }

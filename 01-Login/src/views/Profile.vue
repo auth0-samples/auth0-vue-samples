@@ -1,24 +1,17 @@
 <template>
-  <div v-if="profile" class="profile-area">
-    <h1>{{ profile.name }}</h1>
-
-    <div class="card">
-      <div class="card-header">Profile</div>
-      <div class="card-body">
-        <img :src="profile.picture" alt="profile">
-
-        <div class="mb-3">
-          <label class="control-label my-2">
-            <font-awesome-icon icon="user"/>
-            Nickname
-          </label>
-          <h3>{{ profile.nickname }}</h3>
-        </div>
-
-        <pre class="bg-light p-2 border">
-          {{ JSON.stringify(profile, null, 2) }}
-        </pre>
+  <div class="container">
+    <div class="row align-items-center profile-header">
+      <div class="col-md-2">
+        <img :src="profile.picture" class="rounded-circle img-fluid profile-picture">
       </div>
+      <div class="col-md">
+        <h2>{{ profile.name }}</h2>
+        <p class="lead text-muted">{{ profile.email }}</p>
+      </div>
+    </div>
+
+    <div class="row">
+      <pre v-highlightjs class="rounded"><code class="json">{{ JSON.stringify(profile, null, 2) }}</code></pre>
     </div>
   </div>
 </template>
@@ -37,20 +30,3 @@ export default {
   }
 };
 </script>
-
-<style lang="scss">
-.profile-lg {
-  width: 200px;
-  height: 200px;
-}
-
-.display-4 {
-  font-weight: 100;
-}
-
-.profile-area {
-  img {
-    max-width: 150px;
-  }
-}
-</style>
