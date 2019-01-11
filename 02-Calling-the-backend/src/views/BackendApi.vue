@@ -6,10 +6,10 @@
         validate it using your Client ID as the audience.
       </p>
 
-      <button class="btn btn-primary" @click="callApi">Ping</button>
+      <button class="btn btn-primary mt-5" @click="callApi">Ping</button>
     </div>
 
-    <div v-if="apiMessage">
+    <div v-if="apiMessage" class="mt-5">
       <h2>Result</h2>
       <p>{{ apiMessage }}</p>
     </div>
