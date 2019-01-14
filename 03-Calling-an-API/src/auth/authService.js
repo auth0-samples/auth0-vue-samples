@@ -1,6 +1,7 @@
 import auth0 from "auth0-js";
 import { EventEmitter } from "events";
 import { AUTH_CONFIG } from "./auth0-variables";
+import state from "./state";
 
 const webAuth = new auth0.WebAuth({
   domain: AUTH_CONFIG.domain,
@@ -14,50 +15,6 @@ const webAuth = new auth0.WebAuth({
 const localStorageKey = "loggedIn";
 const loginEvent = "loginEvent";
 
-/*
- * Generates a secure string using the Cryptography API
- */
-const generateSecureString = () => {
-  const validChars =
-    "ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789";
-
-  let array = new Uint8Array(40);
-
-  window.crypto.getRandomValues(array);
-  array = array.map(x => validChars.charCodeAt(x % validChars.length));
-
-  return String.fromCharCode.apply(null, array);
-};
-
-/*
- * Encodes the specified custom state along with a secure string,
- * then base64-encodes the result.
- */
-const encodeState = customState => {
-  const state = {
-    secureString: generateSecureString(),
-    customState: customState || {}
-  };
-
-  return btoa(JSON.stringify(state));
-};
-
-/*
- * Decodes the state variable from the authentication result, then
- * returns the custom state within
- */
-const decodeState = authResult => {
-  let parsedState = {};
-
-  try {
-    parsedState = JSON.parse(atob(authResult.state));
-  } catch (e) {
-    parsedState = {};
-  }
-
-  return parsedState.customState;
-};
-
 class AuthService extends EventEmitter {
   idToken = null;
   accessToken = null;
@@ -67,7 +24,7 @@ class AuthService extends EventEmitter {
 
   login(customState) {
     webAuth.authorize({
-      state: encodeState(customState)
+      state: state.encodeState(customState)
     });
   }
 
@@ -158,7 +115,7 @@ class AuthService extends EventEmitter {
       loggedIn: true,
       profile: authResult.idTokenPayload,
       state: authResult.state,
-      stateJson: decodeState(authResult) || {}
+      stateJson: state.decodeState(authResult) || {}
     });
   }
 
