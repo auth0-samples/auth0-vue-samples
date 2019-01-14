@@ -10,10 +10,10 @@ const app = express();
 
 if (
   !process.env.AUTH0_DOMAIN ||
-  !process.env.AUTH0_CLIENTID ||
+  !process.env.AUTH0_CLIENT_ID ||
   !process.env.AUTH0_AUDIENCE
 ) {
-  throw "Make sure you have AUTH0_DOMAIN, AUTH0_AUDIENCE and AUTH0_CLIENTID in your .env file";
+  throw "Make sure you have AUTH0_DOMAIN, AUTH0_AUDIENCE and AUTH0_CLIENT_ID in your .env file";
 }
 
 app.use(morgan("dev"));
@@ -29,7 +29,7 @@ const checkJwt = jwt({
     jwksUri: `https://${process.env.AUTH0_DOMAIN}/.well-known/jwks.json`
   }),
 
-  audience: [process.env.AUTH0_CLIENTID, process.env.AUTH0_AUDIENCE],
+  audience: [process.env.AUTH0_CLIENT_ID, process.env.AUTH0_AUDIENCE],
   issuer: `https://${process.env.AUTH0_DOMAIN}/`,
   algorithm: ["RS256"]
 });

@@ -1,12 +1,15 @@
 FROM node:10-alpine as build
 
+RUN apk update && apk upgrade && \
+    apk add --no-cache bash git openssh
+
 RUN mkdir /app
 
 WORKDIR /app
 
 COPY package.json .
 
-RUN npm install --silent
+RUN npm install
 
 COPY . .
 
@@ -22,7 +25,7 @@ WORKDIR /app
 
 COPY --from=build /app/package.json .
 
-RUN npm install --production --silent
+RUN npm install --production
 
 COPY --from=build /app/dist ./dist
 COPY --from=build /app/bin ./bin
