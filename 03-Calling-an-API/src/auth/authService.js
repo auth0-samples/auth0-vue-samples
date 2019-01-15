@@ -92,7 +92,7 @@ class AuthService extends EventEmitter {
 
   getAccessToken() {
     return new Promise((resolve, reject) => {
-      if (!this.isAccessTokenValid()) {
+      if (this.isAccessTokenValid()) {
         resolve(this.accessToken);
       } else {
         this.renewTokens().then(authResult => {
