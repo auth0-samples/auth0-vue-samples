@@ -8,8 +8,8 @@
 export default {
   methods: {
     handleLoginEvent(data) {
-      if (data.stateJson && data.stateJson.target) {
-        this.$router.push(data.stateJson.target || "/");
+      if (data.state && data.state.target) {
+        this.$router.push(data.state.target || "/");
       } else {
         this.$router.push("/");
       }

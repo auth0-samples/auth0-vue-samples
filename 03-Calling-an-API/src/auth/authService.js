@@ -1,7 +1,6 @@
 import auth0 from "auth0-js";
 import { EventEmitter } from "events";
 import { AUTH_CONFIG } from "./auth0-variables";
-import state from "./state";
 
 const webAuth = new auth0.WebAuth({
   domain: AUTH_CONFIG.domain,
@@ -24,7 +23,7 @@ class AuthService extends EventEmitter {
 
   login(customState) {
     webAuth.authorize({
-      state: state.encodeState(customState)
+      appState: customState
     });
   }
 
@@ -114,8 +113,7 @@ class AuthService extends EventEmitter {
     this.emit(loginEvent, {
       loggedIn: true,
       profile: authResult.idTokenPayload,
-      state: authResult.state,
-      stateJson: state.decodeState(authResult) || {}
+      state: authResult.appState
     });
   }
 
