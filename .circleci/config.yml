@@ -55,8 +55,7 @@ jobs:
     machine: true
     steps:
       - checkout
-      - run: git clone https://github.com/elkdanger/spa-quickstarts-tests scripts
-      - run: git checkout new-spa-tests
+      - run: git clone -b new-spa-tests --single-branch https://github.com/elkdanger/spa-quickstarts-tests scripts
       - persist_to_workspace:
           root: ~/
           paths:
