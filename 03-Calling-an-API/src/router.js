@@ -3,7 +3,6 @@ import Router from "vue-router";
 import Home from "./views/Home.vue";
 import Profile from "./views/Profile.vue";
 import Callback from "./components/Callback.vue";
-import BackendApi from "./views/BackendApi.vue";
 import ExternalApi from "./views/ExternalApi.vue";
 import auth from "./auth/authService";
 
@@ -22,11 +21,6 @@ const router = new Router({
       path: "/profile",
       name: "profile",
       component: Profile
-    },
-    {
-      path: "/backend-api",
-      name: "api_calls",
-      component: BackendApi
     },
     {
       path: "/external-api",

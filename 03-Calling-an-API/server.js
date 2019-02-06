@@ -29,15 +29,9 @@ const checkJwt = jwt({
     jwksUri: `https://${process.env.AUTH0_DOMAIN}/.well-known/jwks.json`
   }),
 
-  audience: [process.env.AUTH0_CLIENT_ID, process.env.AUTH0_AUDIENCE],
+  audience: [process.env.AUTH0_AUDIENCE],
   issuer: `https://${process.env.AUTH0_DOMAIN}/`,
   algorithm: ["RS256"]
-});
-
-app.get("/api/private", checkJwt, (req, res) => {
-  res.send({
-    msg: "Your ID token was successfully validated!"
-  });
 });
 
 app.get("/api/external", checkJwt, (req, res) => {
