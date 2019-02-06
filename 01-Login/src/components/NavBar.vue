@@ -44,7 +44,7 @@
                 <router-link to="/profile" class="dropdown-item dropdown-profile">
                   <span class="icon icon-profile"></span> Profile
                 </router-link>
-                <a href="#" class="dropdown-item" @click.prevent="logout">
+                <a id="qsLogoutBtn" href="#" class="dropdown-item" @click.prevent="logout">
                   <span class="icon icon-power"></span> Log out
                 </a>
               </div>
@@ -69,7 +69,7 @@
 
             <li>
               <span class="icon icon-power"></span>
-              <a href="#" class @click.prevent="logout">Log out</a>
+              <a id="qsLogoutBtn" href="#" class @click.prevent="logout">Log out</a>
             </li>
           </ul>
         </div>
