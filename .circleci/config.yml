@@ -34,7 +34,7 @@ defaults: &defaults
         name: Run tests
         command: |
           docker create --network host --name tester codeception/codeceptjs codeceptjs run-multiple --all --steps --verbose
-          docker cp $(pwd)/lock_login_test.js tester:/tests/lock_login_test.js
+          docker cp $(pwd)/lock_login_spa_test.js tester:/tests/lock_login_test.js
           docker cp $(pwd)/codecept.conf.js tester:/tests/codecept.conf.js
           docker start -i tester
         working_directory: scripts
@@ -55,7 +55,7 @@ jobs:
     machine: true
     steps:
       - checkout
-      - run: git clone https://github.com/auth0-samples/spa-quickstarts-tests scripts
+      - run: git clone https://github.com/elkdanger/spa-quickstarts-tests scripts
       - persist_to_workspace:
           root: ~/
           paths:
@@ -66,13 +66,6 @@ jobs:
     environment:
       - AUTH0_CFG: 01-Login/src/auth/auth0-variables.js
       - SAMPLE_PATH: 01-Login
-    <<: *defaults
-
-  02-backend:
-    machine: true
-    environment:
-      - AUTH0_CFG: 02-Calling-the-backend/src/auth/auth0-variables.js
-      - SAMPLE_PATH: 02-Calling-the-backend
     <<: *defaults
 
   03-api:
@@ -89,11 +82,6 @@ workflows:
       - checkout:
           context: Quickstart SPA Test
       - 01-login:
-          context: Quickstart SPA Test
-          requires:
-            - checkout
-
-      - 02-backend:
           context: Quickstart SPA Test
           requires:
             - checkout
