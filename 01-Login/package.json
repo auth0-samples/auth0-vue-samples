@@ -35,6 +35,35 @@
     "vue-template-compiler": "^2.6.2"
   },
   "prettier": {
-    "singleQuote": false
+    "singleQuote": false,
+    "semi": true
+  },
+  "eslintConfig": {
+    "root": true,
+    "env": {
+      "node": true,
+      "browser": true
+    },
+    "plugins": [
+      "vue"
+    ],
+    "extends": [
+      "plugin:vue/essential",
+      "eslint:recommended"
+    ],
+    "rules": {
+      "no-console": [
+        "error",
+        {
+          "allow": [
+            "error",
+            "warn"
+          ]
+        }
+      ]
+    },
+    "parserOptions": {
+      "parser": "babel-eslint"
+    }
   }
 }

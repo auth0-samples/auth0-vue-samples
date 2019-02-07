@@ -1,3 +1,4 @@
+/* eslint-disable no-console */
 const express = require("express");
 const { join } = require("path");
 const morgan = require("morgan");

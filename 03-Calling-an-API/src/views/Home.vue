@@ -20,7 +20,7 @@
         <div class="col-md-5">
           <h6 class="mb-3">
             <a href="#">
-              <font-awesome-icon icon="link" /> Configure other identity providers
+              <font-awesome-icon icon="link"/>Configure other identity providers
             </a>
           </h6>
           <p>Auth0 supports social providers as Facebook, Twitter, Instagram and 100+, Enterprise providers as Microsoft Office 365, Google Apps, Azure, and more. You can also use any OAuth2 Authorization Server.</p>

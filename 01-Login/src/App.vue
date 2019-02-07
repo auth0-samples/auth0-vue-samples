@@ -29,7 +29,7 @@ export default {
     try {
       await this.$auth.renewTokens();
     } catch (e) {
-      console.log(e);
+      console.error(e);
     }
   }
 };
