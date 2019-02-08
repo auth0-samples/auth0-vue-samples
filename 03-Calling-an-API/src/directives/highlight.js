@@ -21,6 +21,7 @@ export default {
   componentUpdated: function(el, binding) {
     // after an update, re-fill the content and then highlight
     let targets = el.querySelectorAll("code");
+
     targets.forEach(target => {
       if (binding.value) {
         target.textContent = binding.value;

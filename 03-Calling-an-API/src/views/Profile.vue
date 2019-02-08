@@ -11,7 +11,9 @@
     </div>
 
     <div class="row">
-      <pre v-highlightjs class="rounded"><code class="json">{{ JSON.stringify(profile, null, 2) }}</code></pre>
+      <pre v-highlightjs="JSON.stringify(profile, null, 2)" class="rounded">
+        <code class="json"></code>
+      </pre>
     </div>
   </div>
 </template>

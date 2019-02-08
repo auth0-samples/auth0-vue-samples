@@ -1,20 +1,24 @@
 <template>
- <div>
+  <div>
     <div class="mb-5">
       <h1>External API</h1>
-      <p>Ping an external API by clicking the button below. This will call the external API using an access token, and the API will validate it using
+      <p>
+        Ping an external API by clicking the button below. This will call the external API using an access token, and the API will validate it using
         the API's audience value.
       </p>
 
-      <button class="btn btn-primary mt-5" @click="callApi">Ping</button>
+      <button class="btn btn-primary mt-5" @click="callApi">Ping API</button>
     </div>
 
-    <div v-if="apiMessage">
-      <h2>Result</h2>
-      <p>{{ apiMessage }}</p>
+    <div class="result-block-container">
+      <div :class="['result-block', executed ? 'show' : '']">
+        <h6 class="muted">Result</h6>
+        <pre v-highlightjs="JSON.stringify(apiMessage, null, 2)">
+          <code class="js rounded"></code>
+        </pre>
+      </div>
     </div>
-
- </div>
+  </div>
 </template>
 
 <script>
@@ -22,7 +26,8 @@ export default {
   name: "Api",
   data() {
     return {
-      apiMessage: null
+      apiMessage: null,
+      executed: false
     };
   },
   methods: {
@@ -36,7 +41,8 @@ export default {
           }
         });
 
-        this.apiMessage = data.msg;
+        this.apiMessage = data;
+        this.executed = true;
       } catch (e) {
         this.apiMessage = `Error: the server responded with '${
           e.response.status
