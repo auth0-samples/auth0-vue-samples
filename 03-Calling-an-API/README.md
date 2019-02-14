@@ -1,6 +1,6 @@
 # Scenario #3 - Calling an External API
 
-This scenario is very similar to Scenario 2, in that it demonstrates making an API call. For this scenario, an additional endpoint has been included that requires the bearer token to be an access token (as provided during the authentication flow), and is validated with the audience set to the identifier of your API as set up in the Auth0 dashboard.
+For this scenario, an API endpoint `/api/external` has been included in the Express server that requires a bearer token to be supplied as a bearer token in the `Authorization` header (as provided during the authentication flow). This uses the [`express-jwt`](https://github.com/auth0/express-jwt) middleware to validate the token against the identifier of your API as set up in the Auth0 dashboard, as well as checking that the signature is valid.
 
 ## Configuration
 
@@ -12,16 +12,16 @@ To do this, first copy `src/auth/auth0-variables.sample.js` into a new file in t
 // src/auth/auth0-variables.js
 
 export default {
-  domain: process.env.AUTH0_DOMAIN || "<YOUR AUTH0 DOMAIN>",
-  clientId: process.env.AUTH0_CLIENT_ID || "<YOUR AUTH0 CLIENTID>",
-  callbackUrl: "http://localhost:3000/callback",
-  audience: process.env.AUTH0_AUDIENCE || "<YOUR AUTH0 AUDIENCE>"
+  domain: "<YOUR AUTH0 DOMAIN>",
+  clientId: "<YOUR AUTH0 CLIENTID>",
+  audience: "<YOUR AUTH0 AUDIENCE>",
+  callbackUrl: `${window.location.origin}/callback`
 };
 ```
 
 Next, copy `.env.sample` in the root of the project, and enter values for the `AUTH0_DOMAIN`, `AUTH0_CLIENTID` and `AUTH0_AUDIENCE` fields. These should be the same values that are used in the `auth0-variables.js` file:
 
-```
+```bash
 AUTH0_DOMAIN=<YOUR AUTH0 DOMAIN>
 AUTH0_CLIENTID=<YOUR AUTH0 CLIENT ID>
 AUTH0_AUDIENCE=<YOUR AUTH0 AUDIENCE>
@@ -33,37 +33,37 @@ To build the Docker image, run `exec.sh`
 
 ## Project setup
 
-```
+```bash
 npm install
 ```
 
 ### Compiles and hot-reloads for development
 
-```
+```bash
 npm run serve
 ```
 
 ### Compiles and serves the Vue app, and starts the backend API server on port 3001
 
-```
+```bash
 npm run dev
 ```
 
 ### Compiles and minifies for production
 
-```
+```bash
 npm run build
 ```
 
 ### Run your tests
 
-```
+```bash
 npm run test
 ```
 
 ### Lints and fixes files
 
-```
+```bash
 npm run lint
 ```
 

@@ -4,7 +4,7 @@ This sample demonstrates:
 
 - Logging in to Auth0 using Redirect Mode
 - Accessing profile information that has been provided in the ID token
-- Gated content. `/profile` is not accessible without having first logged in
+- Gated content. The `/profile` route is not accessible without having first logged in
 
 ## Configuration
 
@@ -16,43 +16,43 @@ To do this, first copy `src/auth/auth0-variables.sample.js` into a new file in t
 // src/auth/auth0-variables.js
 
 export default {
-  domain: process.env.AUTH0_DOMAIN || "<YOUR AUTH0 DOMAIN>",
-  clientId: process.env.AUTH0_CLIENT_ID || "<YOUR AUTH0 CLIENTID>",
-  callbackUrl: "http://localhost:3000/callback"
+  domain: "<YOUR AUTH0 DOMAIN>",
+  clientId: "<YOUR AUTH0 CLIENTID>",
+  callbackUrl: `${window.location.origin}/callback`
 };
 ```
 
 ## Deployment
 
-To build the Docker image, run `exec.sh`
+To build and run the Docker image, run `exec.sh`, or `exec.ps1` on Windows.
 
 ## Project setup
 
-```
+```bash
 npm install
 ```
 
 ### Compiles and hot-reloads for development
 
-```
+```bash
 npm run serve
 ```
 
 ### Compiles and minifies for production
 
-```
+```bash
 npm run build
 ```
 
 ### Run your tests
 
-```
+```bash
 npm run test
 ```
 
 ### Lints and fixes files
 
-```
+```bash
 npm run lint
 ```
 
