@@ -130,18 +130,18 @@ class AuthService extends EventEmitter {
 
   renewTokens() {
     return new Promise((resolve, reject) => {
-      if (localStorage.getItem(localStorageKey) === "true") {
-        webAuth.checkSession({}, (err, authResult) => {
-          if (err) {
-            reject(err);
-          } else {
-            this.localLogin(authResult);
-            resolve(authResult);
-          }
-        });
-      } else {
-        reject("Not logged in");
+      if (localStorage.getItem(localStorageKey) !== "true") {
+        return reject("Not logged in");
       }
+
+      webAuth.checkSession({}, (err, authResult) => {
+        if (err) {
+          reject(err);
+        } else {
+          this.localLogin(authResult);
+          resolve(authResult);
+        }
+      });
     });
   }
 }
