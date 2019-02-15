@@ -1,14 +1,14 @@
 import auth0 from "auth0-js";
 import { EventEmitter } from "events";
-import { AUTH_CONFIG } from "./auth0-variables";
+import authConfig from "../../auth_config.json";
 
 const webAuth = new auth0.WebAuth({
-  domain: AUTH_CONFIG.domain,
-  redirectUri: AUTH_CONFIG.callbackUrl,
-  clientID: AUTH_CONFIG.clientId,
+  domain: authConfig.domain,
+  redirectUri: authConfig.callbackUrl,
+  clientID: authConfig.clientId,
   responseType: "token id_token",
   scope: "openid profile email",
-  audience: AUTH_CONFIG.audience
+  audience: authConfig.audience
 });
 
 const localStorageKey = "loggedIn";
@@ -64,7 +64,11 @@ class AuthService extends EventEmitter {
   }
 
   isIdTokenValid() {
-    return this.idToken && this.tokenExpiry && new Date().getTime() < this.tokenExpiry;
+    return (
+      this.idToken &&
+      this.tokenExpiry &&
+      new Date().getTime() < this.tokenExpiry
+    );
   }
 
   isAccessTokenValid() {
@@ -110,7 +114,7 @@ class AuthService extends EventEmitter {
     // Convert the expiry time from seconds to milliseconds,
     // required by the Date constructor
     this.tokenExpiry = new Date(this.profile.exp * 1000);
-    
+
     // Convert expiresIn to milliseconds and add the current time
     // (expiresIn is a relative timestamp, we want an absolute time)
     this.accessTokenExpiry = new Date(Date.now() + authResult.expiresIn * 1000);

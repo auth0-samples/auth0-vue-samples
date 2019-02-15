@@ -1,21 +1,7 @@
 const fs = require("fs");
 const path = require("path");
-const dotenv = require("dotenv");
-
-const localEnvPath = path.join(__dirname, "..", ".env.local");
-
-if (fs.existsSync(localEnvPath)) {
-  dotenv.config({
-    path: localEnvPath,
-    debug: process.env.DEBUG
-  });
-} else {
-  dotenv.config({
-    debug: process.env.DEBUG
-  });
-}
-
 const app = require("../server");
+
 const port = process.env.NODE_ENV === "production" ? 3000 : 3001;
 
 app.listen(port, () => console.log(`Server listening on port ${port}`));

@@ -12,7 +12,6 @@
   "dependencies": {
     "chalk": "^2.4.2",
     "cors": "^2.8.5",
-    "dotenv": "^6.2.0",
     "express": "^4.16.4",
     "express-jwt": "^5.3.1",
     "helmet": "^3.15.0",

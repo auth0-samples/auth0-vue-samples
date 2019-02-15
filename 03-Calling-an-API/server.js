@@ -1,4 +1,3 @@
-/* eslint-disable no-console */
 const express = require("express");
 const morgan = require("morgan");
 const cors = require("cors");
@@ -6,15 +5,17 @@ const helmet = require("helmet");
 const jwt = require("express-jwt");
 const jwksRsa = require("jwks-rsa");
 const { join } = require("path");
+const authConfig = require("./auth_config.json");
 
 const app = express();
 
 if (
-  !process.env.AUTH0_DOMAIN ||
-  !process.env.AUTH0_CLIENT_ID ||
-  !process.env.AUTH0_AUDIENCE
+  !authConfig.domain ||
+  !authConfig.clientId ||
+  !authConfig.audience ||
+  !authConfig.callbackUrl
 ) {
-  throw "Make sure you have AUTH0_DOMAIN, AUTH0_AUDIENCE and AUTH0_CLIENT_ID in your .env file";
+  throw "Please make sure that auth_config.json is in place and populated";
 }
 
 app.use(morgan("dev"));
@@ -27,11 +28,11 @@ const checkJwt = jwt({
     cache: true,
     rateLimit: true,
     jwksRequestsPerMinute: 5,
-    jwksUri: `https://${process.env.AUTH0_DOMAIN}/.well-known/jwks.json`
+    jwksUri: `https://${authConfig.domain}/.well-known/jwks.json`
   }),
 
-  audience: [process.env.AUTH0_AUDIENCE],
-  issuer: `https://${process.env.AUTH0_DOMAIN}/`,
+  audience: [authConfig.audience],
+  issuer: `https://${authConfig.domain}/`,
   algorithm: ["RS256"]
 });
 
