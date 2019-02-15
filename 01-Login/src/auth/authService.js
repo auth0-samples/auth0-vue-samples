@@ -1,11 +1,11 @@
 import auth0 from "auth0-js";
 import { EventEmitter } from "events";
-import { AUTH_CONFIG } from "./auth0-variables";
+import authConfig from '../../auth_config.json';
 
 const webAuth = new auth0.WebAuth({
-  domain: AUTH_CONFIG.domain,
-  redirectUri: AUTH_CONFIG.callbackUrl,
-  clientID: AUTH_CONFIG.clientId,
+  domain: authConfig.domain,
+  redirectUri: authConfig.callbackUrl,
+  clientID: authConfig.clientId,
   responseType: "id_token",
   scope: "openid profile email"
 });

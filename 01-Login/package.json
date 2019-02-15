@@ -8,7 +8,6 @@
     "lint": "vue-cli-service lint"
   },
   "dependencies": {
-    "dotenv": "^6.2.0",
     "express": "^4.16.4",
     "morgan": "^1.9.1"
   },

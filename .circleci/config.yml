@@ -11,15 +11,12 @@ defaults: &defaults
     - run:
         name: Replace Auth0 test credentials
         command: |
-          echo "export const AUTH_CONFIG = {" >> $AUTH0_CFG
-          echo "  clientId: '$AUTH0_TEST_CLIENT_ID'," >> $AUTH0_CFG
-          echo "  domain: '$AUTH0_TEST_DOMAIN'," >> $AUTH0_CFG
-          echo "  callbackUrl: 'http://localhost:3000/callback'," >> $AUTH0_CFG
-          echo "  apiUrl: '$AUTH0_TEST_AUDIENCE'" >> $AUTH0_CFG
-          echo "}" >> $AUTH0_CFG
-          echo "AUTH0_AUDIENCE=$AUTH0_TEST_AUDIENCE" >> .env
-          echo "AUTH0_DOMAIN=$AUTH0_TEST_DOMAIN" >> .env
-          echo "AUTH0_CLIENT_ID=$AUTH0_TEST_CLIENT_ID" >> .env
+          echo '{ "domain": "$AUTH0_TEST_DOMAIN",
+            "clientId": "$AUTH0_TEST_CLIENT_ID",
+            "audience": "$AUTH0_TEST_AUDIENCE",
+            "callbackUrl": "http://localhost:3000/callback"
+            }' >> $AUTH_CFG
+            
     - run:
         name: Build pull request
         command: |
@@ -64,14 +61,14 @@ jobs:
   01-login:
     machine: true
     environment:
-      - AUTH0_CFG: 01-Login/src/auth/auth0-variables.js
+      - AUTH0_CFG: 01-Login/auth_config.json
       - SAMPLE_PATH: 01-Login
     <<: *defaults
 
   03-api:
     machine: true
     environment:
-      - AUTH0_CFG: 03-Calling-an-API/src/auth/auth0-variables.js
+      - AUTH0_CFG: 03-Calling-an-API/auth_config.json
       - SAMPLE_PATH: 03-Calling-an-API
     <<: *defaults
 
