@@ -11,9 +11,7 @@ const app = express();
 
 if (
   !authConfig.domain ||
-  !authConfig.clientId ||
-  !authConfig.audience ||
-  !authConfig.callbackUrl
+  !authConfig.audience
 ) {
   throw "Please make sure that auth_config.json is in place and populated";
 }
@@ -31,7 +29,7 @@ const checkJwt = jwt({
     jwksUri: `https://${authConfig.domain}/.well-known/jwks.json`
   }),
 
-  audience: [authConfig.audience],
+  audience: authConfig.audience,
   issuer: `https://${authConfig.domain}/`,
   algorithm: ["RS256"]
 });
