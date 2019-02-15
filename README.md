@@ -4,10 +4,9 @@
 
 This is the sample code for the [Auth0 Vue.js Quickstart](https://auth0.com/docs/quickstart/spa/vuejs).
 
-There are three sample applications:
+There are two sample applications:
 
 * [01 - Login](./01-Login) — demonstrates logging in and viewing profile information
-* [02 - Calling the backend](./02-Calling-the-backend) — demonstrates how to call a backend API using ID tokens, with token validation
 * [03 - Calling an API](./03-Calling-an-API) — demonstrates how to call a third-party API using access tokens
 
 ## What is Auth0?
