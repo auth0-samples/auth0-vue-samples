@@ -17,7 +17,7 @@ defaults: &defaults
         name: Build pull request
         command: |
           docker build -t $CIRCLE_JOB ./$SAMPLE_PATH
-          docker run -d -p 3000:3000 --name $CIRCLE_SHA1 --env-file .env $CIRCLE_JOB
+          docker run -d -p 3000:3000 --name $CIRCLE_SHA1 $CIRCLE_JOB
     - run:
         name: Wait for app to be available
         command: |
