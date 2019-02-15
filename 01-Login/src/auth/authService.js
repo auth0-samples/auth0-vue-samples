@@ -59,7 +59,7 @@ class AuthService extends EventEmitter {
   }
 
   isIdTokenValid() {
-    return this.idToken && this.tokenExpiry && this.tokenExpiry > Date.now();
+    return this.idToken && this.tokenExpiry && new Date().getTime() < this.tokenExpiry;
   }
 
   getIdToken() {
@@ -79,6 +79,9 @@ class AuthService extends EventEmitter {
   localLogin(authResult) {
     this.idToken = authResult.idToken;
     this.profile = authResult.idTokenPayload;
+
+    // Convert the expiry time from seconds to milliseconds,
+    // required by the Date constructor
     this.tokenExpiry = new Date(this.profile.exp * 1000);
 
     localStorage.setItem(localStorageKey, "true");

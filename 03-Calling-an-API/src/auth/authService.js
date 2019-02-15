@@ -64,14 +64,14 @@ class AuthService extends EventEmitter {
   }
 
   isIdTokenValid() {
-    return this.idToken && this.tokenExpiry && this.tokenExpiry > Date.now();
+    return this.idToken && this.tokenExpiry && new Date().getTime() < this.tokenExpiry;
   }
 
   isAccessTokenValid() {
     return (
       this.accessToken &&
       this.accessTokenExpiry &&
-      this.accessTokenExpiry > Date.now()
+      Date.now() < this.accessTokenExpiry
     );
   }
 
@@ -104,8 +104,15 @@ class AuthService extends EventEmitter {
   localLogin(authResult) {
     this.idToken = authResult.idToken;
     this.profile = authResult.idTokenPayload;
-    this.tokenExpiry = new Date(this.profile.exp * 1000);
+
     this.accessToken = authResult.accessToken;
+
+    // Convert the expiry time from seconds to milliseconds,
+    // required by the Date constructor
+    this.tokenExpiry = new Date(this.profile.exp * 1000);
+    
+    // Convert expiresIn to milliseconds and add the current time
+    // (expiresIn is a relative timestamp, we want an absolute time)
     this.accessTokenExpiry = new Date(Date.now() + authResult.expiresIn * 1000);
 
     localStorage.setItem(localStorageKey, "true");
