@@ -4,7 +4,7 @@ import authConfig from "../../auth_config.json";
 
 const webAuth = new auth0.WebAuth({
   domain: authConfig.domain,
-  redirectUri: authConfig.callbackUrl,
+  redirectUri: `${window.location.origin}/callback`,
   clientID: authConfig.clientId,
   responseType: "id_token",
   scope: "openid profile email"
@@ -102,7 +102,7 @@ class AuthService extends EventEmitter {
       if (localStorage.getItem(localStorageKey) !== "true") {
         return reject("Not logged in");
       }
-      
+
       webAuth.checkSession({}, (err, authResult) => {
         if (err) {
           reject(err);
