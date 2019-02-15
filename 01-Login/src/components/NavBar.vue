@@ -37,7 +37,7 @@
                 id="profileDropDown"
                 data-toggle="dropdown"
               >
-                <img :src="profile.picture" alt class="nav-user-profile">
+                <img :src="profile.picture" alt="User's profile picture" class="nav-user-profile">
               </a>
               <div class="dropdown-menu dropdown-menu-right">
                 <div class="dropdown-header">{{ profile.name }}</div>
@@ -58,7 +58,7 @@
           <ul class="navbar-nav d-md-none" v-if="isAuthenticated">
             <li class="nav-item">
               <span class="user-info">
-                <img :src="profile.picture" alt class="nav-user-profile d-inline-block">
+                <img :src="profile.picture" alt="User's profile picture" class="nav-user-profile d-inline-block">
                 <h6 class="d-inline-block">{{ profile.name }}</h6>
               </span>
             </li>
