@@ -29,6 +29,7 @@ RUN npm install --production
 
 COPY --from=build /app/dist ./dist
 COPY --from=build /app/bin ./bin
+COPY --from=build /app/auth_config.json .
 COPY --from=build /app/server.js .
 
 EXPOSE 3000
