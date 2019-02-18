@@ -6,30 +6,23 @@ This sample demonstrates:
 - Accessing profile information that has been provided in the ID token
 - Gated content. The `/profile` route is not accessible without having first logged in
 
-## Configuration
-
-The project needs to be configured with your Auth0 domain and client ID in order for the authentication flow to work.
-
-To do this, first copy `src/auth/auth0-variables.sample.js` into a new file in the same folder called `auth0-variables.js`, and replace the values within with your own Auth0 application credentials.
-
-```js
-// src/auth/auth0-variables.js
-
-export default {
-  domain: "<YOUR AUTH0 DOMAIN>",
-  clientId: "<YOUR AUTH0 CLIENTID>",
-  callbackUrl: `${window.location.origin}/callback`
-};
-```
-
-## Deployment
-
-To build and run the Docker image, run `exec.sh`, or `exec.ps1` on Windows.
-
 ## Project setup
 
 ```bash
 npm install
+```
+
+### Configuration
+
+The project needs to be configured with your Auth0 domain and client ID in order for the authentication flow to work.
+
+To do this, first copy `auth_config.sample.json` into a new file in the same folder called `auth_config.json`, and replace the values within with your own Auth0 application credentials:
+
+```json
+{
+  "domain": "<YOUR AUTH0 DOMAIN>",
+  "clientId": "<YOUR AUTH0 CLIENT ID>"
+}
 ```
 
 ### Compiles and hot-reloads for development
@@ -38,11 +31,17 @@ npm install
 npm run serve
 ```
 
+## Deployment
+
 ### Compiles and minifies for production
 
 ```bash
 npm run build
 ```
+
+### Docker build
+
+To build and run the Docker image, run `exec.sh`, or `exec.ps1` on Windows.
 
 ### Run your tests
 

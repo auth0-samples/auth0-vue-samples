@@ -2,58 +2,45 @@
 
 For this scenario, an API endpoint `/api/external` has been included in the Express server that requires a bearer token to be supplied as a bearer token in the `Authorization` header (as provided during the authentication flow). This uses the [`express-jwt`](https://github.com/auth0/express-jwt) middleware to validate the token against the identifier of your API as set up in the Auth0 dashboard, as well as checking that the signature is valid.
 
-## Configuration
-
-The project needs to be configured with your Auth0 domain and client ID in order for the authentication flow to work. Both the front end and the back end need to be configured.
-
-To do this, first copy `src/auth/auth0-variables.sample.js` into a new file in the same folder called `auth0-variables.js`, and replace the values within with your own Auth0 application credentials.
-
-```js
-// src/auth/auth0-variables.js
-
-export default {
-  domain: "<YOUR AUTH0 DOMAIN>",
-  clientId: "<YOUR AUTH0 CLIENTID>",
-  audience: "<YOUR AUTH0 AUDIENCE>",
-  callbackUrl: `${window.location.origin}/callback`
-};
-```
-
-Next, copy `.env.sample` in the root of the project, and enter values for the `AUTH0_DOMAIN`, `AUTH0_CLIENTID` and `AUTH0_AUDIENCE` fields. These should be the same values that are used in the `auth0-variables.js` file:
-
-```bash
-AUTH0_DOMAIN=<YOUR AUTH0 DOMAIN>
-AUTH0_CLIENTID=<YOUR AUTH0 CLIENT ID>
-AUTH0_AUDIENCE=<YOUR AUTH0 AUDIENCE>
-```
-
-## Deployment
-
-To build the Docker image, run `exec.sh`
-
 ## Project setup
 
 ```bash
 npm install
 ```
 
-### Compiles and hot-reloads for development
+### Configuration
 
-```bash
-npm run serve
+The project needs to be configured with your Auth0 domain and client ID in order for the authentication flow to work.
+
+To do this, first copy `auth_config.sample.json` into a new file in the same folder called `auth_config.json`, and replace the values within with your own Auth0 application credentials:
+
+```json
+{
+  "domain": "<YOUR AUTH0 DOMAIN>",
+  "audience": "<YOUR AUTH0 API IDENTIFIER>",
+  "clientId": "<YOUR AUTH0 CLIENT ID>"
+}
 ```
 
-### Compiles and serves the Vue app, and starts the backend API server on port 3001
+### Running in development
+
+This compiles and serves the Vue app, and starts the backend API server on port 3001:
 
 ```bash
 npm run dev
 ```
 
+## Deployment
+
 ### Compiles and minifies for production
 
 ```bash
 npm run build
+
 ```
+### Docker build
+
+To build the Docker image run `exec.sh`, or `exec.ps1` on Windows.
 
 ### Run your tests
 
