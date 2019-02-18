@@ -67,7 +67,7 @@ class AuthService extends EventEmitter {
     return (
       this.idToken &&
       this.tokenExpiry &&
-      new Date().getTime() < this.tokenExpiry
+      Date.now() < this.tokenExpiry
     );
   }
 
