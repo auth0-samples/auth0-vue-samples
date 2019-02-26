@@ -1,0 +1,7 @@
+const fs = require("fs");
+const path = require("path");
+const app = require("../server");
+
+const port = process.env.NODE_ENV === "production" ? 3000 : 3001;
+
+app.listen(port, () => console.log(`Server listening on port ${port}`));

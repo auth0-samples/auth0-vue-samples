@@ -23,14 +23,17 @@ RUN mkdir -p /app/dist
 
 WORKDIR /app
 
-COPY --from=build /app/dist ./dist
 COPY --from=build /app/package.json .
-COPY --from=build /app/server.js .
-
-ENV NODE_ENV production
 
 RUN npm install --production
 
+COPY --from=build /app/dist ./dist
+COPY --from=build /app/bin ./bin
+COPY --from=build /app/auth_config.json .
+COPY --from=build /app/server.js .
+
 EXPOSE 3000
 
-CMD ["node", "server.js"]
+ENV NODE_ENV production
+
+CMD ["node", "bin/www"]
