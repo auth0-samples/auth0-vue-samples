@@ -1,5 +1,5 @@
 {
-  "domain": "<YOUR AUTH0 DOMAIN>",
-  "audience": "<YOUR AUTH0 API IDENTIFIER",
-  "clientId": "<YOUR AUTH0 CLIENT ID>"
+  "domain": "{DOMAIN}",
+  "audience": "{API_IDENTIFIER}",
+  "clientId": "{CLIENT_ID}"
 }
