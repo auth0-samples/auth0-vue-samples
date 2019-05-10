@@ -1,5 +1,5 @@
 <template>
-  <div class="nav-container">
+  <div class="nav-container mb-3">
     <nav class="navbar navbar-expand-md navbar-light bg-light">
       <div class="container">
         <div class="navbar-brand logo"></div>
@@ -58,7 +58,11 @@
           <ul class="navbar-nav d-md-none" v-if="isAuthenticated">
             <li class="nav-item">
               <span class="user-info">
-                <img :src="profile.picture" alt="User's profile picture" class="nav-user-profile d-inline-block">
+                <img
+                  :src="profile.picture"
+                  alt="User's profile picture"
+                  class="nav-user-profile d-inline-block"
+                >
                 <h6 class="d-inline-block">{{ profile.name }}</h6>
               </span>
             </li>

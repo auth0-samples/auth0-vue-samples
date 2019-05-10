@@ -1,8 +1,11 @@
 <template>
   <div id="app">
     <nav-bar/>
-    <div class="container mt-5">
-      <router-view/>
+    <div class="container">
+      <error/>
+      <div class="mt-5">
+        <router-view/>
+      </div>
     </div>
     <footer>
       <div class="logo"></div>
@@ -20,10 +23,12 @@ import "samples-bootstrap-theme";
 import "samples-bootstrap-theme/dist/css/auth0-theme.css";
 
 import NavBar from "./components/NavBar";
+import Error from "./components/Error";
 
 export default {
   components: {
-    NavBar
+    NavBar,
+    Error
   },
   async created() {
     try {
