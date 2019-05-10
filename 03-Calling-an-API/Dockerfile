@@ -1,7 +1,7 @@
 FROM node:10-alpine as build
 
 RUN apk update && apk upgrade && \
-    apk add --no-cache bash git openssh
+  apk add --no-cache bash git openssh
 
 RUN mkdir /app
 
@@ -30,7 +30,7 @@ RUN npm install --production
 COPY --from=build /app/dist ./dist
 COPY --from=build /app/bin ./bin
 COPY --from=build /app/auth_config.json .
-COPY --from=build /app/server.js .
+COPY --from=build /app/web-server.js .
 
 EXPOSE 3000
 

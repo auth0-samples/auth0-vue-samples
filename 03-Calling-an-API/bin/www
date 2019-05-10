@@ -1,6 +1,6 @@
 const fs = require("fs");
 const path = require("path");
-const app = require("../server");
+const app = require("../web-server");
 
 const port = process.env.NODE_ENV === "production" ? 3000 : 3001;
 
