@@ -47,6 +47,11 @@ class AuthService extends EventEmitter {
     return new Promise((resolve, reject) => {
       webAuth.parseHash((err, authResult) => {
         if (err) {
+          this.emit(loginEvent, {
+            loggedIn: false,
+            error: err,
+            errorMsg: err.statusText
+          });
           reject(err);
         } else {
           this.localLogin(authResult);
