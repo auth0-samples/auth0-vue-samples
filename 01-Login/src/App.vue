@@ -1,13 +1,13 @@
 <template>
-  <div id="app">
-    <nav-bar/>
-    <div class="container">
-      <error/>
+  <div id="app" class="d-flex flex-column h-100">
+    <nav-bar />
+    <div class="container flex-grow-1">
+      <error />
       <div class="mt-5">
-        <router-view/>
+        <router-view />
       </div>
     </div>
-    <footer>
+    <footer class="bg-light text-center p-3">
       <div class="logo"></div>
       <p>
         Sample project provided by
@@ -18,10 +18,6 @@
 </template>
 
 <script>
-import "jquery";
-import "samples-bootstrap-theme";
-import "samples-bootstrap-theme/dist/css/auth0-theme.css";
-
 import NavBar from "./components/NavBar";
 import Error from "./components/Error";
 
