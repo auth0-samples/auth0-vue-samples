@@ -40,15 +40,20 @@
                 id="profileDropDown"
                 data-toggle="dropdown"
               >
-                <img :src="profile.picture" alt="User's profile picture" class="nav-user-profile">
+                <img
+                  :src="profile.picture"
+                  alt="User's profile picture"
+                  class="nav-user-profile rounded-circle"
+                  width="50"
+                />
               </a>
               <div class="dropdown-menu dropdown-menu-right">
                 <div class="dropdown-header">{{ profile.name }}</div>
                 <router-link to="/profile" class="dropdown-item dropdown-profile">
-                  <span class="icon icon-profile"></span> Profile
+                  <font-awesome-icon class="mr-3" icon="user" />Profile
                 </router-link>
                 <a id="qsLogoutBtn" href="#" class="dropdown-item" @click.prevent="logout">
-                  <span class="icon icon-power"></span> Log out
+                  <font-awesome-icon class="mr-3" icon="power-off" />Log out
                 </a>
               </div>
             </li>
@@ -58,24 +63,25 @@
             <button class="btn btn-primary btn-block" @click="login">Log in</button>
           </ul>
 
-          <ul class="navbar-nav d-md-none" v-if="isAuthenticated">
+          <ul id="mobileAuthNavBar" class="navbar-nav d-md-none d-flex" v-if="isAuthenticated">
             <li class="nav-item">
               <span class="user-info">
                 <img
                   :src="profile.picture"
                   alt="User's profile picture"
-                  class="nav-user-profile d-inline-block"
-                >
+                  class="nav-user-profile d-inline-block rounded-circle mr-3"
+                  width="50"
+                />
                 <h6 class="d-inline-block">{{ profile.name }}</h6>
               </span>
             </li>
             <li>
-              <span class="icon icon-profile"></span>
+              <font-awesome-icon icon="user" class="mr-3" />
               <router-link to="/profile">Profile</router-link>
             </li>
 
             <li>
-              <span class="icon icon-power"></span>
+              <font-awesome-icon icon="power-off" class="mr-3" />
               <a id="qsLogoutBtn" href="#" class @click.prevent="logout">Log out</a>
             </li>
           </ul>
@@ -109,3 +115,10 @@ export default {
   }
 };
 </script>
+
+<style>
+#mobileAuthNavBar {
+  min-height: 125px;
+  justify-content: space-between;
+}
+</style>
