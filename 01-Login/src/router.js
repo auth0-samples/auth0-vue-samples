@@ -34,7 +34,7 @@ router.beforeEach((to, from, next) => {
     return next();
   }
 
-  auth.login({ target: to.path });
+  auth.login({ target: to.fullPath });
 });
 
 export default router;
