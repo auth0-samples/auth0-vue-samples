@@ -22,7 +22,7 @@
             </li>
           </ul>
           <ul class="navbar-nav d-none d-md-block">
-            <li v-if="!isAuthenticated" class="nav-item">
+            <li v-if="!$auth.isAuthenticated && !$auth.loading" class="nav-item">
               <button
                 id="qsLoginBtn"
                 class="btn btn-primary btn-margin"
@@ -30,7 +30,7 @@
               >Login</button>
             </li>
 
-            <li class="nav-item dropdown" v-if="isAuthenticated">
+            <li class="nav-item dropdown" v-if="$auth.isAuthenticated">
               <a
                 class="nav-link dropdown-toggle"
                 href="#"
@@ -38,14 +38,14 @@
                 data-toggle="dropdown"
               >
                 <img
-                  :src="profile.picture"
+                  :src="$auth.user.picture"
                   alt="User's profile picture"
                   class="nav-user-profile rounded-circle"
                   width="50"
                 />
               </a>
               <div class="dropdown-menu dropdown-menu-right">
-                <div class="dropdown-header">{{ profile.name }}</div>
+                <div class="dropdown-header">{{ $auth.user.name }}</div>
                 <router-link to="/profile" class="dropdown-item dropdown-profile">
                   <font-awesome-icon class="mr-3" icon="user" />Profile
                 </router-link>
@@ -56,20 +56,24 @@
             </li>
           </ul>
 
-          <ul class="navbar-nav d-md-none" v-if="!isAuthenticated">
-            <button class="btn btn-primary btn-block" @click="login">Log in</button>
+          <ul class="navbar-nav d-md-none" v-if="!$auth.isAuthenticated && !$auth.loading">
+            <button id="qsLoginBtn" class="btn btn-primary btn-block" @click="login">Log in</button>
           </ul>
 
-          <ul id="mobileAuthNavBar" class="navbar-nav d-md-none d-flex" v-if="isAuthenticated">
+          <ul
+            id="mobileAuthNavBar"
+            class="navbar-nav d-md-none d-flex"
+            v-if="$auth.isAuthenticated"
+          >
             <li class="nav-item">
               <span class="user-info">
                 <img
-                  :src="profile.picture"
+                  :src="$auth.user.picture"
                   alt="User's profile picture"
                   class="nav-user-profile d-inline-block rounded-circle mr-3"
                   width="50"
                 />
-                <h6 class="d-inline-block">{{ profile.name }}</h6>
+                <h6 class="d-inline-block">{{ $auth.user.name }}</h6>
               </span>
             </li>
             <li>
@@ -93,22 +97,12 @@ export default {
   name: "NavBar",
   methods: {
     login() {
-      this.$auth.login();
+      this.$auth.loginWithRedirect();
     },
     logout() {
-      this.$auth.logOut();
+      this.$auth.logout();
       this.$router.push({ path: "/" });
-    },
-    handleLoginEvent(data) {
-      this.isAuthenticated = data.loggedIn;
-      this.profile = data.profile;
     }
-  },
-  data() {
-    return {
-      isAuthenticated: false,
-      profile: {}
-    };
   }
 };
 </script>

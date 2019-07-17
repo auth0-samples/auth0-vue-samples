@@ -12,6 +12,7 @@
     "morgan": "^1.9.1"
   },
   "devDependencies": {
+    "@auth0/auth0-spa-js": "^1.1.0",
     "@fortawesome/fontawesome-svg-core": "^1.2.19",
     "@fortawesome/free-solid-svg-icons": "^5.9.0",
     "@fortawesome/vue-fontawesome": "^0.1.6",
@@ -19,7 +20,6 @@
     "@vue/cli-plugin-eslint": "^3.9.2",
     "@vue/cli-service": "^3.9.2",
     "@vue/eslint-config-prettier": "^3.0.5",
-    "auth0-js": "^9.11.2",
     "babel-eslint": "^10.0.2",
     "highlight.js": "^9.15.8",
     "node-sass": "^4.12.0",
