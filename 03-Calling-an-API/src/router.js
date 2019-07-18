@@ -2,9 +2,8 @@ import Vue from "vue";
 import Router from "vue-router";
 import Home from "./views/Home.vue";
 import Profile from "./views/Profile.vue";
-import Callback from "./components/Callback.vue";
 import ExternalApi from "./views/ExternalApi.vue";
-import auth from "./auth/authService";
+import { authGuard } from "./auth";
 
 Vue.use(Router);
 
@@ -20,26 +19,15 @@ const router = new Router({
     {
       path: "/profile",
       name: "profile",
-      component: Profile
+      component: Profile,
+      beforeEnter: authGuard
     },
     {
       path: "/external-api",
-      component: ExternalApi
-    },
-    {
-      path: "/callback",
-      name: "callback",
-      component: Callback
+      component: ExternalApi,
+      beforeEnter: authGuard
     }
   ]
-});
-
-router.beforeEach((to, from, next) => {
-  if (to.path === "/" || to.path === "/callback" || auth.isAuthenticated()) {
-    return next();
-  }
-
-  auth.login({ target: to.path });
 });
 
 export default router;

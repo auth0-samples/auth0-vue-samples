@@ -1,157 +1,99 @@
-import auth0 from "auth0-js";
-import { EventEmitter } from "events";
-import authConfig from "../../auth_config.json";
+import Vue from "vue";
+import createAuth0Client from "@auth0/auth0-spa-js";
 
-const webAuth = new auth0.WebAuth({
-  domain: authConfig.domain,
-  redirectUri: `${window.location.origin}/callback`,
-  clientID: authConfig.clientId,
-  responseType: "token id_token",
-  scope: "openid profile email",
-  audience: authConfig.audience
-});
+const DEFAULT_REDIRECT_CALLBACK = () =>
+  window.history.replaceState({}, document.title, window.location.pathname);
 
-const localStorageKey = "loggedIn";
-const loginEvent = "loginEvent";
+let instance;
 
-class AuthService extends EventEmitter {
-  idToken = null;
-  accessToken = null;
-  profile = null;
-  tokenExpiry = null;
-  accessTokenExpiry = null;
+export const getInstance = () => instance;
 
-  login(customState) {
-    webAuth.authorize({
-      appState: customState
-    });
-  }
+export const createAuthService = ({
+  onRedirectCallback = DEFAULT_REDIRECT_CALLBACK,
+  redirect_uri = window.location.origin,
+  ...options
+}) => {
+  if (instance) return instance;
 
-  logOut() {
-    localStorage.removeItem(localStorageKey);
+  instance = new Vue({
+    data() {
+      return {
+        loading: true,
+        isAuthenticated: false,
+        user: {},
+        auth0Client: null,
+        popupOpen: false,
+        error: null
+      };
+    },
+    methods: {
+      async loginWithPopup(o) {
+        this.popupOpen = true;
 
-    this.idToken = null;
-    this.accessToken = null;
-    this.tokenExpiry = null;
-    this.profile = null;
-    this.accessTokenExpiry = null;
-
-    webAuth.logout({
-      returnTo: `${window.location.origin}`
-    });
-
-    this.emit(loginEvent, { loggedIn: false });
-  }
-
-  handleAuthentication() {
-    return new Promise((resolve, reject) => {
-      webAuth.parseHash((err, authResult) => {
-        if (err) {
-          this.emit(loginEvent, {
-            loggedIn: false,
-            error: err,
-            errorMsg: err.statusText
-          });
-          reject(err);
-        } else {
-          this.localLogin(authResult);
-          resolve(authResult.idToken);
+        try {
+          await this.auth0Client.loginWithPopup(o);
+        } catch (e) {
+          console.error(e);
+        } finally {
+          this.popupOpen = false;
         }
-      });
-    });
-  }
 
-  isAuthenticated() {
-    return (
-      Date.now() < this.tokenExpiry &&
-      localStorage.getItem(localStorageKey) === "true"
-    );
-  }
-
-  isIdTokenValid() {
-    return (
-      this.idToken &&
-      this.tokenExpiry &&
-      Date.now() < this.tokenExpiry
-    );
-  }
-
-  isAccessTokenValid() {
-    return (
-      this.accessToken &&
-      this.accessTokenExpiry &&
-      Date.now() < this.accessTokenExpiry
-    );
-  }
-
-  getIdToken() {
-    return new Promise((resolve, reject) => {
-      if (this.isIdTokenValid()) {
-        resolve(this.idToken);
-      } else if (this.isAuthenticated()) {
-        this.renewTokens().then(authResult => {
-          resolve(authResult.idToken);
-        }, reject("Unable to renew authentication"));
-      } else {
-        resolve();
-      }
-    });
-  }
-
-  getAccessToken() {
-    return new Promise((resolve, reject) => {
-      if (this.isAccessTokenValid()) {
-        resolve(this.accessToken);
-      } else {
-        this.renewTokens().then(authResult => {
-          resolve(authResult.accessToken);
-        }, reject);
-      }
-    });
-  }
-
-  localLogin(authResult) {
-    this.idToken = authResult.idToken;
-    this.profile = authResult.idTokenPayload;
-
-    this.accessToken = authResult.accessToken;
-
-    // Convert the expiry time from seconds to milliseconds,
-    // required by the Date constructor
-    this.tokenExpiry = new Date(this.profile.exp * 1000);
-
-    // Convert expiresIn to milliseconds and add the current time
-    // (expiresIn is a relative timestamp, we want an absolute time)
-    this.accessTokenExpiry = new Date(Date.now() + authResult.expiresIn * 1000);
-
-    localStorage.setItem(localStorageKey, "true");
-
-    this.emit(loginEvent, {
-      loggedIn: true,
-      profile: authResult.idTokenPayload,
-      state: authResult.appState || {}
-    });
-  }
-
-  renewTokens() {
-    return new Promise((resolve, reject) => {
-      if (localStorage.getItem(localStorageKey) !== "true") {
-        return reject("Not logged in");
-      }
-
-      webAuth.checkSession({}, (err, authResult) => {
-        if (err) {
-          reject(err);
-        } else {
-          this.localLogin(authResult);
-          resolve(authResult);
+        this.user = await this.auth0Client.getUser();
+        this.isAuthenticated = true;
+      },
+      async handleRedirectCallback() {
+        this.loading = true;
+        try {
+          await this.auth0Client.handleRedirectCallback();
+          this.user = await this.auth0Client.getUser();
+          this.isAuthenticated = true;
+        } catch (e) {
+          this.error = e;
+        } finally {
+          this.loading = false;
         }
+      },
+      loginWithRedirect(o) {
+        return this.auth0Client.loginWithRedirect(o);
+      },
+      getIdTokenClaims(o) {
+        return this.auth0Client.getIdTokenClaims(o);
+      },
+      getTokenSilently(o) {
+        return this.auth0Client.getTokenSilently(o);
+      },
+      getTokenWithPopup(o) {
+        return this.auth0Client.getTokenWithPopup(o);
+      },
+      logout(o) {
+        return this.auth0Client.logout(o);
+      }
+    },
+    async created() {
+      this.auth0Client = await createAuth0Client({
+        domain: options.domain,
+        client_id: options.clientId,
+        audience: options.audience,
+        redirect_uri
       });
-    });
-  }
-}
 
-const service = new AuthService();
-service.setMaxListeners(5);
+      try {
+        if (
+          window.location.search.includes("code=") &&
+          window.location.search.includes("state=")
+        ) {
+          const { appState } = await this.auth0Client.handleRedirectCallback();
+          onRedirectCallback(appState);
+        }
+      } catch (e) {
+        this.error = e;
+      } finally {
+        this.isAuthenticated = await this.auth0Client.isAuthenticated();
+        this.user = await this.auth0Client.getUser();
+        this.loading = false;
+      }
+    }
+  });
 
-export default service;
+  return instance;
+};

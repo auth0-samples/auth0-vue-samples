@@ -9,10 +9,7 @@ const authConfig = require("./auth_config.json");
 
 const app = express();
 
-if (
-  !authConfig.domain ||
-  !authConfig.audience
-) {
+if (!authConfig.domain || !authConfig.audience) {
   throw "Please make sure that auth_config.json is in place and populated";
 }
 
@@ -40,8 +37,10 @@ app.get("/api/external", checkJwt, (req, res) => {
   });
 });
 
-app.use((_, res) => {
-  res.sendFile(join(__dirname, "dist", "index.html"));
-});
+if (process.env.NODE_ENV === "production") {
+  app.use((_, res) => {
+    res.sendFile(join(__dirname, "dist", "index.html"));
+  });
+}
 
 module.exports = app;
