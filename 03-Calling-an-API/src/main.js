@@ -17,6 +17,7 @@ Vue.use(AuthPlugin, {
   domain: config.domain,
   clientId: config.clientId,
   audience: config.audience,
+  scope: config.scope,
   onRedirectCallback: appState => {
     router.push(
       appState && appState.targetUrl

@@ -1,5 +1,6 @@
 {
   "domain": "{DOMAIN}",
   "audience": "{API_IDENTIFIER}",
+   "scope": "{SCOPES}",
   "clientId": "{CLIENT_ID}"
 }

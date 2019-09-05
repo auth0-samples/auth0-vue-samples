@@ -10,7 +10,7 @@ export const getInstance = () => instance;
 
 export const createAuthService = ({
   onRedirectCallback = DEFAULT_REDIRECT_CALLBACK,
-  redirect_uri = window.location.origin,
+  redirectUri = window.location.origin,
   ...options
 }) => {
   if (instance) return instance;
@@ -74,7 +74,8 @@ export const createAuthService = ({
         domain: options.domain,
         client_id: options.clientId,
         audience: options.audience,
-        redirect_uri
+        scope: options.scope,
+        redirect_uri: redirectUri
       });
 
       try {

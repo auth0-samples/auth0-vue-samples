@@ -74,6 +74,7 @@ export const createAuthService = ({
         domain: options.domain,
         client_id: options.clientId,
         audience: options.audience,
+        scope: options.scope,
         redirect_uri: redirectUri
       });
 
