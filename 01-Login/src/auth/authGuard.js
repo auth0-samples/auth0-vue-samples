@@ -1,4 +1,4 @@
-import { getInstance } from "./authService";
+import { getInstance } from "./authWrapper";
 
 export const authGuard = (to, from, next) => {
   const authService = getInstance();

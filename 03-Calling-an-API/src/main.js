@@ -2,21 +2,21 @@ import Vue from "vue";
 import App from "./App.vue";
 import Axios from "./plugins/axios";
 import router from "./router";
-import AuthPlugin from "./plugins/auth";
+import { Auth0Plugin } from "./plugins/auth";
 import HighlightJs from "./directives/highlight";
 
 import { library } from "@fortawesome/fontawesome-svg-core";
 import { faLink, faUser, faPowerOff } from "@fortawesome/free-solid-svg-icons";
 import { FontAwesomeIcon } from "@fortawesome/vue-fontawesome";
 
-import config from "../auth_config.json";
+import { domain, clientId, audience } from "../auth_config.json";
 
 Vue.config.productionTip = false;
 
-Vue.use(AuthPlugin, {
-  domain: config.domain,
-  clientId: config.clientId,
-  audience: config.audience,
+Vue.use(Auth0Plugin, {
+  domain,
+  clientId,
+  audience,
   onRedirectCallback: appState => {
     router.push(
       appState && appState.targetUrl
@@ -26,7 +26,6 @@ Vue.use(AuthPlugin, {
   }
 });
 
-Vue.use(AuthPlugin);
 Vue.use(Axios);
 Vue.directive("highlightjs", HighlightJs);
 

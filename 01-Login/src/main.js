@@ -1,19 +1,19 @@
 import Vue from "vue";
 import App from "./App.vue";
 import router from "./router";
-import AuthPlugin from "./plugins/auth";
+import { Auth0Plugin } from "./auth";
 import HighlightJs from "./directives/highlight";
 
 import { library } from "@fortawesome/fontawesome-svg-core";
 import { faLink, faUser, faPowerOff } from "@fortawesome/free-solid-svg-icons";
 import { FontAwesomeIcon } from "@fortawesome/vue-fontawesome";
-import config from "../auth_config.json";
+import { domain, clientId } from "../auth_config.json";
 
 Vue.config.productionTip = false;
 
-Vue.use(AuthPlugin, {
-  domain: config.domain,
-  clientId: config.clientId,
+Vue.use(Auth0Plugin, {
+  domain,
+  clientId,
   onRedirectCallback: appState => {
     router.push(
       appState && appState.targetUrl

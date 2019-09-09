@@ -8,7 +8,7 @@ let instance;
 
 export const getInstance = () => instance;
 
-export const createAuthService = ({
+export const useAuth0 = ({
   onRedirectCallback = DEFAULT_REDIRECT_CALLBACK,
   redirect_uri = window.location.origin,
   ...options
@@ -96,4 +96,10 @@ export const createAuthService = ({
   });
 
   return instance;
+};
+
+export const Auth0Plugin = {
+  install(Vue, options) {
+    Vue.prototype.$auth = useAuth0(options);
+  }
 };
