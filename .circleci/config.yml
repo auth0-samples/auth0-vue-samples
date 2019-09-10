@@ -11,8 +11,8 @@ defaults: &defaults
     - run:
         name: Replace Auth0 test credentials
         command: |
-          echo "{ \"domain\": \"$AUTH0_TEST_DOMAIN\", \"clientId\": \"$AUTH0_TEST_CLIENT_ID\", \"audience\": \"$AUTH0_TEST_AUDIENCE\", \"callbackUrl\": \"http://localhost:3000/callback\" }" > $AUTH0_CFG
-            
+          echo "{ \"domain\": \"$AUTH0_TEST_DOMAIN\", \"clientId\": \"$AUTH0_TEST_CLIENT_ID\", \"audience\": \"$AUTH0_TEST_AUDIENCE\" }" > $AUTH0_CFG
+
     - run:
         name: Build pull request
         command: |
@@ -61,11 +61,11 @@ jobs:
       - SAMPLE_PATH: 01-Login
     <<: *defaults
 
-  03-api:
+  02-api:
     machine: true
     environment:
-      - AUTH0_CFG: 03-Calling-an-API/auth_config.json
-      - SAMPLE_PATH: 03-Calling-an-API
+      - AUTH0_CFG: 02-Calling-an-API/auth_config.json
+      - SAMPLE_PATH: 02-Calling-an-API
     <<: *defaults
 
 workflows:
@@ -79,7 +79,7 @@ workflows:
           requires:
             - checkout
 
-      - 03-api:
+      - 02-api:
           context: Quickstart SPA Test
           requires:
             - checkout
