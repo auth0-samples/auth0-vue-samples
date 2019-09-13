@@ -374,3 +374,31 @@ Finally, modify the navigation bar to include a link to the new page:
 ```
 
 Now you will be able to run the application, browse to the "External API" page and press the "Ping" button. The application will make a call to the external API endpoint and produce a message on the screen that says "Your Access Token was successfully validated!".
+
+To run the sample follow these steps:
+
+1) Set the **Callback URL** in the [Application Settings](${manage_url}/#/applications/${account.clientId}/settings) to
+```text
+http://localhost:3000/callback
+```
+2) Set **Allowed Web Origins** in the [Application Settings](${manage_url}/#/applications/${account.clientId}/settings) to
+```text
+http://localhost:3000
+```
+3) Set **Allowed Logout URLs** in the [Application Settings](${manage_url}/#/applications/${account.clientId}/settings) to 
+
+```text
+http://localhost:3000
+```
+4) Make sure [Node.JS LTS](https://nodejs.org/en/download/) is installed and execute the following commands in the sample's directory:
+```bash
+npm install && npm run serve
+```
+You can also run it from a [Docker](https://www.docker.com) image with the following commands:
+
+```bash
+# In Linux / macOS         
+sh exec.sh                 
+# In Windows' Powershell
+./exec.ps1
+```
