@@ -1,3 +1,20 @@
+---
+title: Login
+description: This tutorial demonstrates how to add user login to a Vue.JS application using Auth0.
+budicon: 448
+topics:
+  - quickstarts
+  - spa
+  - vuejs
+  - login
+github:
+  path: 01-Login
+contentType: tutorial
+useCase: quickstart
+---
+
+<!-- markdownlint-disable MD034 MD041 -->
+
 ::: note
 **New to Auth?** Learn [How Auth0 works](/overview), how it [integrates with Single-Page Applications](/architecture-scenarios/application/spa-api) and which [protocol](/flows/concepts/implicit) it uses.
 :::
