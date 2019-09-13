@@ -658,3 +658,31 @@ Given this, any page that is not either the home page or the callback URL will c
 Install the dependencies, start your app and point your browser to [http://localhost:3000](http://localhost:3000). Follow the **Log In** link to log in or sign up to your Auth0 tenant. Upon successful login or signup, you should be redirected to the user's profile page.
 
 ![login page](/media/articles/web/hosted-login.png)
+
+To run the sample follow these steps:
+
+1) Set the **Callback URL** in the [Application Settings](${manage_url}/#/applications/${account.clientId}/settings) to
+```text
+http://localhost:3000/callback
+```
+2) Set **Allowed Web Origins** in the [Application Settings](${manage_url}/#/applications/${account.clientId}/settings) to
+```text
+http://localhost:3000
+```
+3) Set **Allowed Logout URLs** in the [Application Settings](${manage_url}/#/applications/${account.clientId}/settings) to 
+
+```text
+http://localhost:3000
+```
+4) Make sure [Node.JS LTS](https://nodejs.org/en/download/) is installed and execute the following commands in the sample's directory:
+```bash
+npm install && npm run serve
+```
+You can also run it from a [Docker](https://www.docker.com) image with the following commands:
+
+```bash
+# In Linux / macOS         
+sh exec.sh                 
+# In Windows' Powershell
+./exec.ps1
+```
