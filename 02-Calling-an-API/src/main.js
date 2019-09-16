@@ -2,7 +2,7 @@ import Vue from "vue";
 import App from "./App.vue";
 import Axios from "./plugins/axios";
 import router from "./router";
-import { Auth0Plugin } from "./plugins/auth";
+import { Auth0Plugin } from "./auth";
 import HighlightJs from "./directives/highlight";
 
 import { library } from "@fortawesome/fontawesome-svg-core";
