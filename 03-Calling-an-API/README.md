@@ -34,9 +34,7 @@ For **Signing Algorithm**, select **RS256**.
 
 For this tutorial, let's modify the API to include a new endpoint that expects an Access Token to be supplied.
 
-::: note
-In a real scenario, this work would be done by the external API that is to be called from the frontend. This new endpoint is simply a convenience to serve as a learning exercise.
-:::
+> In a real scenario, this work would be done by the external API that is to be called from the frontend. This new endpoint is simply a convenience to serve as a learning exercise.
 
 Open `server.js` and add a new Express route to serve as the API endpoint, right underneath the existing one:
 
@@ -62,9 +60,7 @@ app.get("/api/external", checkJwt, (req, res) => {
 
 Notice that it continues to use the same `checkJwt` middleware in order to validate the Access Token. The difference here is that the Access Token must be validated using the API identifier, rather than the client ID that we used for the ID Token.
 
-::: note
-The API identifier is the identifer that was specified when the API was created in the [Auth0 dashboard](${manage_url}/#/apis).
-:::
+> The API identifier is the identifer that was specified when the API was created in the [Auth0 dashboard](${manage_url}/#/apis).
 
 Therefore, modify the `checkJwt` function to include the API identifier value in the `audience` setting:
 
@@ -84,9 +80,7 @@ const checkJwt = jwt({
 });
 ```
 
-::: note
-As the `audience` property accepts an array of values, both the client ID and the API identifier can be given, allowing both the ID Token and the Access Token to be verified using the same middleware.
-:::
+> As the `audience` property accepts an array of values, both the client ID and the API identifier can be given, allowing both the ID Token and the Access Token to be verified using the same middleware.
 
 Finally, modify the `authConfig` object to include your `audience` value:
 
@@ -137,9 +131,7 @@ module.exports = {
 };
 ```
 
-::: note
-This assumes that your project was created using [Vue CLI 3](https://cli.vuejs.org/guide/). If your project was not created in the same way, the above should be included as part of your Webpack configuration.
-:::
+> This assumes that your project was created using [Vue CLI 3](https://cli.vuejs.org/guide/). If your project was not created in the same way, the above should be included as part of your Webpack configuration.
 
 With this in place, the frontend application can make a request to `/api/external` and it will be correctly proxied through to the backend API at `http://localhost:3001/api/external`.
 
@@ -172,9 +164,7 @@ const webAuth = new auth0.WebAuth({
 });
 ```
 
-::: note
-Setting the `responseType` field to "token id_token" will cause the authorization server to return both the Access Token and the ID Token in a URL fragment.
-:::
+> Setting the `responseType` field to "token id_token" will cause the authorization server to return both the Access Token and the ID Token in a URL fragment.
 
 Next, modify the `AuthService` class to include fields to store the Access Token and the time that the Access Token will expire:
 
@@ -250,9 +240,7 @@ class AuthService extends EventEmitter {
 }
 ```
 
-::: note
-If `getAccessToken` is called and the Access Token is no longer valid, a new token will be retrieved automatically by calling `renewTokens`.
-:::
+> If `getAccessToken` is called and the Access Token is no longer valid, a new token will be retrieved automatically by calling `renewTokens`.
 
 ## Call the API Using an Access Token
 
