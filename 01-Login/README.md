@@ -22,7 +22,7 @@ useCase: quickstart
 
 When you signed up for Auth0, a new application was created for you, or you could have created a new one.
 
-You will need some details about that application to communicate with Auth0. You can get these details from the [Application Settings](${manage_url}/#/applications/${account.clientId}/settings) section in the Auth0 dashboard.
+You will need some details about that application to communicate with Auth0. You can get these details from your SPA app configuration settings in the [Auth0 dashboard](https://manage.auth0.com/#/applications).
 
 You need the following information:
 
@@ -37,7 +37,7 @@ If you have more than one application in your account, the sample comes with the
 
 A callback URL is a URL in your application where Auth0 redirects the user after they have authenticated. 
 
-The callback URL for your app must be whitelisted in the **Allowed Callback URLs** field in your [Application Settings](${manage_url}/#/applications/${account.clientId}/settings). If this field is not set, users will be unable to log in to the application and will get an error.
+The callback URL for your app must be whitelisted in the **Allowed Callback URLs** field in your [Application Settings](https://manage.auth0.com/#/applications). If this field is not set, users will be unable to log in to the application and will get an error.
 
 > If you are following along with the sample project you downloaded from the top of this page, you should set the **Allowed Callback URL** to `http://localhost:3000/callback`.
 
@@ -45,13 +45,13 @@ The callback URL for your app must be whitelisted in the **Allowed Callback URLs
 
 A logout URL is a URL in your application that Auth0 can return to after the user has been logged out of the authorization server. This is specified in the `returnTo` query parameter.
 
-The logout URL for your app must be whitelisted in the **Allowed Logout URLs** field in your [Application Settings](${manage_url}/#/applications/${account.clientId}/settings). If this field is not set, users will be unable to log out from the application and will get an error.
+The logout URL for your app must be whitelisted in the **Allowed Callback URLs** field in your [Application Settings](https://manage.auth0.com/#/applications). If this field is not set, users will be unable to log in to the application and will get an error.
 
 > If you are following along with the sample project you downloaded from the top of this page, the logout URL you need to whitelist in the **Allowed Logout URLs** field is `http://localhost:3000`.
 
 ### Configure Allowed Web Origins
 
-You need to whitelist the URL for your app in the **Allowed Web Origins** field in your [Application Settings](${manage_url}/#/applications/${account.clientId}/settings). If you don't whitelist your application URL, the application will be unable to automatically refresh the authentication tokens and your users will be logged out the next time they visit the application, or refresh the page.
+You need to whitelist the URL for your app in the **Allowed Web Origins** field in your [Application Settings](https://manage.auth0.com/#/applications). If you don't whitelist your application URL, the application will be unable to automatically refresh the authentication tokens and your users will be logged out the next time they visit the application, or refresh the page.
 
 > If you are following along with the sample project you downloaded from the top of this page, you should set the **Allowed Web Origins** to `http://localhost:3000`.
 
@@ -654,15 +654,15 @@ Install the dependencies, start your app and point your browser to [http://local
 
 To run the sample follow these steps:
 
-1) Set the **Callback URL** in the [Application Settings](${manage_url}/#/applications/${account.clientId}/settings) to
+1) Set the **Callback URL** in the [Application Settings](https://manage.auth0.com/#/applications) to
 ```text
 http://localhost:3000/callback
 ```
-2) Set **Allowed Web Origins** in the [Application Settings](${manage_url}/#/applications/${account.clientId}/settings) to
+2) Set **Allowed Web Origins** in the [Application Settings](https://manage.auth0.com/#/applications) to
 ```text
 http://localhost:3000
 ```
-3) Set **Allowed Logout URLs** in the [Application Settings](${manage_url}/#/applications/${account.clientId}/settings) to 
+3) Set **Allowed Logout URLs** in the [Application Settings](https://manage.auth0.com/#/applications) to 
 
 ```text
 http://localhost:3000
