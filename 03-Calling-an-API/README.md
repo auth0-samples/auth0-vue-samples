@@ -1,40 +1,78 @@
----
-title: Calling an API
-description: This tutorial demonstrates how to make calls to an external API
-budicon: 546
-topics:
-  - quickstarts
-  - spa
-  - vuejs
-  - apis
-github:
-  path: 03-Calling-an-API
-sample_download_required_data:
-  - client
-  - api
-contentType: tutorial
-useCase: quickstart
----
+# Scenario #3 - Calling an External API
 
-<!-- markdownlint-disable MD002 MD041 -->
+For this scenario, an API endpoint `/api/external` has been included in the Express server that requires a bearer token to be supplied as a bearer token in the `Authorization` header (as provided during the authentication flow). This uses the [`express-jwt`](https://github.com/auth0/express-jwt) middleware to validate the token against the identifier of your API as set up in the Auth0 dashboard, as well as checking that the signature is valid.
+
+## Project setup
+
+```bash
+npm install
+```
+
+### Configuration
+
+The project needs to be configured with your Auth0 domain and client ID in order for the authentication flow to work.
+
+To do this, first copy `auth_config.sample.json` into a new file in the same folder called `auth_config.json`, and replace the values within with your own Auth0 application credentials:
+
+```json
+{
+  "domain": "<YOUR AUTH0 DOMAIN>",
+  "audience": "<YOUR AUTH0 API IDENTIFIER>",
+  "clientId": "<YOUR AUTH0 CLIENT ID>"
+}
+```
+
+### Running in development
+
+This compiles and serves the Vue app, and starts the backend API server on port 3001:
+
+```bash
+npm run dev
+```
+
+## Deployment
+
+### Compiles and minifies for production
+
+```bash
+npm run build
+```
+
+### Docker build
+
+To build the Docker image run `exec.sh`, or `exec.ps1` on Windows.
+
+### Run your tests
+
+```bash
+npm run test
+```
+
+### Lints and fixes files
+
+```bash
+npm run lint
+```
+
+## Tutorial
 
 Most single-page apps use resources from data APIs. You may want to restrict access to those resources, so that only authenticated users with sufficient privileges can access them. Auth0 lets you manage access to these resources using [API Authorization](/api-auth).
 
 This tutorial shows you how to create a simple API using [Express](https://expressjs.com) that validates incoming JSON Web Tokens. You will then see how to call this API using an Access Token granted by the Auth0 authorization server.
 
-## Create an API
+### Create an API
 
-In the [APIs section](https://manage.auth0.com//#/apis) of the Auth0 dashboard, click **Create API**. Provide a name and an identifier for your API.
+In the [APIs section](https://manage.auth0.com/#/apis) of the Auth0 dashboard, click **Create API**. Provide a name and an identifier for your API.
 You will use the identifier later when you're configuring your Javascript Auth0 application instance.
 For **Signing Algorithm**, select **RS256**.
 
-![Create API](/media/articles/api-auth/create-api.png)
+![Create API](../docs/create-api.png)
 
-## Modify the Backend API
+### Modify the Backend API
 
 For this tutorial, let's modify the API to include a new endpoint that expects an Access Token to be supplied.
 
-> In a real scenario, this work would be done by the external API that is to be called from the frontend. This new endpoint is simply a convenience to serve as a learning exercise.
+> **Note** In a real scenario, this work would be done by the external API that is to be called from the frontend. This new endpoint is simply a convenience to serve as a learning exercise.
 
 Open `server.js` and add a new Express route to serve as the API endpoint, right underneath the existing one:
 
@@ -60,7 +98,7 @@ app.get("/api/external", checkJwt, (req, res) => {
 
 Notice that it continues to use the same `checkJwt` middleware in order to validate the Access Token. The difference here is that the Access Token must be validated using the API identifier, rather than the client ID that we used for the ID Token.
 
-> The API identifier is the identifer that was specified when the API was created in the [Auth0 dashboard](https://manage.auth0.com//#/apis).
+> **Note** The API identifier is the identifer that was specified when the API was created in the [Auth0 dashboard](https://manage.auth0.com/#/apis).
 
 Therefore, modify the `checkJwt` function to include the API identifier value in the `audience` setting:
 
@@ -70,25 +108,25 @@ const checkJwt = jwt({
     cache: true,
     rateLimit: true,
     jwksRequestsPerMinute: 5,
-    jwksUri: `https://<%= "${authConfig.domain}" %>/.well-known/jwks.json`
+    jwksUri: `https://${authConfig.domain}/.well-known/jwks.json`
   }),
 
   // Modify the audience to include both the client ID and the audience from configuration in an array
   audience: [authConfig.clientID, authConfig.audience],
-  issuer: `https://<%= "${authConfig.domain}" %>/`,
+  issuer: `https://${authConfig.domain}/`,
   algorithm: ["RS256"]
 });
 ```
 
-> As the `audience` property accepts an array of values, both the client ID and the API identifier can be given, allowing both the ID Token and the Access Token to be verified using the same middleware.
+> **Note** As the `audience` property accepts an array of values, both the client ID and the API identifier can be given, allowing both the ID Token and the Access Token to be verified using the same middleware.
 
 Finally, modify the `authConfig` object to include your `audience` value:
 
 ```js
 const authConfig = {
-  domain: "${account.namespace}",
-  clientID: "${account.clientId}",
-  audience: "${apiIdentifier}"
+  domain: "<YOUR AUTH0 DOMAIN>",
+  clientID: "<YOUR AUTH0 CLIENT ID>",
+  audience: "<YOUR AUTH0 API IDENTIFIER>"
 };
 ```
 
@@ -105,7 +143,7 @@ Finally, modify `package.json` to add two new scripts `dev` and `api` that can b
     "lint": "vue-cli-service lint",
     "dev": "npm-run-all --parallel serve api",
     "api": "node server.js"
-  },
+  }
 
   // .. package dependencies and other JSON nodes
 }
@@ -131,11 +169,11 @@ module.exports = {
 };
 ```
 
-> This assumes that your project was created using [Vue CLI 3](https://cli.vuejs.org/guide/). If your project was not created in the same way, the above should be included as part of your Webpack configuration.
+> **Note** This assumes that your project was created using [Vue CLI 3](https://cli.vuejs.org/guide/). If your project was not created in the same way, the above should be included as part of your Webpack configuration.
 
 With this in place, the frontend application can make a request to `/api/external` and it will be correctly proxied through to the backend API at `http://localhost:3001/api/external`.
 
-## Modify the AuthService Class
+### Modify the AuthService Class
 
 To start, open `authService.js` and make the necessary changes to the class to support retrieving an Access Token from the authorization server and exposing that token from a method.
 
@@ -143,9 +181,9 @@ First of all, open `auth_config.json` in the root of the project and make sure t
 
 ```json
 {
-  "domain": "${account.namespace}",
-  "clientId": "${account.clientId}",
-  "audience": "${apiIdentifier}"
+  "domain": "<YOUR AUTH0 DOMAIN>",
+  "clientId": "<YOUR AUTH0 CLIENT ID>",
+  "audience": "<YOUR AUTH0 API IDENTIFIER>"
 }
 ```
 
@@ -156,15 +194,15 @@ Then, modify the `webAuth` creation to include `token` in the response type and 
 
 const webAuth = new auth0.WebAuth({
   domain: authConfig.domain,
-  redirectUri: `<%= "${window.location.origin}" %>/callback`,
+  redirectUri: `${window.location.origin}/callback`,
   clientID: authConfig.clientId,
-  audience: authConfig.audience,   // add the audience
-  responseType: "token id_token",   // request 'token' as well as 'id_token'
+  audience: authConfig.audience, // add the audience
+  responseType: "token id_token", // request 'token' as well as 'id_token'
   scope: "openid profile email"
 });
 ```
 
-> Setting the `responseType` field to "token id_token" will cause the authorization server to return both the Access Token and the ID Token in a URL fragment.
+> **Note** Setting the `responseType` field to "token id_token" will cause the authorization server to return both the Access Token and the ID Token in a URL fragment.
 
 Next, modify the `AuthService` class to include fields to store the Access Token and the time that the Access Token will expire:
 
@@ -215,7 +253,6 @@ Finally, add two methods to the class that validate the Access Token and provide
 // src/auth/authService.js
 
 class AuthService extends EventEmitter {
-
   // ... other methods
 
   isAccessTokenValid() {
@@ -240,9 +277,9 @@ class AuthService extends EventEmitter {
 }
 ```
 
-> If `getAccessToken` is called and the Access Token is no longer valid, a new token will be retrieved automatically by calling `renewTokens`.
+> **Note** If `getAccessToken` is called and the Access Token is no longer valid, a new token will be retrieved automatically by calling `renewTokens`.
 
-## Call the API Using an Access Token
+### Call the API Using an Access Token
 
 The frontend Vue.js application should be modified to include a page that calls the API using an Access Token. Similar to the previous tutorial, this includes modifying the Vue router and adding a new view with a button that calls the API.
 
@@ -294,13 +331,13 @@ export default {
       try {
         const { data } = await axios.get("/api/external", {
           headers: {
-            Authorization: `Bearer <%= "${accessToken}" %>`
+            Authorization: `Bearer ${accessToken}`
           }
         });
 
         this.apiMessage = data.msg;
       } catch (e) {
-        this.apiMessage = `Error: the server responded with '<%= "${ e.response.status }" %>: <%= "${e.response.statusText}" %>'`; }
+        this.apiMessage = `Error: the server responded with '${ e.response.status }: ${e.response.statusText}'`; }
     }
   }
 };
@@ -363,30 +400,30 @@ Finally, modify the navigation bar to include a link to the new page:
 
 Now you will be able to run the application, browse to the "External API" page and press the "Ping" button. The application will make a call to the external API endpoint and produce a message on the screen that says "Your Access Token was successfully validated!".
 
-To run the sample follow these steps:
+## What is Auth0?
 
-1) Set the **Callback URL** in the [Application Settings](https://manage.auth0.com//#/applications/) to
-```text
-http://localhost:3000/callback
-```
-2) Set **Allowed Web Origins** in the [Application Settings](https://manage.auth0.com//#/applications/) to
-```text
-http://localhost:3000
-```
-3) Set **Allowed Logout URLs** in the [Application Settings](https://manage.auth0.com//#/applications/) to 
+Auth0 helps you to:
 
-```text
-http://localhost:3000
-```
-4) Make sure [Node.JS LTS](https://nodejs.org/en/download/) is installed and execute the following commands in the sample's directory:
-```bash
-npm install && npm run serve
-```
-You can also run it from a [Docker](https://www.docker.com) image with the following commands:
+- Add authentication with [multiple authentication sources](https://docs.auth0.com/identityproviders), either social like **Google, Facebook, Microsoft Account, LinkedIn, GitHub, Twitter, Box, Salesforce, among others**, or enterprise identity systems like **Windows Azure AD, Google Apps, Active Directory, ADFS or any SAML Identity Provider**.
+- Add authentication through more traditional **[username/password databases](https://docs.auth0.com/mysql-connection-tutorial)**.
+- Add support for **[linking different user accounts](https://docs.auth0.com/link-accounts)** with the same user.
+- Support for generating signed [Json Web Tokens](https://docs.auth0.com/jwt) to call your APIs and **flow the user identity** securely.
+- Analytics of how, when and where users are logging in.
+- Pull data from other sources and add it to the user profile, through [JavaScript rules](https://docs.auth0.com/rules).
 
-```bash
-# In Linux / macOS         
-sh exec.sh                 
-# In Windows' Powershell
-./exec.ps1
-```
+## Create a Free Auth0 Account
+
+1. Go to [Auth0](https://auth0.com/signup) and click Sign Up.
+2. Use Google, GitHub or Microsoft Account to login.
+
+## Issue Reporting
+
+If you have found a bug or if you have a feature request, please report them at this repository issues section. Please do not report security vulnerabilities on the public GitHub issue tracker. The [Responsible Disclosure Program](https://auth0.com/whitehat) details the procedure for disclosing security issues.
+
+## Author
+
+[Auth0](https://auth0.com)
+
+## License
+
+This project is licensed under the MIT license. See the [LICENSE](../LICENSE) file for more info.
