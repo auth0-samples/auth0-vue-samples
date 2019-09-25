@@ -24,7 +24,7 @@ This tutorial shows you how to create a simple API using [Express](https://expre
 
 ## Create an API
 
-In the [APIs section](${manage_url}/#/apis) of the Auth0 dashboard, click **Create API**. Provide a name and an identifier for your API.
+In the [APIs section](https://manage.auth0.com//#/apis) of the Auth0 dashboard, click **Create API**. Provide a name and an identifier for your API.
 You will use the identifier later when you're configuring your Javascript Auth0 application instance.
 For **Signing Algorithm**, select **RS256**.
 
@@ -60,7 +60,7 @@ app.get("/api/external", checkJwt, (req, res) => {
 
 Notice that it continues to use the same `checkJwt` middleware in order to validate the Access Token. The difference here is that the Access Token must be validated using the API identifier, rather than the client ID that we used for the ID Token.
 
-> The API identifier is the identifer that was specified when the API was created in the [Auth0 dashboard](${manage_url}/#/apis).
+> The API identifier is the identifer that was specified when the API was created in the [Auth0 dashboard](https://manage.auth0.com//#/apis).
 
 Therefore, modify the `checkJwt` function to include the API identifier value in the `audience` setting:
 
@@ -365,15 +365,15 @@ Now you will be able to run the application, browse to the "External API" page a
 
 To run the sample follow these steps:
 
-1) Set the **Callback URL** in the [Application Settings](${manage_url}/#/applications/${account.clientId}/settings) to
+1) Set the **Callback URL** in the [Application Settings](https://manage.auth0.com//#/applications/) to
 ```text
 http://localhost:3000/callback
 ```
-2) Set **Allowed Web Origins** in the [Application Settings](${manage_url}/#/applications/${account.clientId}/settings) to
+2) Set **Allowed Web Origins** in the [Application Settings](https://manage.auth0.com//#/applications/) to
 ```text
 http://localhost:3000
 ```
-3) Set **Allowed Logout URLs** in the [Application Settings](${manage_url}/#/applications/${account.clientId}/settings) to 
+3) Set **Allowed Logout URLs** in the [Application Settings](https://manage.auth0.com//#/applications/) to 
 
 ```text
 http://localhost:3000
