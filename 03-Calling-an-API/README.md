@@ -68,41 +68,39 @@ For **Signing Algorithm**, select **RS256**.
 
 ![Create API](../docs/create-api.png)
 
-### Modify the Backend API
+### Create the Backend API
 
-For this tutorial, let's modify the API to include a new endpoint that expects an Access Token to be supplied.
+For this example, you'll create an [Express](https://expressjs.com/) server that acts as the backend API. This API will expose an endpoint to validate incoming ID Tokens before returning a response.
 
-> **Note** In a real scenario, this work would be done by the external API that is to be called from the frontend. This new endpoint is simply a convenience to serve as a learning exercise.
+Start by installing the following packages:
 
-Open `server.js` and add a new Express route to serve as the API endpoint, right underneath the existing one:
-
-```js
-// server.js
-
-// ... other code
-
-// This is the existing endpoint for sample 2
-app.get("/api/private", checkJwt, (req, res) => {
-  res.send({
-    msg: "Your ID Token was successfully validated!"
-  });
-});
-
-// Add the new endpoint here:
-app.get("/api/external", checkJwt, (req, res) => {
-  res.send({
-    msg: "Your Access Token was successfully validated!"
-  });
-});
+```bash
+npm install express express-jwt jwks-rsa npm-run-all
 ```
 
-Notice that it continues to use the same `checkJwt` middleware in order to validate the Access Token. The difference here is that the Access Token must be validated using the API identifier, rather than the client ID that we used for the ID Token.
+- [`express`](https://github.com/expressjs/express) - a lightweight web server for Node
+- [`express-jwt`](https://www.npmjs.com/package/express-jwt) - middleware to validate JsonWebTokens
+- [`jwks-rsa`](https://www.npmjs.com/package/jwks-rsa) - retrieves RSA signing keys from a JWKS endpoint
+- [`npm-run-all`](https://www.npmjs.com/package/npm-run-all) - a helper to run the SPA and backend API concurrently
 
-> **Note** The API identifier is the identifer that was specified when the API was created in the [Auth0 dashboard](https://manage.auth0.com/#/apis).
-
-Therefore, modify the `checkJwt` function to include the API identifier value in the `audience` setting:
+Next, create a new file `server.js` with the following code:
 
 ```js
+const express = require("express");
+const jwt = require("express-jwt");
+const jwksRsa = require("jwks-rsa");
+
+// Create a new Express app
+const app = express();
+
+// Set up Auth0 configuration
+const authConfig = {
+  domain: "<YOUR AUTH0 DOMAIN>",
+  audience: "<YOUR AUTH0 API IDENTIFIER>"
+};
+
+// Define middleware that validates incoming bearer tokens
+// using JWKS
 const checkJwt = jwt({
   secret: jwksRsa.expressJwtSecret({
     cache: true,
@@ -111,45 +109,23 @@ const checkJwt = jwt({
     jwksUri: `https://${authConfig.domain}/.well-known/jwks.json`
   }),
 
-  // Modify the audience to include both the client ID and the audience from configuration in an array
-  audience: [authConfig.clientID, authConfig.audience],
-  issuer: `https://${authConfig.domain}/`,
+  audience: authConfig.audience,
+  issuer: `https://${authConfig.domain}"/`,
   algorithm: ["RS256"]
 });
+
+// Define an endpoint that must be called with an access token
+app.get("/api/external", checkJwt, (req, res) => {
+  res.send({
+    msg: "Your Access Token was successfully validated!"
+  });
+});
+
+// Start the app
+app.listen(3001, () => console.log("API listening on 3001"));
 ```
 
-> **Note** As the `audience` property accepts an array of values, both the client ID and the API identifier can be given, allowing both the ID Token and the Access Token to be verified using the same middleware.
-
-Finally, modify the `authConfig` object to include your `audience` value:
-
-```js
-const authConfig = {
-  domain: "<YOUR AUTH0 DOMAIN>",
-  clientID: "<YOUR AUTH0 CLIENT ID>",
-  audience: "<YOUR AUTH0 API IDENTIFIER>"
-};
-```
-
-Finally, modify `package.json` to add two new scripts `dev` and `api` that can be used to start the frontend and the backend API together:
-
-```json
-{
-  "name": "03-calling-an-api",
-  "version": "0.1.0",
-  "private": true,
-  "scripts": {
-    "serve": "vue-cli-service serve",
-    "build": "vue-cli-service build",
-    "lint": "vue-cli-service lint",
-    "dev": "npm-run-all --parallel serve api",
-    "api": "node server.js"
-  }
-
-  // .. package dependencies and other JSON nodes
-}
-```
-
-You can now start the project using `npm run dev` in the terminal, and the frontend Vue.js application will start up alongside the backend API.
+The above API has one available endpoint, `/api/external`, that returns a JSON response to the caller. This endpoint uses the `checkJwt` middleware to validate the supplied bearer token using your tenant's [JSON Web Key Set](https://auth0.com/docs/jwks). If the token is valid, the request is allowed to continue. Otherwise, the server returns a 401 Unauthorized response.
 
 ### Set up a proxy to the backend API
 
