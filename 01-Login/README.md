@@ -15,9 +15,7 @@ useCase: quickstart
 
 <!-- markdownlint-disable MD034 MD041 -->
 
-::: note
-**New to Auth?** Learn [How Auth0 works](/overview), how it [integrates with Single-Page Applications](/architecture-scenarios/application/spa-api) and which [protocol](/flows/concepts/implicit) it uses.
-:::
+> **New to Auth?** Learn [How Auth0 works](/overview), how it [integrates with Single-Page Applications](/architecture-scenarios/application/spa-api) and which [protocol](/flows/concepts/implicit) it uses.
 
 ## Configure Auth0
 ### Get Your Application Keys
@@ -31,11 +29,9 @@ You need the following information:
 * **Domain**
 * **Client ID**
 
-::: note
-If you download the sample from the top of this page these details are filled out for you.
+> If you download the sample from the top of this page these details are filled out for you.
 
 If you have more than one application in your account, the sample comes with the values for your **Default App**.
-:::
 
 ### Configure Callback URLs
 
@@ -43,9 +39,7 @@ A callback URL is a URL in your application where Auth0 redirects the user after
 
 The callback URL for your app must be whitelisted in the **Allowed Callback URLs** field in your [Application Settings](${manage_url}/#/applications/${account.clientId}/settings). If this field is not set, users will be unable to log in to the application and will get an error.
 
-::: note
-If you are following along with the sample project you downloaded from the top of this page, you should set the **Allowed Callback URL** to `http://localhost:3000/callback`.
-:::
+> If you are following along with the sample project you downloaded from the top of this page, you should set the **Allowed Callback URL** to `http://localhost:3000/callback`.
 
 ### Configure Logout URLs
 
@@ -53,17 +47,13 @@ A logout URL is a URL in your application that Auth0 can return to after the use
 
 The logout URL for your app must be whitelisted in the **Allowed Logout URLs** field in your [Application Settings](${manage_url}/#/applications/${account.clientId}/settings). If this field is not set, users will be unable to log out from the application and will get an error.
 
-::: note
-If you are following along with the sample project you downloaded from the top of this page, the logout URL you need to whitelist in the **Allowed Logout URLs** field is `http://localhost:3000`.
-:::
+> If you are following along with the sample project you downloaded from the top of this page, the logout URL you need to whitelist in the **Allowed Logout URLs** field is `http://localhost:3000`.
 
 ### Configure Allowed Web Origins
 
 You need to whitelist the URL for your app in the **Allowed Web Origins** field in your [Application Settings](${manage_url}/#/applications/${account.clientId}/settings). If you don't whitelist your application URL, the application will be unable to automatically refresh the authentication tokens and your users will be logged out the next time they visit the application, or refresh the page.
 
-::: note
-If you are following along with the sample project you downloaded from the top of this page, you should set the **Allowed Web Origins** to `http://localhost:3000`.
-:::
+> If you are following along with the sample project you downloaded from the top of this page, you should set the **Allowed Web Origins** to `http://localhost:3000`.
 
 ## Integrate Auth0 in your Application
 
@@ -102,12 +92,10 @@ If you do not want to use a package manager, you can retrieve auth0.js from Auth
 
 [Universal Login](/hosted-pages/login) is the easiest way to set up authentication in your application. We recommend using it for the best experience, best security and the fullest array of features. This guide will use it to provide a way for your users to log in to your ${library} application.
 
-::: note
-You can also embed the login dialog directly in your application using the [Lock widget](/lock). If you use this method, some features, such as single sign-on, will not be accessible. 
+> You can also embed the login dialog directly in your application using the [Lock widget](/lock). If you use this method, some features, such as single sign-on, will not be accessible. 
 <% if (typeof embeddedLoginLink == 'string') { %>
 To learn how to embed the Lock widget in your application, follow the [Embedded Login sample](${embeddedLoginLink}).
 <% } %>
-:::
 
 When a user logs in, Auth0 returns three items:
 * `access_token`: to learn more, see the [Access Token documentation](/tokens/access-tokens)
@@ -151,9 +139,7 @@ class AuthService extends EventEmitter {
 export default new AuthService();
 ```
 
-:::note
-The `login` method has been setup to support specifing custom state that will be returned to the application after authentication. This will come into play later when you start adding protected routes.
-:::
+> The `login` method has been setup to support specifing custom state that will be returned to the application after authentication. This will come into play later when you start adding protected routes.
 
 To provide the values for `clientID`, `callbackUrl`, and `domain`, create a new file `auth_config.json` in the root directory of the application alongside your `package.json` file, and populate it with your tenant values:
 
@@ -164,9 +150,7 @@ To provide the values for `clientID`, `callbackUrl`, and `domain`, create a new 
 }
 ```
 
-::: note
-**Checkpoint:** Try calling the `login` method from somewhere in your application. This could be from a button click or in some lifecycle event; just something that will trigger the method so you can see the login page.
-:::
+> **Checkpoint:** Try calling the `login` method from somewhere in your application. This could be from a button click or in some lifecycle event; just something that will trigger the method so you can see the login page.
 
 ![hosted login](/media/articles/web/hosted-login.png)
 
@@ -282,9 +266,7 @@ When you set up the `AuthService` service, you create an instance of the `auth0.
 * Response type, to show that you need a user's ID Token after authentication
 * The URL where you want to redirect your users after authentication.
 
-::: note
-In this tutorial, the route is `/callback`, which is implemented in the [Add a Callback Component](#add-a-callback-component) step. 
-:::
+> In this tutorial, the route is `/callback`, which is implemented in the [Add a Callback Component](#add-a-callback-component) step. 
 
 Your users authenticate via Universal Login, at the login page. They are then redirected back to your application. Their redirect URLs contain hash fragments with the user's ID token.
 
@@ -357,9 +339,7 @@ new Vue({
 
 Provide a component with controls for the user to log in and log out.
 
-::: note
-This example was created from a [Vue CLI](https://cli.vuejs.org/) template and uses Single-File Components.
-:::
+> This example was created from a [Vue CLI](https://cli.vuejs.org/) template and uses Single-File Components.
 
 ```js
 // src/App.vue
@@ -427,9 +407,7 @@ Also notice the use of `this.$auth` to access the `AuthService` instance. Login 
 
 When the **Log In** button is clicked, the user will be redirected to login page.
 
-::: note
-The login page uses the Lock widget. To learn more about Universal Login and the login page, see the [Universal Login documentation](/hosted-pages/login). To customize the look and feel of the Lock widget, see the [Lock customization options documentation](/libraries/lock/v10/customization).
-:::
+> The login page uses the Lock widget. To learn more about Universal Login and the login page, see the [Universal Login documentation](/hosted-pages/login). To customize the look and feel of the Lock widget, see the [Lock customization options documentation](/libraries/lock/v10/customization).
 
 When the application first starts up, a call to `renewTokens` is made that tries to reinitialize the user's login session, if it is detected that they should already be logged in. This would be the case, for example, if the user logged in and then refreshed the browser window.
 
@@ -502,9 +480,7 @@ const router = new Router({
 export default router;
 ```
 
-::: note
-This example relies on using path-based routing with `mode: 'history'`. If you are using hash-based routing, you won't be able to specify a dedicated callback route because the URL hash will be used to hold the user's authentication information.
-:::
+> This example relies on using path-based routing with `mode: 'history'`. If you are using hash-based routing, you won't be able to specify a dedicated callback route because the URL hash will be used to hold the user's authentication information.
 
 Updated `main.js` to register the router:
 
