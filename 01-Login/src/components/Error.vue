@@ -9,21 +9,15 @@
 
 <script>
 export default {
-  data() {
-    return {
-      show: false,
-      msg: ""
-    };
-  },
+  name: "Error",
   methods: {
-    handleLoginEvent(data) {
-      if (data.error) {
-        this.show = true;
-        this.msg = data.error.errorDescription;
-      } else {
-        this.show = false;
-        this.msg = "";
-      }
+    msg() {
+      return this.$auth.error;
+    }
+  },
+  computed: {
+    show() {
+      return this.$auth.error !== null;
     }
   }
 };

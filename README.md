@@ -7,7 +7,7 @@ This is the sample code for the [Auth0 Vue.js Quickstart](https://auth0.com/docs
 There are two sample applications:
 
 - [01 - Login](./01-Login) — demonstrates logging in and viewing profile information
-- [03 - Calling an API](./03-Calling-an-API) — demonstrates how to call a third-party API using access tokens
+- [02 - Calling an API](./02-Calling-an-API) — demonstrates how to call a third-party API using access tokens
 
 ## What is Auth0?
 
