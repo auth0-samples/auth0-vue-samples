@@ -10,14 +10,12 @@
 <script>
 export default {
   name: "Error",
-  methods: {
-    msg() {
-      return this.$auth.error;
-    }
-  },
   computed: {
     show() {
       return this.$auth.error !== null;
+    },
+    msg() {
+      return this.$auth.error;
     }
   }
 };
