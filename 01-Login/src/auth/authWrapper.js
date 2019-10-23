@@ -32,6 +32,8 @@ export const useAuth0 = ({
 
         try {
           await this.auth0Client.loginWithPopup(o);
+          this.user = await this.auth0Client.getUser();
+          this.isAuthenticated = await this.auth0Client.isAuthenticated();
           this.error = null;
         } catch (e) {
           console.error(e);
@@ -39,9 +41,6 @@ export const useAuth0 = ({
         } finally {
           this.popupOpen = false;
         }
-
-        this.user = await this.auth0Client.getUser();
-        this.isAuthenticated = true;
       },
       async handleRedirectCallback() {
         this.loading = true;
