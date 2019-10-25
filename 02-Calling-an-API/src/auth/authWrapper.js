@@ -10,7 +10,7 @@ export const getInstance = () => instance;
 
 export const useAuth0 = ({
   onRedirectCallback = DEFAULT_REDIRECT_CALLBACK,
-  redirect_uri = window.location.origin,
+  redirectUri = window.location.origin,
   ...options
 }) => {
   if (instance) return instance;
@@ -32,14 +32,15 @@ export const useAuth0 = ({
 
         try {
           await this.auth0Client.loginWithPopup(o);
+          this.user = await this.auth0Client.getUser();
+          this.isAuthenticated = await this.auth0Client.isAuthenticated();
+          this.error = null;
         } catch (e) {
           console.error(e);
+          this.error = e;
         } finally {
           this.popupOpen = false;
         }
-
-        this.user = await this.auth0Client.getUser();
-        this.isAuthenticated = true;
       },
       async handleRedirectCallback() {
         this.loading = true;
@@ -47,6 +48,7 @@ export const useAuth0 = ({
           await this.auth0Client.handleRedirectCallback();
           this.user = await this.auth0Client.getUser();
           this.isAuthenticated = true;
+          this.error = null;
         } catch (e) {
           this.error = e;
         } finally {
@@ -74,7 +76,7 @@ export const useAuth0 = ({
         domain: options.domain,
         client_id: options.clientId,
         audience: options.audience,
-        redirect_uri
+        redirect_uri: redirectUri
       });
 
       try {
@@ -83,6 +85,7 @@ export const useAuth0 = ({
           window.location.search.includes("state=")
         ) {
           const { appState } = await this.auth0Client.handleRedirectCallback();
+          this.error = null;
           onRedirectCallback(appState);
         }
       } catch (e) {
