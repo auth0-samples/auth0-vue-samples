@@ -27,7 +27,7 @@ To do this, first copy `auth_config.sample.json` into a new file in the same fol
 This compiles and serves the Vue app, and starts the backend API server on port 3001:
 
 ```bash
-npm run dev
+npm run serve
 ```
 
 ## Deployment
