@@ -74,9 +74,7 @@ export const useAuth0 = ({
     async created() {
       this.auth0Client = await createAuth0Client({
         ...options,
-        domain: options.domain,
         client_id: options.clientId,
-        audience: options.audience,
         redirect_uri: redirectUri
       });
 
