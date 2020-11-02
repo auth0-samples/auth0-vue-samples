@@ -27,11 +27,11 @@ export const useAuth0 = ({
       };
     },
     methods: {
-      async loginWithPopup(o) {
+      async loginWithPopup(options, config) {
         this.popupOpen = true;
 
         try {
-          await this.auth0Client.loginWithPopup(o);
+          await this.auth0Client.loginWithPopup(options, config);
           this.user = await this.auth0Client.getUser();
           this.isAuthenticated = await this.auth0Client.isAuthenticated();
           this.error = null;
@@ -73,6 +73,7 @@ export const useAuth0 = ({
     },
     async created() {
       this.auth0Client = await createAuth0Client({
+        ...options,
         domain: options.domain,
         client_id: options.clientId,
         audience: options.audience,
