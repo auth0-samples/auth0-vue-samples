@@ -21,7 +21,7 @@
     "express": "^4.17.1",
     "express-jwt": "^6.0.0",
     "helmet": "^3.23.3",
-    "highlight.js": "^9.18.3",
+    "highlight.js": "^10.4.1",
     "jwks-rsa": "^1.11.0",
     "morgan": "^1.10.0",
     "vue": "^2.6.12",
