@@ -14,7 +14,7 @@
     "@fortawesome/vue-fontawesome": "^0.1.10",
     "core-js": "^2.6.11",
     "express": "^4.17.1",
-    "highlight.js": "^9.18.3",
+    "highlight.js": "^10.4.1",
     "morgan": "^1.10.0",
     "vue": "^2.6.12",
     "vue-router": "^3.4.8"
