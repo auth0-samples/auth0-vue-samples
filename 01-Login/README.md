@@ -6,6 +6,8 @@ This sample demonstrates:
 - Accessing profile information that has been provided in the ID token
 - Gated content. The `/profile` route is not accessible without having first logged in
 
+**Note**: This sample has been designed to work with Vue 2, and has not yet been updated to work with Vue 3.
+
 ## Project setup
 
 ```bash
@@ -68,8 +70,8 @@ Auth0 helps you to:
 
 ## Create a Free Auth0 Account
 
-1. Go to [Auth0](https://auth0.com/signup) and click Sign Up.
-2. Use Google, GitHub or Microsoft Account to login.
+1.  Go to [Auth0](https://auth0.com/signup) and click Sign Up.
+2.  Use Google, GitHub or Microsoft Account to login.
 
 ## Issue Reporting
 

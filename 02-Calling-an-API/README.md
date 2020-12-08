@@ -2,6 +2,8 @@
 
 For this scenario, an API endpoint `/api/external` has been included in the Express server that requires a bearer token to be supplied as a bearer token in the `Authorization` header (as provided during the authentication flow). This uses the [`express-jwt`](https://github.com/auth0/express-jwt) middleware to validate the token against the identifier of your API as set up in the Auth0 dashboard, as well as checking that the signature is valid.
 
+**Note**: This sample has been designed to work with Vue 2, and has not yet been updated to work with Vue 3.
+
 ## Project setup
 
 ```bash
@@ -36,7 +38,6 @@ npm run serve
 
 ```bash
 npm run build
-
 ```
 
 ### Docker build
@@ -68,8 +69,8 @@ Auth0 helps you to:
 
 ## Create a Free Auth0 Account
 
-1. Go to [Auth0](https://auth0.com/signup) and click Sign Up.
-2. Use Google, GitHub or Microsoft Account to login.
+1.  Go to [Auth0](https://auth0.com/signup) and click Sign Up.
+2.  Use Google, GitHub or Microsoft Account to login.
 
 ## Issue Reporting
 
