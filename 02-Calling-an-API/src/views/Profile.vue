@@ -15,9 +15,7 @@
     </div>
 
     <div class="row">
-      <pre v-highlightjs="JSON.stringify($auth.user, null, 2)" class="rounded w-100">
-        <code class="json"></code>
-      </pre>
+      <highlightjs autodetect :code="JSON.stringify($auth.user, null, 2)" class="rounded w-100" />
     </div>
   </div>
 </template>

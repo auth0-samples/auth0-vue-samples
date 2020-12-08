@@ -13,9 +13,7 @@
     <div class="result-block-container">
       <div :class="['result-block', executed ? 'show' : '']">
         <h6 class="muted">Result</h6>
-        <pre v-highlightjs="JSON.stringify(apiMessage, null, 2)">
-          <code class="js rounded"></code>
-        </pre>
+        <highlightjs autodetect :code="JSON.stringify(apiMessage, null, 2)" />
       </div>
     </div>
   </div>
