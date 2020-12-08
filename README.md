@@ -9,6 +9,8 @@ There are two sample applications:
 - [01 - Login](./01-Login) — demonstrates logging in and viewing profile information
 - [02 - Calling an API](./02-Calling-an-API) — demonstrates how to call a third-party API using access tokens
 
+**Note**: These samples are designed to work with Vue 2, and have not yet been updated to work with Vue 3.
+
 ## What is Auth0?
 
 Auth0 helps you to:
@@ -36,4 +38,3 @@ If you have found a bug or if you have a feature request, please report them at 
 ## License
 
 This project is licensed under the MIT license. See the [LICENSE](./LICENSE) file for more info.
-
