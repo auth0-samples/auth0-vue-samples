@@ -61,8 +61,10 @@ export const useAuth0 = ({
       getIdTokenClaims(o) {
         return this.auth0Client.getIdTokenClaims(o);
       },
-      getTokenSilently(o) {
-        return this.auth0Client.getTokenSilently(o);
+      async getTokenSilently(o) {
+        const token = await this.auth0Client.getTokenSilently(o);
+        this.user = await this.auth0Client.getUser();
+        return token;
       },
       getTokenWithPopup(o) {
         return this.auth0Client.getTokenWithPopup(o);
@@ -90,8 +92,8 @@ export const useAuth0 = ({
       } catch (e) {
         this.error = e;
       } finally {
-        this.isAuthenticated = await this.auth0Client.isAuthenticated();
         this.user = await this.auth0Client.getUser();
+        this.isAuthenticated = await this.auth0Client.isAuthenticated();
         this.loading = false;
       }
     }
