@@ -9,6 +9,7 @@ export const authGuard = (to, from, next) => {
     }
 
     authService.loginWithRedirect({ appState: { targetUrl: to.fullPath } });
+    return next(false);
   };
 
   if (!authService.loading) {
@@ -19,5 +20,7 @@ export const authGuard = (to, from, next) => {
     if (loading === false) {
       return fn();
     }
+
+    return next(false);
   });
 };
