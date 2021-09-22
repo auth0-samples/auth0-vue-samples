@@ -10,7 +10,7 @@
     "backend-dev": "nodemon bin/www"
   },
   "dependencies": {
-    "@auth0/auth0-spa-js": "^1.17.1",
+    "@auth0/auth0-spa-js": "^1.18.0",
     "@fortawesome/fontawesome-svg-core": "^1.2.36",
     "@fortawesome/free-solid-svg-icons": "^5.15.4",
     "@fortawesome/vue-fontawesome": "^0.1.10",
