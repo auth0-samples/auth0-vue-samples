@@ -17,7 +17,7 @@ RUN npm run build
 
 # ---------------
 
-FROM node:10-alpine
+FROM node:12
 
 RUN mkdir -p /app/dist
 
