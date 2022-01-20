@@ -14,7 +14,7 @@ const app = createApp(App);
 library.add(faLink, faUser, faPowerOff);
 
 app
-  .use(hljs.vuePlugin)
+  .use(hljs)
   .use(
     createAuth0({
       domain,
