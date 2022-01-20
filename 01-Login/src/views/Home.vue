@@ -19,10 +19,8 @@ export default {
 };
 </script>
 
-<style lang="scss" scoped>
-.next-steps {
-  .fa-link {
+<style lang="css" scoped>
+.next-steps .fa-link {
     margin-right: 5px;
-  }
 }
 </style>

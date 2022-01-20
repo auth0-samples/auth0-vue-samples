@@ -9,25 +9,26 @@
   },
   "dependencies": {
     "@auth0/auth0-spa-js": "^1.19.2",
+    "@auth0/auth0-vue": "file:../../auth0-vue/auth0-auth0-vue-1.0.0-alpha.0.tgz",
     "@fortawesome/fontawesome-svg-core": "^1.2.36",
     "@fortawesome/free-solid-svg-icons": "^5.15.4",
-    "@fortawesome/vue-fontawesome": "^0.1.10",
-    "core-js": "^2.6.12",
+    "@fortawesome/vue-fontawesome": "^3.0.0-5",
+    "core-js": "^3.20.3",
     "express": "^4.17.1",
     "highlight.js": "^10.7.3",
     "morgan": "^1.10.0",
-    "vue": "^2.6.14",
-    "vue-router": "^3.5.3"
+    "vue": "^3.2.27",
+    "vue-router": "^4.0.12",
+    "vue3-highlightjs": "^1.0.5"
   },
   "devDependencies": {
-    "@vue/cli-plugin-babel": "^3.12.1",
-    "@vue/cli-plugin-eslint": "^3.12.1",
+    "@vue/cli-plugin-babel": "^4.5.15",
+    "@vue/cli-plugin-eslint": "^4.5.15",
     "@vue/cli-service": "^4.5.15",
-    "@vue/eslint-config-prettier": "^3.0.5",
+    "@vue/compiler-sfc": "^3.2.27",
     "babel-eslint": "^10.1.0",
-    "node-sass": "^4.14.1",
-    "sass-loader": "^7.3.1",
-    "vue-template-compiler": "^2.6.14"
+    "eslint": "^6.7.2",
+    "eslint-plugin-vue": "^7.0.0"
   },
   "prettier": {
     "singleQuote": false,
@@ -43,22 +44,11 @@
       "vue"
     ],
     "extends": [
-      "plugin:vue/essential",
+      "plugin:vue/vue3-essential",
       "eslint:recommended"
     ],
-    "rules": {
-      "no-console": [
-        "error",
-        {
-          "allow": [
-            "error",
-            "warn"
-          ]
-        }
-      ]
-    },
     "parserOptions": {
-      "parser": "babel-eslint"
+      "ecmaVersion": 2020
     }
   }
 }

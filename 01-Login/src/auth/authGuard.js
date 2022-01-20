@@ -1,26 +1,27 @@
-import { getInstance } from "./authWrapper";
+import { watchEffect } from 'vue';
 
-export const authGuard = (to, from, next) => {
-  const authService = getInstance();
-
-  const fn = () => {
-    if (authService.isAuthenticated) {
-      return next();
-    }
-
-    authService.loginWithRedirect({ appState: { targetUrl: to.fullPath } });
-    return next(false);
-  };
-
-  if (!authService.loading) {
-    return fn();
-  }
-
-  authService.$watch("loading", loading => {
-    if (loading === false) {
+export const createAuthGuard = (app) => {
+  return (to, from, next) => {
+    const auth0 = app.config.globalProperties.$auth0;
+    const fn = () => {
+      if (auth0.isAuthenticated.value) {
+        return next();
+      }
+  
+      auth0.loginWithRedirect({ appState: { targetUrl: to.fullPath } });
+      
+      return next(false);
+    };
+  
+    if (!auth0.isLoading.value) {
       return fn();
     }
-
-    return next(false);
-  });
-};
+  
+    watchEffect((stop) => {
+      if (!auth0.isLoading.value) {
+        stop();
+        return fn();
+      }
+    });
+  };
+}
