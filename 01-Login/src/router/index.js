@@ -1,12 +1,10 @@
 import { createRouter as createVueRouter, createWebHashHistory } from "vue-router";
 import Home from "../views/Home.vue";
 import Profile from "../views/Profile.vue";
-import { createAuthGuard } from "../auth/authGuard";
+import { createAuthGuard } from "@auth0/auth0-vue";
 
 export function createRouter(app) {
   return createVueRouter({
-    mode: "history",
-    base: process.env.BASE_URL,
     routes: [
       {
         path: "/",

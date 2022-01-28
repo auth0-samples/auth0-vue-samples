@@ -15,13 +15,13 @@ library.add(faLink, faUser, faPowerOff);
 
 app
   .use(hljs)
+  .use(createRouter(app))
   .use(
     createAuth0({
       domain,
       client_id,
-      redirect_uri: window.location.href,
+      redirect_uri: window.location.origin,
     })
   )
-  .use(createRouter(app))
   .component("font-awesome-icon", FontAwesomeIcon)
   .mount("#app");
