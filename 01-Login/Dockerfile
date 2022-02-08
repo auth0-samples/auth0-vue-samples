@@ -8,7 +8,7 @@ RUN mkdir /app
 WORKDIR /app
 
 COPY package.json .
-COPY auth0-auth0-vue-1.0.0-alpha.0.tgz .
+COPY auth0-auth0-vue-1.0.0-alpha.1.tgz .
 
 RUN npm install
 
@@ -26,7 +26,7 @@ WORKDIR /app
 
 COPY --from=build /app/dist ./dist
 COPY --from=build /app/package.json .
-COPY --from=build /app/auth0-auth0-vue-1.0.0-alpha.0.tgz .
+COPY --from=build /app/auth0-auth0-vue-1.0.0-alpha.1.tgz .
 COPY --from=build /app/web-server.js .
 
 ENV NODE_ENV production
