@@ -14,15 +14,13 @@ export default {
   name: "home",
   components: {
     Hero,
-    HomeContent
-  }
+    HomeContent,
+  },
 };
 </script>
 
-<style lang="scss" scoped>
-.next-steps {
-  .fa-link {
-    margin-right: 5px;
-  }
+<style scoped>
+.next-steps .fa-link {
+  margin-right: 5px;
 }
 </style>
