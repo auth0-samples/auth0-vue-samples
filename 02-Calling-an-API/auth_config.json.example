@@ -1,4 +1,5 @@
 {
   "domain": "{DOMAIN}",
-  "clientId": "{CLIENT_ID}"
+  "clientId": "{CLIENT_ID}",
+  "audience": "{API_IDENTIFIER}"
 }

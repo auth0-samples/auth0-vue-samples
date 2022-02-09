@@ -1,6 +1,6 @@
 # Scenario #2 - Calling an External API
 
-For this scenario, an API endpoint `/api/external` has been included in the Express server that requires a bearer token to be supplied as a bearer token in the `Authorization` header (as provided during the authentication flow). This uses the [`express-oauth2-jwt-bearer`](https://github.com/auth0/express-oauth2-jwt-bearer) middleware to validate the token against the identifier of your API as set up in the Auth0 dashboard, as well as checking that the signature is valid.
+For this scenario, an API endpoint `/api/external` has been included in the Express server that requires a bearer token to be supplied as a bearer token in the `Authorization` header (as provided during the authentication flow). This uses the [`express-oauth2-jwt-bearer`](https://github.com/auth0/node-oauth2-jwt-bearer) middleware to validate the token against the identifier of your API as set up in the Auth0 dashboard, as well as checking that the signature is valid.
 
 ## Project setup
 
@@ -10,7 +10,7 @@ npm install
 
 ### Configuration
 
-The project needs to be configured with your Auth0 domain and client ID in order for the authentication flow to work. As we want to call an external API, ensure to also set the `audience` to the value of your Auth0 API identifier.
+The project needs to be configured with your Auth0 domain and client ID in order for the authentication flow to work. When calling an external API, ensure to also set the `audience` to the value of your Auth0 API identifier.
 
 To do this, first copy `auth_config.sample.json` into a new file in the same folder called `auth_config.json`, and replace the values within with your own Auth0 application credentials:
 
