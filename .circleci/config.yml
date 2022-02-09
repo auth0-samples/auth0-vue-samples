@@ -31,20 +31,6 @@ jobs:
           at: ~/
 
       - run:
-          name: Ubuntu Version
-          command: |
-              lsb_release -a
-
-      - run:
-          name: Install Python 3.7
-          command: |
-              sudo apt update
-              sudo apt install software-properties-common
-              sudo add-apt-repository --yes ppa:deadsnakes/ppa
-              sudo apt install python3.7
-              python3.7 --version
-
-      - run:
           name: Replace Auth0 test credentials
           command: |
             echo "{ \"domain\": \"$AUTH0_TEST_DOMAIN\", \"clientId\": \"$AUTH0_TEST_CLIENT_ID\", \"audience\": \"$AUTH0_TEST_AUDIENCE\" }" > $AUTH0_CFG

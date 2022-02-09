@@ -3,9 +3,6 @@ FROM node:16-alpine as build
 RUN apk update && apk upgrade && \
   apk add --no-cache bash git openssh
 
-RUN apk --no-cache --virtual build-dependencies add \
-  python3=3.7
-
 RUN mkdir /app
 
 WORKDIR /app
