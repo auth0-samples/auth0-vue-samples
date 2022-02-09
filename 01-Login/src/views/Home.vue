@@ -14,8 +14,8 @@ export default {
   name: "home",
   components: {
     Hero,
-    HomeContent
-  }
+    HomeContent,
+  },
 };
 </script>
 
