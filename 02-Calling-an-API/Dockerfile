@@ -1,4 +1,4 @@
-FROM node:10-alpine as build
+FROM node:16-alpine as build
 
 RUN apk update && apk upgrade && \
   apk add --no-cache bash git openssh
@@ -8,6 +8,8 @@ RUN mkdir /app
 WORKDIR /app
 
 COPY package.json .
+COPY auth0-auth0-vue-1.0.0-alpha.1.tgz .
+
 
 RUN npm install
 
@@ -17,23 +19,21 @@ RUN npm run build
 
 # ---------------
 
-FROM node:12
+FROM node:16-alpine
 
 RUN mkdir -p /app/dist
 
 WORKDIR /app
 
-COPY --from=build /app/package.json .
-
 RUN npm install --production
 
 COPY --from=build /app/dist ./dist
-COPY --from=build /app/bin ./bin
-COPY --from=build /app/auth_config.json .
+COPY --from=build /app/package.json .
+COPY --from=build /app/auth0-auth0-vue-1.0.0-alpha.1.tgz .
 COPY --from=build /app/web-server.js .
 
 EXPOSE 3000
 
 ENV NODE_ENV production
 
-CMD ["node", "bin/www"]
+CMD ["node", "web-server.js"]
