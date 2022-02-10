@@ -2,14 +2,12 @@
 
 [![CircleCI](https://circleci.com/gh/auth0-samples/auth0-vue-samples.svg?style=svg)](https://circleci.com/gh/auth0-samples/auth0-vue-samples)
 
-This is the sample code for the [Auth0 Vue.js Quickstart](https://auth0.com/docs/quickstart/spa/vuejs).
+This is the sample code for the [Auth0 Vue.js Quickstart](https://auth0.com/docs/quickstart/spa/vuejs-beta) using the beta version of [@auth0/auth0-vue](https://github.com/auth0/auth0-vue).
 
 There are two sample applications:
 
 - [01 - Login](./01-Login) — demonstrates logging in and viewing profile information
 - [02 - Calling an API](./02-Calling-an-API) — demonstrates how to call a third-party API using access tokens
-
-**Note**: These samples are designed to work with Vue 2, and have not yet been updated to work with Vue 3.
 
 ## What is Auth0?
 
