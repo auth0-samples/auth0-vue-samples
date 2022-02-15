@@ -43,9 +43,14 @@ defaults: &defaults
 
 # Jobs and Workflows
 version: 2
+parameters:
+  machine_image:
+    type: string
+    default: ubuntu-2004:202111-02
 jobs:
   checkout:
-    machine: true
+    machine:
+      image: << pipeline.parameters.machine_image >>
     steps:
       - checkout
       - run: git clone https://github.com/auth0-samples/spa-quickstarts-tests scripts
@@ -55,14 +60,16 @@ jobs:
             - project
             - scripts
   01-login:
-    machine: true
+    machine:
+      image: << pipeline.parameters.machine_image >>
     environment:
       - AUTH0_CFG: 01-Login/auth_config.json
       - SAMPLE_PATH: 01-Login
     <<: *defaults
 
   02-api:
-    machine: true
+    machine:
+      image: << pipeline.parameters.machine_image >>
     environment:
       - AUTH0_CFG: 02-Calling-an-API/auth_config.json
       - SAMPLE_PATH: 02-Calling-an-API
