@@ -59,7 +59,7 @@ jobs:
           paths:
             - project
             - scripts
-  01-login:
+  login:
     machine:
       image: << pipeline.parameters.machine_image >>
     environment:
@@ -67,7 +67,7 @@ jobs:
       - SAMPLE_PATH: 01-Login
     <<: *defaults
 
-  02-api:
+  api:
     machine:
       image: << pipeline.parameters.machine_image >>
     environment:
@@ -81,12 +81,12 @@ workflows:
     jobs:
       - checkout:
           context: Quickstart SPA Test
-      - 01-login:
+      - login:
           context: Quickstart SPA Test
           requires:
             - checkout
 
-      - 02-api:
+      - api:
           context: Quickstart SPA Test
           requires:
             - checkout
