@@ -42,7 +42,7 @@ defaults: &defaults
         path: /tmp/out
 
 # Jobs and Workflows
-version: 2
+version: 2.1
 parameters:
   machine_image:
     type: string
