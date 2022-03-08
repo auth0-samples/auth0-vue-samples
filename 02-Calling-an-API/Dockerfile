@@ -23,14 +23,14 @@ RUN mkdir -p /app/dist
 
 WORKDIR /app
 
-RUN npm install --production
-
 COPY --from=build /app/dist ./dist
 COPY --from=build /app/package.json .
 COPY --from=build /app/web-server.js .
 
-EXPOSE 3000
-
 ENV NODE_ENV production
+
+RUN npm install --production
+
+EXPOSE 3000
 
 CMD ["node", "web-server.js"]
