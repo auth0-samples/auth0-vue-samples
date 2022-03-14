@@ -2,7 +2,7 @@
 
 [![CircleCI](https://circleci.com/gh/auth0-samples/auth0-vue-samples.svg?style=svg)](https://circleci.com/gh/auth0-samples/auth0-vue-samples)
 
-This is the sample code for the [Auth0 Vue.js Quickstart](https://auth0.com/docs/quickstart/spa/vuejs-beta) using the beta version of [@auth0/auth0-vue](https://github.com/auth0/auth0-vue).
+This is the sample code for the [Auth0 Vue.js Quickstart](https://auth0.com/docs/quickstart/spa/vuejs) using [@auth0/auth0-vue](https://github.com/auth0/auth0-vue).
 
 There are two sample applications:
 
