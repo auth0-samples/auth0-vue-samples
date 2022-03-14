@@ -1,4 +1,4 @@
-FROM node:10-alpine as build
+FROM node:16-alpine as build
 
 RUN apk update && apk upgrade && \
   apk add --no-cache bash git openssh
@@ -17,7 +17,7 @@ RUN npm run build
 
 # ---------------
 
-FROM node:10-alpine
+FROM node:16-alpine
 
 RUN mkdir -p /app/dist
 

@@ -6,8 +6,6 @@ This sample demonstrates:
 - Accessing profile information that has been provided in the ID token
 - Gated content. The `/profile` route is not accessible without having first logged in
 
-**Note**: This sample has been designed to work with Vue 2, and has not yet been updated to work with Vue 3.
-
 ## Project setup
 
 ```bash
@@ -44,12 +42,6 @@ npm run build
 ### Docker build
 
 To build and run the Docker image, run `exec.sh`, or `exec.ps1` on Windows.
-
-### Run your tests
-
-```bash
-npm run test
-```
 
 ### Lints and fixes files
 
