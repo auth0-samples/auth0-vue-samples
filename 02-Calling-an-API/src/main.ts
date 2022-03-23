@@ -8,6 +8,7 @@ import { library } from "@fortawesome/fontawesome-svg-core";
 import { faLink, faUser, faPowerOff } from "@fortawesome/free-solid-svg-icons";
 import { FontAwesomeIcon } from "@fortawesome/vue-fontawesome";
 import { domain, clientId as client_id, audience } from "../auth_config.json";
+import { createAxios } from './plugins/axios';
 
 const app = createApp(App);
 
@@ -24,5 +25,6 @@ app
       audience
     })
   )
+  .use(createAxios())
   .component("font-awesome-icon", FontAwesomeIcon)
   .mount("#app");

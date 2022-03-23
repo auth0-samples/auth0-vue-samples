@@ -21,24 +21,20 @@
 </template>
 
 <script>
-import { useAuth0 } from "@auth0/auth0-vue";
+import { useAxios } from "./../plugins/axios";
 import { ref } from "@vue/reactivity";
 export default {
   name: "Api",
   setup() {
-    const { getAccessTokenSilently } = useAuth0();
+    const api = useAxios({
+      baseURL: '/api'
+    });
     const apiMessage = ref();
     return {
       apiMessage,
       async callApi() {
-        const accessToken = await getAccessTokenSilently();
         try {
-          const response = await fetch("/api/external", {
-            headers: {
-              Authorization: `Bearer ${accessToken}`,
-            },
-          });
-          const data = await response.json();
+          const { data } = await api.get("/external");
           apiMessage.value = data;
         } catch (e) {
           apiMessage.value = `Error: the server responded with '${e.response.status}: ${e.response.statusText}'`;
