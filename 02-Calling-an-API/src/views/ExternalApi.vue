@@ -21,21 +21,18 @@
 </template>
 
 <script>
-import { useAxios } from "./../plugins/axios";
-import { getExternal } from "./../services/getExternal";
+import { useExternal } from "./../services/getExternal";
 import { ref } from "@vue/reactivity";
 export default {
   name: "Api",
   setup() {
-    const api = useAxios({
-      baseURL: '/api'
-    });
+    const { get } = useExternal();
     const apiMessage = ref();
     return {
       apiMessage,
       async callApi() {
         try {
-          const data = await getExternal(api);
+          const data = await get();
           apiMessage.value = data;
         } catch (e) {
           apiMessage.value = `Error: the server responded with '${e.response.status}: ${e.response.statusText}'`;
