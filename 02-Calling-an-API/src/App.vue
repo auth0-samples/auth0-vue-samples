@@ -18,8 +18,8 @@
 </template>
 
 <script>
-import NavBar from "./components/NavBar";
-import Error from "./components/Error";
+import NavBar from "./components/NavBar.vue";
+import Error from "./components/Error.vue";
 
 export default {
   components: {
