@@ -14,37 +14,33 @@
     <div class="result-block-container">
       <div :class="['result-block', apiMessage ? 'show' : '']">
         <h6 class="muted">Result</h6>
-        <pre v-highlightjs><code class="json">{{JSON.stringify(apiMessage, null, 2)}}</code></pre>
+        <pre
+          v-highlightjs
+        ><code class="json">{{JSON.stringify(apiMessage, null, 2)}}</code></pre>
       </div>
     </div>
   </div>
 </template>
 
-<script>
+<script setup>
 import { useAuth0 } from "@auth0/auth0-vue";
 import { ref } from "@vue/reactivity";
-export default {
-  name: "Api",
-  setup() {
-    const { getAccessTokenSilently } = useAuth0();
-    const apiMessage = ref();
-    return {
-      apiMessage,
-      async callApi() {
-        const accessToken = await getAccessTokenSilently();
-        try {
-          const response = await fetch("/api/external", {
-            headers: {
-              Authorization: `Bearer ${accessToken}`,
-            },
-          });
-          const data = await response.json();
-          apiMessage.value = data;
-        } catch (e) {
-          apiMessage.value = `Error: the server responded with '${e.response.status}: ${e.response.statusText}'`;
-        }
+const { getAccessTokenSilently } = useAuth0();
+
+const apiMessage = ref();
+
+async function callApi() {
+  const accessToken = await getAccessTokenSilently();
+  try {
+    const response = await fetch("/api/external", {
+      headers: {
+        Authorization: `Bearer ${accessToken}`,
       },
-    };
-  },
-};
+    });
+    const data = await response.json();
+    apiMessage.value = data;
+  } catch (e) {
+    apiMessage.value = `Error: the server responded with '${e.response.status}: ${e.response.statusText}'`;
+  }
+}
 </script>
