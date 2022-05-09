@@ -98,16 +98,17 @@ import { useAuth0 } from '@auth0/auth0-vue';
 export default {
   name: "NavBar",
   setup() {
-    const { isAuthenticated, isLoading, user, loginWithRedirect, logout } = useAuth0();
+    const auth0 = useAuth0();
+    
     return {
-      isAuthenticated,
-      isLoading,
-      user,
-      login: () => {
-        loginWithRedirect();
+      isAuthenticated: auth0.isAuthenticated,
+      isLoading: auth0.isLoading,
+      user: auth0.user,
+      login() {
+        auth0.loginWithRedirect();
       },
-      logout: () => {
-        logout({
+      logout() {
+        auth0.logout({
           returnTo: window.location.origin
         });
       }

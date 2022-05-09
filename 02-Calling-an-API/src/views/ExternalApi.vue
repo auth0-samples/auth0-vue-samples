@@ -23,15 +23,16 @@
 <script>
 import { useAuth0 } from "@auth0/auth0-vue";
 import { ref } from "@vue/reactivity";
+
 export default {
   name: "Api",
   setup() {
-    const { getAccessTokenSilently } = useAuth0();
+    const auth0 = useAuth0();
     const apiMessage = ref();
     return {
       apiMessage,
       async callApi() {
-        const accessToken = await getAccessTokenSilently();
+        const accessToken = await auth0.getAccessTokenSilently();
         try {
           const response = await fetch("/api/external", {
             headers: {
