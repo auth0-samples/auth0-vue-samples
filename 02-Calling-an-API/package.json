@@ -11,7 +11,7 @@
   },
   "dependencies": {
     "@auth0/auth0-spa-js": "^1.21.0",
-    "@auth0/auth0-vue": "^1.0.0",
+    "@auth0/auth0-vue": "^1.0.1",
     "@fortawesome/fontawesome-svg-core": "~1.2.36",
     "@fortawesome/free-solid-svg-icons": "^5.15.4",
     "@fortawesome/vue-fontawesome": "^3.0.0-5",
@@ -22,7 +22,7 @@
     "helmet": "^5.0.2",
     "highlight.js": "^10.7.3",
     "morgan": "^1.10.0",
-    "vue": "^3.2.32",
+    "vue": "^3.2.34",
     "vue-router": "^4.0.14",
     "vue3-highlightjs": "^1.0.5"
   },
