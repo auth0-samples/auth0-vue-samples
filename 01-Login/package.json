@@ -17,7 +17,7 @@
     "express": "^4.18.1",
     "highlight.js": "^10.7.3",
     "morgan": "^1.10.0",
-    "vue": "^3.2.34",
+    "vue": "^3.2.36",
     "vue-router": "^4.0.15",
     "vue3-highlightjs": "^1.0.5"
   },
