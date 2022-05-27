@@ -1,0 +1,18 @@
+version: 2
+updates:
+
+  - package-ecosystem: "npm" 
+    directory: "/01-Login" 
+    schedule:
+      interval: "daily"
+    ignore:
+      - dependency-name: "*"
+        update-types: ["version-update:semver-major"]
+      
+  - package-ecosystem: "npm" 
+    directory: "/02-Calling-an-API" 
+    schedule:
+      interval: "daily"
+    ignore:
+      - dependency-name: "*"
+        update-types: ["version-update:semver-major"]
