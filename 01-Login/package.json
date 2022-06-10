@@ -18,7 +18,7 @@
     "highlight.js": "^10.7.3",
     "morgan": "^1.10.0",
     "vue": "^3.2.37",
-    "vue-router": "^4.0.15",
+    "vue-router": "^4.0.16",
     "vue3-highlightjs": "^1.0.5"
   },
   "devDependencies": {
