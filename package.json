@@ -1,0 +1,5 @@
+{
+  "dependencies": {
+    "@auth0/auth0-vue": "^1.0.2"
+  }
+}
