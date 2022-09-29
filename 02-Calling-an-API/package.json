@@ -22,7 +22,7 @@
     "helmet": "^5.1.1",
     "highlight.js": "^10.7.3",
     "morgan": "^1.10.0",
-    "vue": "^3.2.38",
+    "vue": "^3.2.39",
     "vue-router": "^4.1.4",
     "vue3-highlightjs": "^1.0.5"
   },
