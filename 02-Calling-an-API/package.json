@@ -10,19 +10,19 @@
     "serve:client": "vue-cli-service serve"
   },
   "dependencies": {
-    "@auth0/auth0-spa-js": "^1.22.3",
+    "@auth0/auth0-spa-js": "^1.22.4",
     "@auth0/auth0-vue": "^1.0.2",
     "@fortawesome/fontawesome-svg-core": "~1.2.36",
     "@fortawesome/free-solid-svg-icons": "^5.15.4",
     "@fortawesome/vue-fontawesome": "^3.0.1",
-    "core-js": "^3.25.0",
+    "core-js": "^3.25.1",
     "cors": "^2.8.5",
     "express": "^4.18.1",
     "express-oauth2-jwt-bearer": "^1.1.0",
     "helmet": "^5.1.1",
     "highlight.js": "^10.7.3",
     "morgan": "^1.10.0",
-    "vue": "^3.2.37",
+    "vue": "^3.2.39",
     "vue-router": "^4.1.5",
     "vue3-highlightjs": "^1.0.5"
   },
