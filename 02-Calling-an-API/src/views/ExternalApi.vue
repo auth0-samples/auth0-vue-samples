@@ -14,7 +14,7 @@
     <div class="result-block-container">
       <div :class="['result-block', apiMessage ? 'show' : '']">
         <h6 class="muted">Result</h6>
-        <pre v-highlightjs><code class="json">{{JSON.stringify(apiMessage, null, 2)}}</code></pre>
+        <highlightjs language="json" :code="JSON.stringify(apiMessage, null, 2) || ''" />
       </div>
     </div>
   </div>

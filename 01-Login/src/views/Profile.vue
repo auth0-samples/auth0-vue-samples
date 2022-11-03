@@ -15,7 +15,7 @@
     </div>
 
     <div class="row">
-      <pre v-highlightjs><code class="json">{{JSON.stringify(user, null, 2)}}</code></pre>
+      <highlightjs language="json" :code="JSON.stringify(user, null, 2)" />
     </div>
   </div>
 </template>
