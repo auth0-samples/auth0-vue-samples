@@ -14,6 +14,7 @@
     "@fortawesome/fontawesome-svg-core": "^6.2.0",
     "@fortawesome/free-solid-svg-icons": "^6.2.0",
     "@fortawesome/vue-fontawesome": "^3.0.1",
+    "@highlightjs/vue-plugin": "^2.1.0",
     "core-js": "^3.26.0",
     "cors": "^2.8.5",
     "express": "^4.18.2",
@@ -22,8 +23,7 @@
     "highlight.js": "^11.6.0",
     "morgan": "^1.10.0",
     "vue": "^3.2.40",
-    "vue-router": "^4.1.5",
-    "vue3-highlightjs": "^1.0.5"
+    "vue-router": "^4.1.5"
   },
   "devDependencies": {
     "@typescript-eslint/eslint-plugin": "^5.42.0",
