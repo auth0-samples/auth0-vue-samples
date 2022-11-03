@@ -22,10 +22,10 @@
 
 <script>
 import { useAuth0 } from "@auth0/auth0-vue";
-import { ref } from "@vue/reactivity";
+import { ref } from "vue";
 
 export default {
-  name: "Api",
+  name: "api-view",
   setup() {
     const auth0 = useAuth0();
     const apiMessage = ref();

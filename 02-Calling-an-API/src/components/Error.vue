@@ -9,7 +9,7 @@
 
 <script>
 export default {
-  name: "Error",
+  name: "ErrorMessage",
   computed: {
     msg() {
       return this.$auth0.error.value;
