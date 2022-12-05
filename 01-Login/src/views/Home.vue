@@ -7,8 +7,8 @@
 </template>
 
 <script>
-import Hero from "../components/Hero";
-import HomeContent from "../components/HomeContent";
+import Hero from "../components/Hero.vue";
+import HomeContent from "../components/HomeContent.vue";
 
 export default {
   name: "home-view",
