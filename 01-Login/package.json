@@ -3,9 +3,8 @@
   "version": "0.1.0",
   "private": true,
   "scripts": {
-    "serve": "vue-cli-service serve",
-    "build": "vue-cli-service build",
-    "lint": "vue-cli-service lint"
+    "serve": "vite",
+    "build": "vite build"
   },
   "dependencies": {
     "@auth0/auth0-vue": "^1.0.1",
@@ -13,7 +12,6 @@
     "@fortawesome/free-solid-svg-icons": "^6.2.0",
     "@fortawesome/vue-fontawesome": "^3.0.1",
     "@highlightjs/vue-plugin": "^2.1.0",
-    "core-js": "^3.26.0",
     "express": "^4.18.1",
     "highlight.js": "^11.7.0",
     "morgan": "^1.10.0",
@@ -21,37 +19,13 @@
     "vue-router": "^4.1.0"
   },
   "devDependencies": {
-    "@typescript-eslint/eslint-plugin": "^5.45.0",
-    "@typescript-eslint/parser": "^5.45.0",
-    "@vue/cli-plugin-babel": "^5.0.8",
-    "@vue/cli-plugin-eslint": "^5.0.8",
-    "@vue/cli-plugin-typescript": "^5.0.8",
-    "@vue/cli-service": "^5.0.8",
     "@vue/compiler-sfc": "^3.2.41",
-    "@vue/eslint-config-typescript": "^11.0.2",
-    "eslint": "^8.29.0",
-    "eslint-plugin-vue": "^9.8.0",
-    "typescript": "^4.9.3"
+    "@vitejs/plugin-vue": "^1.6.1",
+    "typescript": "^4.9.3",
+    "vite": "^2.5.4"
   },
   "prettier": {
     "singleQuote": false,
     "semi": true
-  },
-  "eslintConfig": {
-    "root": true,
-    "env": {
-      "node": true,
-      "browser": true
-    },
-    "plugins": [
-      "vue"
-    ],
-    "extends": [
-      "plugin:vue/vue3-essential",
-      "eslint:recommended"
-    ],
-    "parserOptions": {
-      "ecmaVersion": 2020
-    }
   }
 }
