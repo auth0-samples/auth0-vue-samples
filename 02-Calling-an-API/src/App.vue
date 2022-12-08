@@ -17,7 +17,7 @@
   </div>
 </template>
 
-<script>
+<script lang="ts">
 import NavBar from "./components/NavBar.vue";
 import Error from "./components/Error.vue";
 

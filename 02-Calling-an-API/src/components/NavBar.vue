@@ -96,7 +96,7 @@
   </div>
 </template>
 
-<script>
+<script lang="ts">
 import { useAuth0 } from '@auth0/auth0-vue';
 
 export default {
@@ -113,7 +113,9 @@ export default {
       },
       logout() {
         auth0.logout({
-          returnTo: window.location.origin
+          logoutParams: {
+            returnTo: window.location.origin
+          }
         });
       }
     }

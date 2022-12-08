@@ -20,7 +20,7 @@
   </div>
 </template>
 
-<script>
+<script lang="ts">
 import { useAuth0 } from "@auth0/auth0-vue";
 import { ref } from "vue";
 
@@ -41,7 +41,7 @@ export default {
           });
           const data = await response.json();
           apiMessage.value = data;
-        } catch (e) {
+        } catch (e: any) {
           apiMessage.value = `Error: the server responded with '${e.response.status}: ${e.response.statusText}'`;
         }
       },
