@@ -7,7 +7,7 @@ const authConfig = require("./auth_config.json");
 
 const app = express();
 
-if (!authConfig.domain || !authConfig.audience) {
+if (!authConfig.domain || !authConfig.authorizationParams.audience) {
   throw "Please make sure that auth_config.json is in place and populated";
 }
 
@@ -16,7 +16,7 @@ app.use(cors());
 app.use(express.static(join(__dirname, "dist")));
 
 const checkJwt = auth({
-  audience: authConfig.audience,
+  audience: authConfig.authorizationParams.audience,
   issuerBaseURL: `https://${authConfig.domain}`,
 });
 
