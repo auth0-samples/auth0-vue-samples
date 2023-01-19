@@ -23,8 +23,10 @@ app
   .use(
     createAuth0({
       domain: authConfig.domain,
-      client_id: authConfig.clientId,
-      redirect_uri: window.location.origin,
+      clientId: authConfig.clientId,
+      authorizationParams: {
+        redirect_uri: window.location.origin,
+      }
     })
   )
   .component("font-awesome-icon", FontAwesomeIcon)

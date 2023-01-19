@@ -7,7 +7,7 @@
     "build": "vite build"
   },
   "dependencies": {
-    "@auth0/auth0-vue": "^1.0.1",
+    "@auth0/auth0-vue": "^2.0.0",
     "@fortawesome/fontawesome-svg-core": "^6.2.0",
     "@fortawesome/free-solid-svg-icons": "^6.2.0",
     "@fortawesome/vue-fontawesome": "^3.0.1",
@@ -19,8 +19,8 @@
     "vue-router": "^4.1.0"
   },
   "devDependencies": {
-    "@vue/compiler-sfc": "^3.2.41",
     "@vitejs/plugin-vue": "^1.6.1",
+    "@vue/compiler-sfc": "^3.2.41",
     "typescript": "^4.9.3",
     "vite": "^2.5.4"
   },
