@@ -1,4 +1,7 @@
 {
   "domain": "{DOMAIN}",
-  "clientId": "{CLIENT_ID}"
+  "clientId": "{CLIENT_ID}",
+  "authorizationParams": {
+    "audience": "{API_IDENTIFIER}"
+  }
 }
