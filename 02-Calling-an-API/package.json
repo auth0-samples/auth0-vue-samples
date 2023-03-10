@@ -9,7 +9,7 @@
     "serve:client": "vite"
   },
   "dependencies": {
-    "@auth0/auth0-vue": "^2.0.0",
+    "@auth0/auth0-vue": "^2.1.0",
     "@fortawesome/fontawesome-svg-core": "^6.3.0",
     "@fortawesome/free-solid-svg-icons": "^6.3.0",
     "@fortawesome/vue-fontawesome": "^3.0.1",
