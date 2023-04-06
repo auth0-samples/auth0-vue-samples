@@ -7,7 +7,7 @@
     "build": "vite build"
   },
   "dependencies": {
-    "@auth0/auth0-vue": "^2.1.0",
+    "@auth0/auth0-vue": "^2.2.0",
     "@fortawesome/fontawesome-svg-core": "^6.4.0",
     "@fortawesome/free-solid-svg-icons": "^6.4.0",
     "@fortawesome/vue-fontawesome": "^3.0.1",
