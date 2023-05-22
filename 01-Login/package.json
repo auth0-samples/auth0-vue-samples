@@ -15,7 +15,7 @@
     "express": "^4.18.1",
     "highlight.js": "^11.8.0",
     "morgan": "^1.10.0",
-    "vue": "^3.2.37",
+    "vue": "^3.3.4",
     "vue-router": "^4.2.1"
   },
   "devDependencies": {
