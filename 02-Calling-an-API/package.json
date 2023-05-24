@@ -16,7 +16,7 @@
     "@highlightjs/vue-plugin": "^2.1.1",
     "cors": "^2.8.5",
     "express": "^4.18.2",
-    "express-oauth2-jwt-bearer": "^1.4.0",
+    "express-oauth2-jwt-bearer": "^1.5.0",
     "helmet": "^6.2.0",
     "highlight.js": "^11.8.0",
     "morgan": "^1.10.0",
