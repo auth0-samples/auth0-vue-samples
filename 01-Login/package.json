@@ -16,7 +16,7 @@
     "highlight.js": "^11.9.0",
     "morgan": "^1.10.0",
     "vue": "^3.3.4",
-    "vue-router": "^4.2.1"
+    "vue-router": "^4.3.0"
   },
   "devDependencies": {
     "@vitejs/plugin-vue": "^1.6.1",
