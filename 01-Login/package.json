@@ -12,7 +12,7 @@
     "@fortawesome/free-solid-svg-icons": "^6.5.0",
     "@fortawesome/vue-fontawesome": "^3.0.1",
     "@highlightjs/vue-plugin": "^2.1.0",
-    "express": "^4.18.1",
+    "express": "^4.19.2",
     "highlight.js": "^11.9.0",
     "morgan": "^1.10.0",
     "vue": "^3.3.4",
