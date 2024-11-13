@@ -1,4 +1,5 @@
 <template>
+  <img src="public/lights.gif" alt="christmas-lights" id="christmas-lights">
   <div id="app" class="d-flex flex-column h-100">
     <nav-bar />
     <div class="container flex-grow-1">
@@ -7,12 +8,8 @@
         <router-view />
       </div>
     </div>
-    <footer class="bg-light text-center p-3">
-      <div class="logo"></div>
-      <p>
-        Sample project provided by
-        <a href="https://auth0.com">Auth0</a>
-      </p>
+    <footer class="text-center p-3">
+<p>Made with ❤️ by team G.R.A.Y</p>
     </footer>
   </div>
 </template>
@@ -28,3 +25,19 @@ export default {
   }
 };
 </script>
+
+<style scoped>
+footer {
+  background-color: #8e241a;
+  color: white;
+  position: absolute;
+  width: 100%;
+  bottom: 0;
+}
+ #christmas-lights {
+   position: absolute;
+   left: 18%;
+   z-index: -10;
+   top: 10vh;
+ }
+</style>

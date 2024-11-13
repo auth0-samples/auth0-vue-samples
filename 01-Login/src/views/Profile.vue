@@ -2,6 +2,7 @@
   <div class="container">
     <div class="row align-items-center profile-header">
       <div class="col-md-2 mb-3">
+        <img src="https://png.pngtree.com/png-clipart/20201209/original/pngtree-side-view-of-wearing-festive-short-haired-santa-hat-png-image_5663679.png" alt="santa hat" id="santa-hat">
         <img
           :src="user?.picture"
           alt="User's profile picture"
@@ -14,8 +15,13 @@
       </div>
     </div>
 
-    <div class="row">
-      <highlightjs language="json" :code="JSON.stringify(user, null, 2)" />
+    <div>
+<!--      <highlightjs language="json" :code="JSON.stringify(user, null, 2)" />-->
+      <p><b>Prénom</b> : {{user?.given_name}}</p>
+      <p><b>Nom</b>: {{user?.family_name}}</p>
+      <p><b>Nickname </b> : {{user?.nickname}}</p>
+      <p><b>Name</b> : {{user?.name}}</p>
+      <p><b>Email </b> : {{user?.email}}</p>
     </div>
   </div>
 </template>
@@ -34,4 +40,25 @@ export default {
   }
 };
 </script>
+
+<style scoped>
+.container {
+  margin-top: 25vh;
+}
+
+b {
+  color: #22863a;
+}
+
+p {
+  font-size: 1.2rem;
+}
+
+#santa-hat {
+  height: 100px;
+  left: 20%;
+  top: -40%;
+  position: absolute;
+}
+</style>
 

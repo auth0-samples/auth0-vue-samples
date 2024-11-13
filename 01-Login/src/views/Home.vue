@@ -1,7 +1,6 @@
 <template>
   <div>
     <hero />
-    <hr />
     <home-content />
   </div>
 </template>
