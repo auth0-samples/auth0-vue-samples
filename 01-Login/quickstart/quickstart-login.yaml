@@ -1,0 +1,123 @@
+appType: "spa"
+technology: "vue"
+technologyLabel: "Vue"
+sdkVersion: &sdkVersion "2.x"
+defaultAppOrigin:
+  scheme: &appScheme "http"
+  domain: &appDomain "localhost"
+  port: &port 5173
+outputFolderName: &outputFolderName "auth0-vue-samples"
+callbackPath: "/"
+logoutPath: "/"
+defaultEnvFileName: &defaultEnvFileName ".env.local"
+
+inputs:
+  auth0Domain:
+  auth0ClientId:
+  port:
+    default: *port
+  appDomain:
+    default: *appDomain
+  appScheme:
+    default: *appScheme
+
+placeholders:
+  "%GIT_REMOTE%":
+    environmentKey: "gitRemote"
+  "%GIT_BRANCH%":
+    environmentKey: "gitBranch"
+  "%DOWNLOAD_URL%":
+    environmentKey: "downloadUrl"
+  "%FOLDER_NAME%": *outputFolderName
+  "%PORT%":
+    inputKey: "port"
+  "%AUTH0_DOMAIN%":
+    inputKey: "auth0Domain"
+  "%AUTH0_CLIENT_ID%":
+    inputKey: "auth0ClientId"
+  "%SDK_VERSION%": *sdkVersion
+  "%APP_DOMAIN%":
+    inputKey: "appDomain"
+  "%APP_SCHEME%":
+    inputKey: "appScheme"
+  "%ENV_FILE_NAME%": *defaultEnvFileName
+
+snippets:
+  get-app: &getApp
+    source: "quickstart/scripts/get-app.sh"
+    language: "bash"
+  configure-and-start: &configureAndStart
+    source: "quickstart/scripts/configure-and-start.sh"
+    language: "bash"
+  install-auth0: &installAuth0
+    source: "quickstart/scripts/install-auth0.sh"
+    language: "bash"
+  env: &env
+    fileName: *defaultEnvFileName
+    content: |
+      VITE_AUTH0_DOMAIN=%AUTH0_DOMAIN%
+      VITE_AUTH0_CLIENT_ID=%AUTH0_CLIENT_ID%
+      PORT=%PORT%
+    language: "bash"
+  app-vue: &appVue
+    source: "src/App.vue"
+    language: "vue"
+  main-ts: &mainTs
+    source: "src/main.ts"
+    language: "typescript"
+
+# We shouldn't do it this way, it might be its own section ("tryItOut")
+tryOutStep: &tryOutStep
+  - title: "Try it out"
+    contentBlocks:
+      - type: markdown
+        source: "quickstart/markdown/try-steps.md"
+
+download:
+  - title: "Clone or download the sample app"
+    contentBlocks:
+      - type: markdown
+        source: "quickstart/markdown/git-clone.md"
+      - type: terminal
+        <<: *getApp
+      - type: markdown
+        source: "quickstart/markdown/get-app.md"
+  - title: "Link the sample app to Auth0"
+    contentBlocks:
+      - type: markdown
+        source: "quickstart/markdown/configure-and-start.md"
+      - type: terminal
+        <<: *configureAndStart
+      - type: markdown
+        source: "quickstart/markdown/port-explanation.md"
+  - <<: *tryOutStep
+
+steps:
+  - title: "Install the Auth0 Vue SDK"
+    contentBlocks:
+      - type: markdown
+        source: "quickstart/markdown/install-sdk.md"
+      - type: terminal
+        <<: *installAuth0
+  - title: "Define Auth0 Environment Variables"
+    contentBlocks:
+      - type: markdown
+        source: "quickstart/markdown/add-provider-variables.md"
+      - type: snippet
+        <<: *env
+  - title: "Configure the Auth0 plugin"
+    contentBlocks:
+      - type: markdown
+        source: "quickstart/markdown/add-provider-component.md"
+      - type: snippet
+        <<: *mainTs
+  - title: "Use the useAuth0 composable"
+    contentBlocks:
+      - type: markdown
+        source: "quickstart/markdown/use-auth0-hook.md"
+      - type: snippet
+        <<: *appVue
+  - <<: *tryOutStep
+
+# Used by the CLI to generate the .env file
+envSnippet: *env
