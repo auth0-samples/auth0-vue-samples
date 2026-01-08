@@ -119,5 +119,13 @@ steps:
         <<: *appVue
   - <<: *tryOutStep
 
+nextSteps:
+  title: "Next Steps"
+  links:
+    - label: "Calling Protected APIs"
+      url: "https://auth0.com/docs/quickstart/spa/vuejs#calling-protected-apis"
+    - label: "Auth0 Vue SDK"
+      url: "https://github.com/auth0/auth0-vue"
+
 # Used by the CLI to generate the .env file
 envSnippet: *env
