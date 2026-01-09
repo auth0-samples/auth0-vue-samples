@@ -120,7 +120,6 @@ steps:
   - <<: *tryOutStep
 
 nextSteps:
-  title: "Next Steps"
   links:
     - label: "Calling Protected APIs"
       url: "https://auth0.com/docs/quickstart/spa/vuejs#calling-protected-apis"
